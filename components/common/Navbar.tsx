@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
+import Image from 'next/image'
 import { Link, usePathname } from '@/lib/i18n/navigation'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import ThemeToggle from './ThemeToggle'
@@ -60,24 +61,15 @@ export default function Navbar() {
     >
       <div className="w-full max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
-          <div
-            className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-            style={{ background: '#00C7B7' }}
-          >
-            <span style={{ fontFamily: 'var(--font-syne)', fontWeight: 800, fontSize: 16, color: 'white' }}>T</span>
-          </div>
-          <span
-            style={{
-              fontFamily: 'var(--font-syne)',
-              fontWeight: 700,
-              fontSize: 18,
-              color: onDark ? 'white' : 'var(--foreground)',
-              transition: 'color 0.3s',
-            }}
-          >
-            Teridox
-          </span>
+        <Link href="/" className="flex items-center flex-shrink-0">
+          <Image
+            src="/logo/2.svg"
+            alt="Teridox"
+            width={120}
+            height={40}
+            style={{ height: 40, width: 'auto' }}
+            priority
+          />
         </Link>
 
         {/* Desktop nav links */}
@@ -121,11 +113,14 @@ export default function Navbar() {
             </SheetTrigger>
             <SheetContent side="right" className="w-72" style={{ background: 'var(--card)', borderLeft: '1px solid var(--border)' }}>
               <div className="flex flex-col gap-6 pt-8 px-4">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: '#00C7B7' }}>
-                    <span style={{ fontFamily: 'var(--font-syne)', fontWeight: 800, fontSize: 16, color: 'white' }}>T</span>
-                  </div>
-                  <span style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: 18, color: 'var(--foreground)' }}>Teridox</span>
+                <div className="flex items-center">
+                  <Image
+                    src="/logo/2.svg"
+                    alt="Teridox"
+                    width={100}
+                    height={34}
+                    style={{ height: 34, width: 'auto' }}
+                  />
                 </div>
                 <nav className="flex flex-col gap-1">
                   {navItems.map(({ key, href }) => {
