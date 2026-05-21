@@ -13,14 +13,26 @@ const testimonials = [
 
 const doubled = [...testimonials, ...testimonials]
 
-const CARD_WIDTH = 320
-const CARD_GAP = 20
+const STYLES = `
+  @keyframes testi-left {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @keyframes testi-right {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+  }
+  .testi-track-left  { animation: testi-left  40s linear infinite; }
+  .testi-track-right { animation: testi-right 40s linear infinite; }
+  .testi-track-left:hover,
+  .testi-track-right:hover { animation-play-state: paused; }
+`
 
 function TestiCard({ item }: { item: typeof testimonials[number] }) {
   return (
     <div
       style={{
-        width: CARD_WIDTH,
+        width: 320,
         flexShrink: 0,
         background: 'var(--card)',
         border: '1px solid var(--border)',
@@ -63,17 +75,15 @@ function TestiCard({ item }: { item: typeof testimonials[number] }) {
 }
 
 function MarqueeRow({ direction }: { direction: 'left' | 'right' }) {
-  const animName = direction === 'left' ? 'marqueeLeft' : 'marqueeRight'
   return (
     <div style={{ overflow: 'hidden', width: '100%' }}>
       <div
+        className={direction === 'left' ? 'testi-track-left' : 'testi-track-right'}
         style={{
           display: 'flex',
           flexDirection: 'row',
-          gap: CARD_GAP,
+          gap: 20,
           width: 'max-content',
-          animation: `${animName} 40s linear infinite`,
-          willChange: 'transform',
         }}
       >
         {doubled.map((item, i) => (
@@ -88,20 +98,25 @@ export default function TestimonialsSlider() {
   const t = useTranslations('testimonials')
 
   return (
-    <section style={{ background: 'var(--muted)', padding: '96px 0', overflow: 'hidden' }}>
-      <div style={{ maxWidth: 1200, margin: '0 auto 48px', padding: '0 40px', textAlign: 'center' }}>
-        <div style={{ fontSize: 12, fontWeight: 600, color: '#00C7B7', textTransform: 'uppercase', letterSpacing: '3px', marginBottom: 12, fontFamily: 'var(--font-dmsans)' }}>
-          {t('label')}
-        </div>
-        <h2 style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(28px, 3vw, 40px)', fontWeight: 700, color: 'var(--foreground)' }}>
-          {t('title')}
-        </h2>
-      </div>
+    <>
+      {/* eslint-disable-next-line react/no-danger */}
+      <style dangerouslySetInnerHTML={{ __html: STYLES }} />
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-        <MarqueeRow direction="left" />
-        <MarqueeRow direction="right" />
-      </div>
-    </section>
+      <section style={{ background: 'var(--muted)', padding: '96px 0', overflow: 'hidden' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto 48px', padding: '0 40px', textAlign: 'center' }}>
+          <div style={{ fontSize: 12, fontWeight: 600, color: '#00C7B7', textTransform: 'uppercase', letterSpacing: '3px', marginBottom: 12, fontFamily: 'var(--font-dmsans)' }}>
+            {t('label')}
+          </div>
+          <h2 style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(28px, 3vw, 40px)', fontWeight: 700, color: 'var(--foreground)' }}>
+            {t('title')}
+          </h2>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+          <MarqueeRow direction="left" />
+          <MarqueeRow direction="right" />
+        </div>
+      </section>
+    </>
   )
 }
