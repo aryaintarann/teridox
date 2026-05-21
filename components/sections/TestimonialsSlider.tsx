@@ -3,21 +3,24 @@
 import { useTranslations } from 'next-intl'
 
 const testimonials = [
-  { name: 'Ahmad Ridwan',       role: 'CEO, PT. NusaTech',         quote: 'Teridox benar-benar mengubah cara kami berbisnis digital. Website baru kami meningkatkan leads 300% dalam 3 bulan pertama. Tim yang sangat profesional!', rating: 5 },
-  { name: 'Sari Indah Pertiwi', role: 'Owner, Batik Boutique',      quote: 'Awalnya ragu menggunakan digital agency, tapi Teridox membuktikan investasi ini sangat worth it. Online store kami kini menghasilkan lebih dari toko fisik!', rating: 5 },
-  { name: 'Denny Kurniawan',    role: 'CTO, StartupX Indonesia',    quote: 'Kolaborasi yang luar biasa! Mereka tidak hanya mengeksekusi dengan baik, tapi juga memberikan insights berharga yang tidak kami pikirkan sebelumnya.', rating: 5 },
+  { name: 'Ahmad Ridwan',       role: 'CEO, PT. NusaTech',              quote: 'Teridox benar-benar mengubah cara kami berbisnis digital. Website baru kami meningkatkan leads 300% dalam 3 bulan pertama. Tim yang sangat profesional!', rating: 5 },
+  { name: 'Sari Indah Pertiwi', role: 'Owner, Batik Boutique',           quote: 'Awalnya ragu menggunakan digital agency, tapi Teridox membuktikan investasi ini sangat worth it. Online store kami kini menghasilkan lebih dari toko fisik!', rating: 5 },
+  { name: 'Denny Kurniawan',    role: 'CTO, StartupX Indonesia',         quote: 'Kolaborasi yang luar biasa! Mereka tidak hanya mengeksekusi dengan baik, tapi juga memberikan insights berharga yang tidak kami pikirkan sebelumnya.', rating: 5 },
   { name: 'Maya Pratiwi',       role: 'Marketing Director, Bali Hotels', quote: 'Platform booking yang dibangun Teridox jauh melampaui ekspektasi. Konversi naik 85% dan review bintang 5 dari tamu terus berdatangan!', rating: 5 },
-  { name: 'Fahmi Ramadan',      role: 'Founder, EduIndo',           quote: 'Aplikasi e-learning kami kini punya 50.000+ pengguna aktif, semua dimulai dari desain yang Teridox kerjakan. Detail dan kualitasnya benar-benar top!', rating: 5 },
-  { name: 'Rina Setyawati',     role: 'Owner, FreshBakery Bali',    quote: 'Tim Teridox sangat sabar dan memahami kebutuhan bisnis kecil. Pesanan online kami naik 5x lipat setelah website baru diluncurkan. Terima kasih!', rating: 5 },
+  { name: 'Fahmi Ramadan',      role: 'Founder, EduIndo',                quote: 'Aplikasi e-learning kami kini punya 50.000+ pengguna aktif, semua dimulai dari desain yang Teridox kerjakan. Detail dan kualitasnya benar-benar top!', rating: 5 },
+  { name: 'Rina Setyawati',     role: 'Owner, FreshBakery Bali',         quote: 'Tim Teridox sangat sabar dan memahami kebutuhan bisnis kecil. Pesanan online kami naik 5x lipat setelah website baru diluncurkan. Terima kasih!', rating: 5 },
 ]
 
 const doubled = [...testimonials, ...testimonials]
+
+const CARD_WIDTH = 320
+const CARD_GAP = 20
 
 function TestiCard({ item }: { item: typeof testimonials[number] }) {
   return (
     <div
       style={{
-        width: 320,
+        width: CARD_WIDTH,
         flexShrink: 0,
         background: 'var(--card)',
         border: '1px solid var(--border)',
@@ -59,6 +62,28 @@ function TestiCard({ item }: { item: typeof testimonials[number] }) {
   )
 }
 
+function MarqueeRow({ direction }: { direction: 'left' | 'right' }) {
+  const animName = direction === 'left' ? 'marqueeLeft' : 'marqueeRight'
+  return (
+    <div style={{ overflow: 'hidden', width: '100%' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          gap: CARD_GAP,
+          width: 'max-content',
+          animation: `${animName} 40s linear infinite`,
+          willChange: 'transform',
+        }}
+      >
+        {doubled.map((item, i) => (
+          <TestiCard key={i} item={item} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function TestimonialsSlider() {
   const t = useTranslations('testimonials')
 
@@ -74,22 +99,8 @@ export default function TestimonialsSlider() {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-        {/* Row 1: scroll left */}
-        <div className="marquee-wrapper">
-          <div className="marquee-track marquee-left" style={{ gap: 20 }}>
-            {doubled.map((item, i) => (
-              <TestiCard key={i} item={item} />
-            ))}
-          </div>
-        </div>
-        {/* Row 2: scroll right */}
-        <div className="marquee-wrapper">
-          <div className="marquee-track marquee-right" style={{ gap: 20 }}>
-            {doubled.map((item, i) => (
-              <TestiCard key={i} item={item} />
-            ))}
-          </div>
-        </div>
+        <MarqueeRow direction="left" />
+        <MarqueeRow direction="right" />
       </div>
     </section>
   )
