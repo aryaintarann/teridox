@@ -1,0 +1,308 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "blog": "Blog",
+    "contact": "Contact",
+    "faq": "FAQ",
+    "cta": "Contact Us"
+  },
+  "hero": {
+    "badge": "Available for New Projects",
+    "title": "We Bring Your\nDigital Vision\nTo Life",
+    "titleHighlight": "To Life",
+    "subtitle": "Full-service digital agency from Bali — web, mobile, AI, and marketing for businesses ready to grow.",
+    "ctaPrimary": "Start a Project",
+    "ctaSecondary": "View Portfolio",
+    "scrollText": "Scroll to explore",
+    "trust": "✓ 50+ Projects   ✓ 3+ Years   ✓ 98% Satisfaction",
+    "techBadges": ["Next.js", "React Native", "Node.js", "Flutter", "Supabase", "AWS"]
+  },
+  "stats": {
+    "title": "Trusted by Hundreds of Businesses",
+    "subtitle": "Numbers that reflect our commitment to quality and client satisfaction",
+    "clients": "Active Clients",
+    "years": "Years Experience",
+    "projects": "Projects Completed",
+    "uptime": "SaaS Uptime",
+    "satisfaction": "Client Satisfaction"
+  },
+  "services": {
+    "label": "Our Services",
+    "title": "Complete Digital Solutions for Your Business",
+    "subtitle": "From ideation to launch, we handle every aspect of your digital transformation with precision.",
+    "viewAll": "View All Services",
+    "learnMore": "Learn More",
+    "items": [
+      {
+        "slug": "web-development",
+        "icon": "Globe",
+        "title": "Web Development",
+        "desc": "Modern, fast, and responsive websites that deliver the best user experience and drive significant business conversions.",
+        "features": ["Landing Page & Company Profile", "E-Commerce Platform", "Custom Web Application", "CMS & Headless Integration", "API Development & Integration"]
+      },
+      {
+        "slug": "mobile-development",
+        "icon": "Smartphone",
+        "title": "Mobile App",
+        "desc": "Intuitive iOS and Android mobile apps with high performance, seamless user experience, and cutting-edge features.",
+        "features": ["React Native Cross-Platform", "Native iOS & Android", "App Store & Play Store Publishing", "Push Notifications & Deep Linking", "Offline-First Capability"]
+      },
+      {
+        "slug": "ui-ux-design",
+        "icon": "Palette",
+        "title": "UI/UX Design",
+        "desc": "Beautiful, intuitive, and user-centered interface design — turning ordinary visitors into loyal customers.",
+        "features": ["User Research & Persona", "Wireframing & Prototyping", "High-Fidelity Visual Design", "Design System & Component Library", "Usability Testing"]
+      },
+      {
+        "slug": "digital-marketing",
+        "icon": "Zap",
+        "title": "Digital Marketing",
+        "desc": "Integrated digital marketing strategy to sustainably increase visibility, organic traffic, and business conversions.",
+        "features": ["SEO & Content Strategy", "Google & Meta Ads", "Social Media Management", "Email Marketing Automation", "Analytics & A/B Testing"]
+      },
+      {
+        "slug": "consulting",
+        "icon": "Server",
+        "title": "IT Consulting",
+        "desc": "Strategic guidance and expert solutions to comprehensively accelerate your business's digital transformation.",
+        "features": ["IT Infrastructure Assessment", "Tech Stack Selection", "Digital Transformation Roadmap", "Security Audit & Compliance", "Team Training"]
+      },
+      {
+        "slug": "ai-integration",
+        "icon": "Cloud",
+        "title": "AI Integration",
+        "desc": "Integrate artificial intelligence into your business processes for maximum efficiency, smart automation, and competitive advantage.",
+        "features": ["Chatbot & Virtual Assistant", "AI-Powered Analytics", "Process Automation (RPA + AI)", "Custom ML Models", "LLM & RAG Integration"]
+      }
+    ]
+  },
+  "portfolio": {
+    "label": "Our Work",
+    "title": "Selected Portfolio",
+    "subtitle": "The best projects we've built alongside our clients",
+    "viewAll": "View All",
+    "viewProject": "View Project",
+    "filters": {
+      "all": "All",
+      "web": "Web",
+      "mobile": "Mobile",
+      "saas": "SaaS"
+    },
+    "challenge": "Challenge",
+    "solution": "Solution",
+    "outcome": "Outcome",
+    "technologies": "Technologies",
+    "visitSite": "Visit Website"
+  },
+  "testimonials": {
+    "label": "Client Testimonials",
+    "title": "What Our Clients Say",
+    "subtitle": "Client satisfaction is our top priority"
+  },
+  "blog": {
+    "label": "Blog & Insights",
+    "title": "Digital Insights & Inspiration",
+    "subtitle": "Articles about technology, digital business, and software development best practices",
+    "viewAll": "View All",
+    "readMore": "Read More",
+    "minRead": "min read",
+    "search": "Search articles...",
+    "categories": "Categories",
+    "relatedPosts": "Related Posts",
+    "share": "Share",
+    "author": "Author",
+    "publishedAt": "Published",
+    "faqTitle": "Frequently Asked Questions"
+  },
+  "cta": {
+    "title": "Ready to Start\nYour Digital Project?",
+    "subtitle": "Let's discuss how Teridox can bring your business vision to life. First consultation is free!",
+    "primary": "Free Consultation",
+    "secondary": "View Services"
+  },
+  "about": {
+    "label": "About Us",
+    "title": "A Creative Team Dedicated to Your Digital Growth",
+    "p1": "Teridox was born from a deep passion for technology and the belief that every business deserves the best digital solutions. We build more than products — we build digital foundations that drive real growth.",
+    "p2": "With a solid team and 3+ years of experience across diverse industries, we stand as your trusted partner in your digital transformation journey.",
+    "fast": "Fast",
+    "fastDesc": "On-time delivery, always.",
+    "precise": "On-Target",
+    "preciseDesc": "Solutions tailored to business needs.",
+    "quality": "Quality",
+    "qualityDesc": "Premium standards in every detail.",
+    "more": "Learn More",
+    "subtitle": "We're a team of passionate developers and designers dedicated to building the best digital solutions",
+    "story": {
+      "title": "Our Story",
+      "content": "Teridox was founded in 2020 by a group of developers frustrated by seeing many Indonesian businesses struggle to adopt the right technology. We believe good technology must be accessible, scalable, and truly solve real business problems. From a small team of 3, we've grown into a solid team that has served hundreds of clients across various industries."
+    },
+    "mission": {
+      "title": "Mission",
+      "content": "Accelerate the digital transformation of Indonesian businesses with high-quality, affordable, and sustainable technology solutions."
+    },
+    "vision": {
+      "title": "Vision",
+      "content": "To become the premier software house in Southeast Asia, known for innovation, quality, and positive impact on our clients."
+    },
+    "values": {
+      "title": "Our Values",
+      "items": [
+        { "icon": "Shield", "title": "Integrity", "desc": "We are transparent, honest, and committed on every project." },
+        { "icon": "Zap", "title": "Innovation", "desc": "Always adopting the latest technology to deliver the best solutions." },
+        { "icon": "Users", "title": "Collaboration", "desc": "We work as partners, not just vendors." },
+        { "icon": "Award", "title": "Quality", "desc": "High standards in every line of code and every pixel of design." }
+      ]
+    },
+    "team": {
+      "title": "Our Team",
+      "subtitle": "The talented people behind Teridox"
+    },
+    "timeline": {
+      "title": "Our Journey",
+      "items": [
+        { "year": "2020", "title": "Teridox Founded", "desc": "Started with 3 people and a big vision to help Indonesian businesses go digital." },
+        { "year": "2021", "title": "First 50 Clients", "desc": "Reached the milestone of 50 clients within the first year of operations." },
+        { "year": "2022", "title": "Team Expansion", "desc": "Grew to 15 people with dedicated Mobile and Cloud divisions." },
+        { "year": "2023", "title": "SaaS Product Launch", "desc": "Launched our first SaaS product, now used by thousands of users." },
+        { "year": "2024", "title": "150+ Clients", "desc": "Surpassed 150 active clients and expanded to the Southeast Asian regional market." },
+        { "year": "2025", "title": "AI Innovation", "desc": "Integrated AI into all of our software development services." }
+      ]
+    }
+  },
+  "contact": {
+    "title": "Let's Collaborate",
+    "subtitle": "Tell us about your dream project. Our team is ready to help make it real.",
+    "form": {
+      "name": "Full Name",
+      "namePlaceholder": "Enter your name",
+      "email": "Email",
+      "emailPlaceholder": "email@company.com",
+      "phone": "Phone Number",
+      "phonePlaceholder": "+62 812 3456 7890",
+      "service": "Service of Interest",
+      "servicePlaceholder": "Select a service",
+      "message": "Message",
+      "messagePlaceholder": "Tell us about your project needs...",
+      "submit": "Send Message",
+      "submitting": "Sending...",
+      "success": "Message sent successfully! We'll get back to you shortly.",
+      "error": "Failed to send message. Please try again."
+    },
+    "info": {
+      "address": "Bali, Indonesia",
+      "email": "hello@teridox.com",
+      "phone": "+62 812-3456-7890",
+      "hours": "Monday – Friday: 09:00 – 18:00 WITA"
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Find answers to common questions about our services and working process",
+    "items": [
+      {
+        "q": "How long does website development take?",
+        "a": "Development time varies by complexity. A company profile website: 2–4 weeks. A web app with complex features: 2–4 months. We always provide a timeline estimate at the start of the project."
+      },
+      {
+        "q": "How much does mobile app development cost?",
+        "a": "Cost depends on the platform (iOS/Android/both), features, and design complexity. Starting from IDR 30 million for simple apps up to hundreds of millions for enterprise apps. Contact us for a free estimate."
+      },
+      {
+        "q": "Does Teridox provide maintenance after the project is done?",
+        "a": "Yes! We provide monthly maintenance packages that include security updates, bug fixes, server monitoring, and technical support. Packages start from IDR 1.5 million/month."
+      },
+      {
+        "q": "What technologies does Teridox use?",
+        "a": "We use modern technologies: Next.js, React, TypeScript for frontend; Node.js, Python for backend; Flutter & React Native for mobile; AWS, Vercel, Supabase for cloud infrastructure."
+      },
+      {
+        "q": "What is Teridox's project workflow?",
+        "a": "Our process: (1) Consultation & discovery, (2) Proposal & contract, (3) Design & prototyping, (4) Agile sprint development, (5) Testing & QA, (6) Deployment, (7) Handover & training."
+      },
+      {
+        "q": "Can I request changes during the development process?",
+        "a": "Absolutely! We use agile methodology with 2-week sprints, so feedback and changes can be integrated flexibly. Major changes outside the original scope may require an addendum."
+      },
+      {
+        "q": "Does Teridox serve clients outside Bali?",
+        "a": "Yes! We serve clients from across Indonesia and internationally. Our workflow is fully remote-friendly with collaboration tools like Figma, Notion, and Slack."
+      },
+      {
+        "q": "What's the difference between a web app and a regular website?",
+        "a": "A regular website is informational (company profile, blog). A web app has interactive features like login, dashboards, transactions, and data management. We build both to high performance standards."
+      }
+    ]
+  },
+  "chatbot": {
+    "title": "Teridox Assistant",
+    "subtitle": "Online · Replies in minutes",
+    "placeholder": "Type your question...",
+    "send": "Send",
+    "disclaimer": "Bot only answers questions about our business",
+    "quickReplies": [
+      "What services do you offer?",
+      "Pricing info",
+      "View portfolio",
+      "How to contact you"
+    ],
+    "greeting": "Hello! Welcome to Teridox!\n\nHow can we help you?",
+    "fallback": "Thank you for contacting Teridox!\n\nFor further questions:\n✉ hello@teridox.com\n📞 +62 812-3456-7890"
+  },
+  "footer": {
+    "description": "Full-service digital agency from Bali. We build digital solutions that drive your business growth.",
+    "services": "Services",
+    "company": "Company",
+    "resources": "Contact",
+    "copyright": "© 2026 Teridox. All rights reserved.",
+    "links": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "notFound": "Page not found",
+    "backHome": "Back to Home",
+    "seeAll": "See All",
+    "learnMore": "Learn More",
+    "getStarted": "Get Started",
+    "contactUs": "Contact Us"
+  },
+  "admin": {
+    "login": {
+      "title": "Admin Login",
+      "subtitle": "Sign in to Teridox admin panel",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign In",
+      "error": "Invalid email or password"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "welcome": "Welcome back",
+      "articles": "Total Articles",
+      "messages": "Incoming Messages",
+      "portfolio": "Portfolio",
+      "chatSessions": "Chat Sessions"
+    },
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "blog": "Blog",
+      "services": "Services",
+      "portfolio": "Portfolio",
+      "testimonials": "Testimonials",
+      "messages": "Messages",
+      "team": "Team",
+      "media": "Media",
+      "chatLogs": "Chat Logs",
+      "settings": "Settings",
+      "logout": "Logout"
+    }
+  }
+}

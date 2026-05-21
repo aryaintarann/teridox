@@ -1,0 +1,308 @@
+{
+  "nav": {
+    "home": "Beranda",
+    "about": "Tentang Kami",
+    "services": "Layanan",
+    "portfolio": "Portfolio",
+    "blog": "Blog",
+    "contact": "Kontak",
+    "faq": "FAQ",
+    "cta": "Hubungi Kami"
+  },
+  "hero": {
+    "badge": "Tersedia untuk Proyek Baru",
+    "title": "Kami Wujudkan\nVisi Digital\nAnda",
+    "titleHighlight": "Anda",
+    "subtitle": "Full-service digital agency berbasis di Bali — web, mobile, AI, dan marketing untuk bisnis yang ingin berkembang.",
+    "ctaPrimary": "Mulai Proyek",
+    "ctaSecondary": "Lihat Portfolio",
+    "scrollText": "Scroll untuk explore",
+    "trust": "✓ 50+ Proyek   ✓ 3+ Tahun   ✓ 98% Kepuasan",
+    "techBadges": ["Next.js", "React Native", "Node.js", "Flutter", "Supabase", "AWS"]
+  },
+  "stats": {
+    "title": "Dipercaya oleh Ratusan Bisnis",
+    "subtitle": "Angka-angka yang mencerminkan komitmen kami terhadap kualitas dan kepuasan klien",
+    "clients": "Klien Aktif",
+    "years": "Tahun Pengalaman",
+    "projects": "Proyek Selesai",
+    "uptime": "Uptime SaaS",
+    "satisfaction": "Kepuasan Klien"
+  },
+  "services": {
+    "label": "Layanan Kami",
+    "title": "Solusi Digital Lengkap untuk Bisnis Anda",
+    "subtitle": "Dari ideasi hingga peluncuran, kami menangani setiap aspek transformasi digital Anda dengan presisi.",
+    "viewAll": "Lihat Semua Layanan",
+    "learnMore": "Selengkapnya",
+    "items": [
+      {
+        "slug": "web-development",
+        "icon": "Globe",
+        "title": "Web Development",
+        "desc": "Website modern, cepat, dan responsif yang menghadirkan pengalaman pengguna terbaik dan mendorong konversi bisnis Anda secara signifikan.",
+        "features": ["Landing Page & Company Profile", "E-Commerce Platform", "Custom Web Application", "CMS & Headless Integration", "API Development & Integration"]
+      },
+      {
+        "slug": "mobile-development",
+        "icon": "Smartphone",
+        "title": "Mobile App",
+        "desc": "Aplikasi mobile iOS dan Android yang intuitif dengan performa tinggi, pengalaman pengguna yang mulus, dan fitur-fitur terdepan.",
+        "features": ["React Native Cross-Platform", "Native iOS & Android", "App Store & Play Store Publishing", "Push Notifications & Deep Linking", "Offline-First Capability"]
+      },
+      {
+        "slug": "ui-ux-design",
+        "icon": "Palette",
+        "title": "UI/UX Design",
+        "desc": "Desain antarmuka yang indah, intuitif, dan berpusat pada pengguna — mengubah pengunjung biasa menjadi pelanggan setia.",
+        "features": ["User Research & Persona", "Wireframing & Prototyping", "High-Fidelity Visual Design", "Design System & Component Library", "Usability Testing"]
+      },
+      {
+        "slug": "digital-marketing",
+        "icon": "Zap",
+        "title": "Digital Marketing",
+        "desc": "Strategi pemasaran digital terintegrasi untuk meningkatkan visibilitas, traffic organik, dan konversi bisnis secara berkelanjutan.",
+        "features": ["SEO & Content Strategy", "Google & Meta Ads", "Social Media Management", "Email Marketing Automation", "Analytics & A/B Testing"]
+      },
+      {
+        "slug": "consulting",
+        "icon": "Server",
+        "title": "Konsultasi IT",
+        "desc": "Panduan strategis dan solusi ahli untuk akselerasi transformasi digital bisnis Anda secara menyeluruh, terencana, dan terukur.",
+        "features": ["IT Infrastructure Assessment", "Tech Stack Selection", "Digital Transformation Roadmap", "Security Audit & Compliance", "Team Training"]
+      },
+      {
+        "slug": "ai-integration",
+        "icon": "Cloud",
+        "title": "AI Integration",
+        "desc": "Integrasikan kecerdasan buatan ke dalam proses bisnis Anda untuk efisiensi maksimal, otomasi cerdas, dan keunggulan kompetitif.",
+        "features": ["Chatbot & Virtual Assistant", "AI-Powered Analytics", "Process Automation (RPA + AI)", "Custom ML Models", "LLM & RAG Integration"]
+      }
+    ]
+  },
+  "portfolio": {
+    "label": "Karya Kami",
+    "title": "Portofolio Pilihan",
+    "subtitle": "Proyek-proyek terbaik yang telah kami kerjakan bersama klien",
+    "viewAll": "Lihat Semua",
+    "viewProject": "Lihat Proyek",
+    "filters": {
+      "all": "Semua",
+      "web": "Web",
+      "mobile": "Mobile",
+      "saas": "SaaS"
+    },
+    "challenge": "Tantangan",
+    "solution": "Solusi",
+    "outcome": "Hasil",
+    "technologies": "Teknologi",
+    "visitSite": "Kunjungi Website"
+  },
+  "testimonials": {
+    "label": "Testimoni Klien",
+    "title": "Apa Kata Klien Kami",
+    "subtitle": "Kepuasan klien adalah prioritas utama kami"
+  },
+  "blog": {
+    "label": "Blog & Insight",
+    "title": "Insight & Inspirasi Digital",
+    "subtitle": "Artikel seputar teknologi, bisnis digital, dan best practice pengembangan software",
+    "viewAll": "Lihat Semua",
+    "readMore": "Baca Selengkapnya",
+    "minRead": "menit baca",
+    "search": "Cari artikel...",
+    "categories": "Kategori",
+    "relatedPosts": "Artikel Terkait",
+    "share": "Bagikan",
+    "author": "Penulis",
+    "publishedAt": "Diterbitkan",
+    "faqTitle": "Pertanyaan Umum"
+  },
+  "cta": {
+    "title": "Siap Memulai\nProyek Digital Anda?",
+    "subtitle": "Mari berdiskusi tentang bagaimana Teridox dapat mewujudkan visi bisnis Anda. Konsultasi pertama gratis!",
+    "primary": "Konsultasi Gratis",
+    "secondary": "Lihat Layanan"
+  },
+  "about": {
+    "label": "Tentang Kami",
+    "title": "Tim Kreatif yang Berdedikasi untuk Pertumbuhan Digital Anda",
+    "p1": "Teridox lahir dari passion mendalam terhadap teknologi dan keyakinan bahwa setiap bisnis berhak mendapatkan solusi digital terbaik. Kami membangun lebih dari sekadar produk — kami membangun fondasi digital yang menggerakkan pertumbuhan nyata.",
+    "p2": "Dengan tim solid dan pengalaman 3+ tahun menangani proyek dari berbagai industri, kami hadir sebagai mitra terpercaya dalam perjalanan transformasi digital Anda.",
+    "fast": "Cepat",
+    "fastDesc": "Pengerjaan tepat waktu, selalu.",
+    "precise": "Tepat Sasaran",
+    "preciseDesc": "Solusi sesuai kebutuhan bisnis.",
+    "quality": "Berkualitas",
+    "qualityDesc": "Standar premium di setiap detail.",
+    "more": "Pelajari Lebih Lanjut",
+    "subtitle": "Kami adalah tim passionate developers dan designers yang berdedikasi membangun solusi digital terbaik",
+    "story": {
+      "title": "Cerita Kami",
+      "content": "Teridox didirikan pada 2020 oleh sekelompok developer yang frustrasi melihat banyak bisnis di Indonesia kesulitan mengadopsi teknologi yang tepat. Kami percaya bahwa teknologi yang baik harus accessible, scalable, dan benar-benar memecahkan masalah bisnis nyata. Dari startup kecil dengan 3 orang, kami tumbuh menjadi tim solid yang telah melayani ratusan klien dari berbagai industri."
+    },
+    "mission": {
+      "title": "Misi",
+      "content": "Mengakselerasi transformasi digital bisnis Indonesia dengan solusi teknologi berkualitas tinggi yang terjangkau dan berkelanjutan."
+    },
+    "vision": {
+      "title": "Visi",
+      "content": "Menjadi software house pilihan utama di Asia Tenggara yang dikenal atas inovasi, kualitas, dan dampak positif bagi klien."
+    },
+    "values": {
+      "title": "Nilai-Nilai Kami",
+      "items": [
+        { "icon": "Shield", "title": "Integritas", "desc": "Kami transparan, jujur, dan memegang komitmen pada setiap proyek." },
+        { "icon": "Zap", "title": "Inovasi", "desc": "Selalu mengadopsi teknologi terbaru untuk memberikan solusi terbaik." },
+        { "icon": "Users", "title": "Kolaborasi", "desc": "Kami bekerja sebagai mitra, bukan sekadar vendor." },
+        { "icon": "Award", "title": "Kualitas", "desc": "Standar tinggi di setiap baris kode dan setiap pixel desain." }
+      ]
+    },
+    "team": {
+      "title": "Tim Kami",
+      "subtitle": "Orang-orang berbakat di balik Teridox"
+    },
+    "timeline": {
+      "title": "Perjalanan Kami",
+      "items": [
+        { "year": "2020", "title": "Teridox Didirikan", "desc": "Mulai dengan 3 orang dan visi besar membantu bisnis Indonesia go digital." },
+        { "year": "2021", "title": "50 Klien Pertama", "desc": "Mencapai milestone 50 klien dalam setahun pertama beroperasi." },
+        { "year": "2022", "title": "Ekspansi Tim", "desc": "Berkembang menjadi 15 orang dengan divisi Mobile dan Cloud yang dedicated." },
+        { "year": "2023", "title": "Peluncuran SaaS Produk", "desc": "Meluncurkan produk SaaS pertama kami yang kini digunakan ribuan user." },
+        { "year": "2024", "title": "150+ Klien", "desc": "Melampaui 150 klien aktif dan ekspansi ke pasar regional Asia Tenggara." },
+        { "year": "2025", "title": "Inovasi AI", "desc": "Mengintegrasikan AI ke dalam semua layanan pengembangan software kami." }
+      ]
+    }
+  },
+  "contact": {
+    "title": "Hubungi Kami",
+    "subtitle": "Ada proyek yang ingin didiskusikan? Tim kami siap membantu Anda",
+    "form": {
+      "name": "Nama Lengkap",
+      "namePlaceholder": "Masukkan nama Anda",
+      "email": "Email",
+      "emailPlaceholder": "email@perusahaan.com",
+      "phone": "Nomor Telepon",
+      "phonePlaceholder": "+62 812 3456 7890",
+      "service": "Layanan yang Diminati",
+      "servicePlaceholder": "Pilih layanan",
+      "message": "Pesan",
+      "messagePlaceholder": "Ceritakan kebutuhan proyek Anda...",
+      "submit": "Kirim Pesan",
+      "submitting": "Mengirim...",
+      "success": "Pesan berhasil dikirim! Kami akan menghubungi Anda segera.",
+      "error": "Gagal mengirim pesan. Silakan coba lagi."
+    },
+    "info": {
+      "address": "Jl. Teknologi No. 42, Bali, Indonesia 80361",
+      "email": "hello@teridox.com",
+      "phone": "+62 361 123 4567",
+      "hours": "Senin – Jumat: 09:00 – 18:00 WITA"
+    }
+  },
+  "faq": {
+    "title": "Pertanyaan yang Sering Diajukan",
+    "subtitle": "Temukan jawaban atas pertanyaan umum tentang layanan dan proses kerja kami",
+    "items": [
+      {
+        "q": "Berapa lama waktu pengembangan website?",
+        "a": "Waktu pengembangan bervariasi tergantung kompleksitas. Website company profile: 2–4 minggu. Web app dengan fitur kompleks: 2–4 bulan. Kami selalu memberikan estimasi timeline di awal proyek."
+      },
+      {
+        "q": "Berapa biaya pembuatan aplikasi mobile?",
+        "a": "Biaya bergantung pada platform (iOS/Android/keduanya), fitur, dan kompleksitas desain. Mulai dari Rp 30 juta untuk aplikasi sederhana hingga ratusan juta untuk aplikasi enterprise. Hubungi kami untuk estimasi gratis."
+      },
+      {
+        "q": "Apakah Teridox menyediakan maintenance setelah proyek selesai?",
+        "a": "Ya! Kami menyediakan paket maintenance bulanan yang mencakup update keamanan, bug fix, monitoring server, dan support teknis. Paket mulai dari Rp 1,5 juta/bulan."
+      },
+      {
+        "q": "Teknologi apa yang digunakan Teridox?",
+        "a": "Kami menggunakan teknologi modern: Next.js, React, TypeScript untuk frontend; Node.js, Python untuk backend; Flutter & React Native untuk mobile; AWS, Vercel, Supabase untuk infrastruktur cloud."
+      },
+      {
+        "q": "Bagaimana proses kerja proyek di Teridox?",
+        "a": "Proses kami: (1) Konsultasi & discovery, (2) Proposal & kontrak, (3) Design & prototyping, (4) Development dengan sprint agile, (5) Testing & QA, (6) Deployment, (7) Handover & training."
+      },
+      {
+        "q": "Apakah bisa request perubahan selama proses development?",
+        "a": "Tentu bisa! Kami menggunakan metodologi agile dengan sprint 2 mingguan, sehingga feedback dan perubahan bisa diintegrasikan secara fleksibel. Perubahan major di luar scope awal mungkin memerlukan addendum."
+      },
+      {
+        "q": "Apakah Teridox melayani klien di luar Bali?",
+        "a": "Ya! Kami melayani klien dari seluruh Indonesia dan luar negeri. Proses kerja kami fully remote-friendly dengan tools kolaborasi seperti Figma, Notion, dan Slack."
+      },
+      {
+        "q": "Apa perbedaan antara web app dan website biasa?",
+        "a": "Website biasa bersifat informatif (company profile, blog). Web app memiliki fitur interaktif seperti login, dashboard, transaksi, dan data management. Keduanya kami kerjakan dengan standar performa tinggi."
+      }
+    ]
+  },
+  "chatbot": {
+    "title": "Asisten Teridox",
+    "subtitle": "Online · Balas dalam menit",
+    "placeholder": "Ketik pertanyaan...",
+    "send": "Kirim",
+    "disclaimer": "Bot hanya menjawab seputar bisnis kami",
+    "quickReplies": [
+      "Layanan apa saja?",
+      "Info harga",
+      "Lihat portfolio",
+      "Cara menghubungi"
+    ],
+    "greeting": "Halo! Selamat datang di Teridox!\n\nAda yang bisa kami bantu?",
+    "fallback": "Terima kasih menghubungi Teridox!\n\nUntuk pertanyaan lebih lanjut:\n✉ hello@teridox.com\n📞 +62 812-3456-7890"
+  },
+  "footer": {
+    "description": "Full-service digital agency dari Bali. Kami membangun solusi digital yang menggerakkan pertumbuhan bisnis Anda.",
+    "services": "Layanan",
+    "company": "Perusahaan",
+    "resources": "Kontak",
+    "copyright": "© 2026 Teridox. All rights reserved.",
+    "links": {
+      "privacy": "Kebijakan Privasi",
+      "terms": "Syarat & Ketentuan"
+    }
+  },
+  "common": {
+    "loading": "Memuat...",
+    "error": "Terjadi kesalahan",
+    "notFound": "Halaman tidak ditemukan",
+    "backHome": "Kembali ke Beranda",
+    "seeAll": "Lihat Semua",
+    "learnMore": "Pelajari Lebih",
+    "getStarted": "Mulai Sekarang",
+    "contactUs": "Hubungi Kami"
+  },
+  "admin": {
+    "login": {
+      "title": "Admin Login",
+      "subtitle": "Masuk ke panel admin Teridox",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Masuk",
+      "error": "Email atau password salah"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "welcome": "Selamat datang kembali",
+      "articles": "Total Artikel",
+      "messages": "Pesan Masuk",
+      "portfolio": "Portfolio",
+      "chatSessions": "Sesi Chat"
+    },
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "blog": "Blog",
+      "services": "Layanan",
+      "portfolio": "Portfolio",
+      "testimonials": "Testimoni",
+      "messages": "Pesan",
+      "team": "Tim",
+      "media": "Media",
+      "chatLogs": "Chat Logs",
+      "settings": "Pengaturan",
+      "logout": "Keluar"
+    }
+  }
+}
