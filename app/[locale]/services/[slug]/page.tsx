@@ -79,7 +79,7 @@ export default function ServiceDetailPage({ params }: { params: Promise<{ slug: 
 
   return (
     <div className="pt-16">
-      <section className="section-padding bg-gradient-to-br from-blue-50 to-white dark:from-[#0a0f1e] dark:to-[#0d1526]">
+      <section className="section-padding" style={{ background: 'var(--muted)' }}>
         <div className="container-max">
           <Link href="/services" className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-8 transition-colors">
             ← {t('title')}

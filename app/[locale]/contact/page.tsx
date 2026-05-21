@@ -45,7 +45,7 @@ export default function ContactPage() {
 
   return (
     <div className="pt-16">
-      <section className="section-padding bg-gradient-to-br from-blue-50 to-white dark:from-[#0a0f1e] dark:to-[#0d1526]">
+      <section className="section-padding" style={{ background: 'var(--muted)' }}>
         <div className="container-max text-center">
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-4xl md:text-6xl font-extrabold mb-4">
             {t('title')}

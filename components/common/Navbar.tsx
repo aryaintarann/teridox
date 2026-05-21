@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
+import { useTheme } from 'next-themes'
 import { Link, usePathname } from '@/lib/i18n/navigation'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import ThemeToggle from './ThemeToggle'
@@ -22,15 +23,28 @@ export default function Navbar() {
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
+  const { resolvedTheme } = useTheme()
 
   useEffect(() => {
+    setMounted(true)
     const onScroll = () => setScrolled(window.scrollY > 80)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // All pages start with a dark hero — nav text is white when not scrolled
-  const onDark = !scrolled
+  const isHome = pathname === '/'
+  // White text is correct when: scrolled (dark overlay) | homepage (hero is always #060D1A) | dark mode
+  const isDark = mounted && resolvedTheme === 'dark'
+  const onDark = scrolled || isHome || isDark
+
+  const navBg = scrolled
+    ? 'rgba(6,13,26,0.95)'
+    : isHome || isDark
+      ? 'transparent'
+      : 'rgba(248,250,252,0.95)'
+  const navBlur = scrolled ? 'blur(16px)' : !isHome && !isDark && mounted ? 'blur(8px)' : 'none'
+  const navBorder = scrolled || (!isHome && !isDark && mounted) ? '1px solid var(--border)' : '1px solid transparent'
 
   return (
     <header
@@ -39,9 +53,9 @@ export default function Navbar() {
         height: 72,
         display: 'flex',
         alignItems: 'center',
-        background: scrolled ? 'rgba(6,13,26,0.95)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(16px)' : 'none',
-        borderBottom: scrolled ? '1px solid var(--border)' : '1px solid transparent',
+        background: navBg,
+        backdropFilter: navBlur,
+        borderBottom: navBorder,
       }}
     >
       <div className="w-full max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between">

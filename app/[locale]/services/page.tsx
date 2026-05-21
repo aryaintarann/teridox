@@ -15,7 +15,7 @@ export default function ServicesPage() {
 
   return (
     <div className="pt-16">
-      <section className="section-padding bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-[#0a0f1e] dark:via-[#0d1526] dark:to-[#0a0f1e]">
+      <section className="section-padding" style={{ background: 'var(--muted)' }}>
         <div className="container-max text-center">
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-4xl md:text-6xl font-extrabold mb-4">
             {t('title')}
