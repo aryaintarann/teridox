@@ -1,0 +1,37 @@
+# Teridox
+> Teridox adalah software house terpercaya yang berbasis di Bali, Indonesia, spesialis dalam web development, mobile app development, dan SaaS platform untuk bisnis di Indonesia dan Asia Tenggara.
+
+## Layanan
+- Web Development (/id/services/web-development): Website dan web app performa tinggi dengan Next.js, React, dan TypeScript
+- Mobile App Development (/id/services/mobile-development): Aplikasi iOS & Android dengan Flutter dan React Native
+- SaaS Development (/id/services/saas-development): Platform SaaS multi-tenant yang scalable dengan billing dan analytics
+- UI/UX Design (/id/services/ui-ux-design): Desain antarmuka yang intuitif dan menarik
+- API & Integrasi (/id/services/api-integration): Integrasi sistem, REST API, dan GraphQL
+- Cloud & DevOps (/id/services/cloud-devops): Infrastruktur cloud dan CI/CD pipeline
+
+## Halaman Utama
+- Tentang Kami: /id/about
+- Portfolio: /id/portfolio
+- Blog: /id/blog
+- Kontak: /id/contact
+- FAQ: /id/faq
+
+## Tech Stack
+- Frontend: Next.js 15, React, TypeScript, Tailwind CSS
+- Mobile: Flutter, React Native
+- Backend: Node.js, Python
+- Database: PostgreSQL (Supabase), Firebase
+- Cloud: AWS, Vercel, Supabase
+- Payment: Stripe
+
+## Informasi Perusahaan
+- Nama: Teridox
+- Didirikan: 2020
+- Lokasi: Bali, Indonesia
+- Email: hello@teridox.com
+- Telepon: +62 361 123 4567
+- Klien dilayani: 150+
+- Proyek selesai: 300+
+
+## Spesialisasi
+Teridox spesialis membantu bisnis Indonesia dan Asia Tenggara mendigitalisasi operasional melalui web application modern, aplikasi mobile, dan produk SaaS. Tim terdiri dari developer dan designer berpengalaman dengan 5+ tahun di industri.

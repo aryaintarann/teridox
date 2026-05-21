@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /en/
+Allow: /id/
+Disallow: /admin/
+Disallow: /api/
+
+# AI Crawlers (allow content)
+User-agent: GPTBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+Sitemap: https://teridox.com/sitemap.xml
