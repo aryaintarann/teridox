@@ -301,6 +301,88 @@
       "terms": "Syarat & Ketentuan"
     }
   },
+  "privacy": {
+    "title": "Kebijakan Privasi",
+    "lastUpdated": "Terakhir diperbarui: 22 Mei 2026",
+    "intro": "Teridox berkomitmen untuk melindungi privasi Anda. Kebijakan ini menjelaskan bagaimana kami mengumpulkan, menggunakan, dan melindungi informasi pribadi Anda saat menggunakan layanan kami.",
+    "sections": [
+      {
+        "title": "Informasi yang Kami Kumpulkan",
+        "content": "Kami mengumpulkan informasi yang Anda berikan secara langsung, seperti nama, alamat email, nomor telepon, dan detail proyek saat Anda menghubungi kami atau menggunakan layanan kami. Kami juga mengumpulkan data teknis seperti alamat IP, jenis browser, dan halaman yang dikunjungi untuk meningkatkan pengalaman pengguna."
+      },
+      {
+        "title": "Cara Kami Menggunakan Informasi",
+        "content": "Informasi yang kami kumpulkan digunakan untuk: memberikan dan meningkatkan layanan kami, merespons pertanyaan dan permintaan Anda, mengirimkan informasi terkait proyek atau layanan yang Anda gunakan, serta memenuhi kewajiban hukum yang berlaku."
+      },
+      {
+        "title": "Berbagi Informasi",
+        "content": "Kami tidak menjual, menyewakan, atau membagikan informasi pribadi Anda kepada pihak ketiga tanpa persetujuan Anda, kecuali diperlukan untuk memenuhi kewajiban hukum atau untuk mitra yang membantu operasional layanan kami dengan perjanjian kerahasiaan yang ketat."
+      },
+      {
+        "title": "Keamanan Data",
+        "content": "Kami menerapkan langkah-langkah keamanan teknis dan organisasi yang wajar untuk melindungi informasi Anda dari akses tidak sah, pengungkapan, perubahan, atau penghancuran. Namun, tidak ada metode transmisi data melalui internet yang 100% aman."
+      },
+      {
+        "title": "Cookie",
+        "content": "Website kami menggunakan cookie untuk meningkatkan pengalaman pengguna. Anda dapat mengatur browser Anda untuk menolak cookie, namun beberapa fitur website mungkin tidak berfungsi secara optimal."
+      },
+      {
+        "title": "Hak Anda",
+        "content": "Anda berhak untuk mengakses, memperbarui, atau menghapus informasi pribadi Anda yang kami simpan. Untuk menggunakan hak-hak ini, silakan hubungi kami melalui email di hello@teridox.com."
+      },
+      {
+        "title": "Perubahan Kebijakan",
+        "content": "Kami dapat memperbarui kebijakan privasi ini dari waktu ke waktu. Perubahan signifikan akan kami informasikan melalui email atau pemberitahuan di website kami. Penggunaan layanan kami setelah perubahan berarti Anda menyetujui kebijakan yang diperbarui."
+      },
+      {
+        "title": "Hubungi Kami",
+        "content": "Jika Anda memiliki pertanyaan tentang kebijakan privasi ini, silakan hubungi kami di hello@teridox.com atau melalui halaman kontak kami."
+      }
+    ]
+  },
+  "terms": {
+    "title": "Syarat & Ketentuan",
+    "lastUpdated": "Terakhir diperbarui: 22 Mei 2026",
+    "intro": "Dengan menggunakan layanan Teridox, Anda menyetujui syarat dan ketentuan berikut. Harap baca dengan seksama sebelum menggunakan layanan kami.",
+    "sections": [
+      {
+        "title": "Penerimaan Syarat",
+        "content": "Dengan mengakses atau menggunakan layanan Teridox, Anda menyatakan bahwa Anda telah membaca, memahami, dan menyetujui syarat dan ketentuan ini. Jika Anda tidak setuju, harap tidak menggunakan layanan kami."
+      },
+      {
+        "title": "Layanan yang Disediakan",
+        "content": "Teridox menyediakan jasa pengembangan web, pengembangan aplikasi mobile, penjualan software berlisensi, dan integrasi AI. Detail layanan, ruang lingkup, dan biaya akan disepakati dalam kontrak atau proposal tertulis sebelum pekerjaan dimulai."
+      },
+      {
+        "title": "Kewajiban Klien",
+        "content": "Klien bertanggung jawab untuk menyediakan informasi, materi, dan akses yang diperlukan secara tepat waktu, memberikan umpan balik dalam jangka waktu yang disepakati, serta memastikan bahwa konten yang diberikan tidak melanggar hak pihak ketiga atau hukum yang berlaku."
+      },
+      {
+        "title": "Pembayaran",
+        "content": "Pembayaran dilakukan sesuai dengan jadwal yang disepakati dalam kontrak. Keterlambatan pembayaran dapat mengakibatkan penundaan pekerjaan. Teridox berhak menangguhkan layanan jika pembayaran tidak dilakukan dalam batas waktu yang ditetapkan."
+      },
+      {
+        "title": "Hak Kekayaan Intelektual",
+        "content": "Setelah pembayaran penuh diterima, hak kekayaan intelektual atas hasil kerja yang dibuat khusus untuk klien akan dialihkan kepada klien. Teridox tetap memiliki hak atas alat, framework, dan komponen pihak ketiga yang digunakan dalam pengembangan."
+      },
+      {
+        "title": "Kerahasiaan",
+        "content": "Kedua pihak setuju untuk menjaga kerahasiaan informasi sensitif yang dibagikan selama kerja sama. Kewajiban kerahasiaan ini berlaku selama masa kontrak dan dua tahun setelah berakhirnya kerja sama."
+      },
+      {
+        "title": "Batasan Tanggung Jawab",
+        "content": "Tanggung jawab Teridox terbatas pada nilai kontrak yang disepakati. Kami tidak bertanggung jawab atas kerugian tidak langsung, kehilangan keuntungan, atau kerusakan yang timbul dari penggunaan atau ketidakmampuan menggunakan layanan kami."
+      },
+      {
+        "title": "Penyelesaian Sengketa",
+        "content": "Setiap sengketa yang timbul dari penggunaan layanan kami akan diselesaikan melalui musyawarah mufakat. Jika tidak tercapai kesepakatan, sengketa akan diselesaikan melalui jalur hukum yang berlaku di Indonesia."
+      },
+      {
+        "title": "Hubungi Kami",
+        "content": "Untuk pertanyaan terkait syarat dan ketentuan ini, silakan hubungi kami di hello@teridox.com atau melalui halaman kontak kami."
+      }
+    ]
+  },
   "common": {
     "loading": "Memuat...",
     "error": "Terjadi kesalahan",
