@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { useTheme } from 'next-themes'
 
 const statData = [
   { num: '50', suffix: '+', labelKey: 'projects',    icon: 'rocket' },
@@ -39,7 +40,7 @@ function useCountUp(target: number, duration = 2000) {
   return [count, ref] as const
 }
 
-function StatItem({ num, suffix, labelKey, icon, last }: { num: string; suffix: string; labelKey: string; icon: string; last: boolean }) {
+function StatItem({ num, suffix, labelKey, icon, last, isDark }: { num: string; suffix: string; labelKey: string; icon: string; last: boolean; isDark: boolean }) {
   const t = useTranslations('stats')
   const [val, ref] = useCountUp(parseInt(num))
 
@@ -49,14 +50,14 @@ function StatItem({ num, suffix, labelKey, icon, last }: { num: string; suffix: 
       style={{
         textAlign: 'center',
         padding: '0 32px',
-        borderRight: last ? 'none' : '1px solid #1E293B',
+        borderRight: last ? 'none' : `1px solid ${isDark ? '#1E293B' : '#E2E8F0'}`,
       }}
     >
       <i className={`fa-solid fa-${icon}`} style={{ color: '#00C7B7', fontSize: 24, marginBottom: 12, display: 'block' }} aria-hidden="true" />
       <div style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(40px, 5vw, 60px)', fontWeight: 800, color: '#00C7B7', lineHeight: 1 }}>
         {val}{suffix}
       </div>
-      <div style={{ fontSize: 15, color: '#94A3B8', marginTop: 8, fontFamily: 'var(--font-dmsans)' }}>
+      <div style={{ fontSize: 15, color: isDark ? '#94A3B8' : '#64748B', marginTop: 8, fontFamily: 'var(--font-dmsans)' }}>
         {t(labelKey as any)}
       </div>
     </div>
@@ -64,8 +65,13 @@ function StatItem({ num, suffix, labelKey, icon, last }: { num: string; suffix: 
 }
 
 export default function Stats() {
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => { setMounted(true) }, [])
+  const isDark = mounted && resolvedTheme === 'dark'
+
   return (
-    <section style={{ background: '#0F1B2D', padding: '80px 40px' }}>
+    <section style={{ background: isDark ? '#0F1B2D' : '#F1F5F9', padding: '80px 40px' }}>
       <div
         style={{
           maxWidth: 1200,
@@ -76,7 +82,7 @@ export default function Stats() {
         }}
       >
         {statData.map((s, i) => (
-          <StatItem key={s.labelKey} {...s} last={i === statData.length - 1} />
+          <StatItem key={s.labelKey} {...s} last={i === statData.length - 1} isDark={isDark} />
         ))}
       </div>
     </section>
