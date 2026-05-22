@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Syne, DM_Sans } from 'next/font/google'
+import { cookies } from 'next/headers'
 import { Providers } from './providers'
 import './globals.css'
 
@@ -31,11 +32,14 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const cookieStore = await cookies()
+  const resolvedTheme = cookieStore.get('theme')?.value
+  const darkClass = resolvedTheme === 'dark' ? ' dark' : ''
+
   return (
-    <html lang="id" suppressHydrationWarning className={`${syne.variable} ${dmSans.variable}`}>
+    <html lang="id" suppressHydrationWarning className={`${syne.variable} ${dmSans.variable}${darkClass}`}>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem('theme');var dark=t==='dark'||((!t||t==='system')&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',dark);}catch(e){}` }} />
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"

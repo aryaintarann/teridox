@@ -9,6 +9,10 @@ function getResolved(t: Theme): 'light' | 'dark' {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
 
+function syncCookie(resolved: 'light' | 'dark') {
+  document.cookie = `theme=${resolved};path=/;max-age=31536000;samesite=lax`
+}
+
 export function Providers({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('system')
   const [resolvedTheme, setResolved] = useState<'light' | 'dark' | undefined>(undefined)
@@ -19,6 +23,7 @@ export function Providers({ children }: { children: ReactNode }) {
     setThemeState(stored)
     setResolved(resolved)
     document.documentElement.classList.toggle('dark', resolved === 'dark')
+    syncCookie(resolved)
   }, [])
 
   function setTheme(t: Theme) {
@@ -27,6 +32,7 @@ export function Providers({ children }: { children: ReactNode }) {
     setResolved(resolved)
     document.documentElement.classList.toggle('dark', resolved === 'dark')
     localStorage.setItem('theme', t)
+    syncCookie(resolved)
   }
 
   return (
