@@ -1,7 +1,9 @@
 'use client'
 
 import Image from 'next/image'
+import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
+import { useTheme } from 'next-themes'
 import { Link } from '@/lib/i18n/navigation'
 
 const valueProps = [
@@ -13,6 +15,10 @@ const valueProps = [
 
 export default function AboutSnapshot() {
   const t = useTranslations('about')
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => { setMounted(true) }, [])
+  const isDark = mounted && resolvedTheme === 'dark'
 
   return (
     <section style={{ background: 'var(--background)', padding: '96px 40px' }}>
@@ -58,7 +64,18 @@ export default function AboutSnapshot() {
         </div>
 
         {/* Right: logo */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            ...(isDark && {
+              background: '#0F1B2D',
+              borderRadius: 24,
+              padding: 40,
+            }),
+          }}
+        >
           <Image
             src="/logo/1.png"
             alt="Teridox"
