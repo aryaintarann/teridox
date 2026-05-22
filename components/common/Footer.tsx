@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/lib/i18n/navigation'
 
@@ -52,14 +53,14 @@ export default function Footer() {
         >
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-2.5 mb-4">
-              <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-                style={{ background: '#00C7B7' }}
-              >
-                <span style={{ fontFamily: 'var(--font-syne)', fontWeight: 800, fontSize: 16, color: 'white' }}>T</span>
-              </div>
-              <span style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: 18, color: 'white' }}>Teridox</span>
+            <div className="mb-4">
+              <Image
+                src="/logo/4.svg"
+                alt="Teridox"
+                width={160}
+                height={52}
+                style={{ height: 52, width: 'auto' }}
+              />
             </div>
             <p style={{ fontSize: 14, lineHeight: 1.75, marginBottom: 24 }}>
               {t('description')}

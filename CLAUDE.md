@@ -80,3 +80,4 @@ Required in `.env.local`:
 - ALWAYS USE SKILLS BEFORE MAKE ANY CHANGE
 - ALWAYS DO GIT ADD, GIT COMMIT, AND GIT PUSH AFTER MAKE CHANGE
 - NEVER PUT SENSITIVE DATA ON THE FRONT END AND GITHUB
+- Always create a new branch and commit and then push to the new branch if you create a new feature or major change, create a new branch for the feature or major change, move it to the main branch if I have instructed you to do so.

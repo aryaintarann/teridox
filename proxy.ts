@@ -4,7 +4,7 @@ import { routing } from './lib/i18n/routing'
 
 const intlMiddleware = createMiddleware(routing)
 
-export default async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   if (pathname.startsWith('/admin')) {

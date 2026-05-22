@@ -8,8 +8,6 @@ import { Link, usePathname } from '@/lib/i18n/navigation'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import ThemeToggle from './ThemeToggle'
 import LanguageSwitcher from './LanguageSwitcher'
-import { cn } from '@/lib/utils'
-
 const navItems = [
   { key: 'home',      href: '/' },
   { key: 'about',     href: '/about' },
@@ -24,19 +22,16 @@ export default function Navbar() {
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
-  const [mounted, setMounted] = useState(false)
   const { resolvedTheme } = useTheme()
 
   useEffect(() => {
-    setMounted(true)
     const onScroll = () => setScrolled(window.scrollY > 80)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   const isHome = pathname === '/'
-  // White text is correct when: scrolled (dark overlay) | homepage (hero is always #060D1A) | dark mode
-  const isDark = mounted && resolvedTheme === 'dark'
+  const isDark = resolvedTheme === 'dark'
   const onDark = scrolled || isHome || isDark
 
   const navBg = scrolled
@@ -44,8 +39,8 @@ export default function Navbar() {
     : isHome || isDark
       ? 'transparent'
       : 'rgba(248,250,252,0.95)'
-  const navBlur = scrolled ? 'blur(16px)' : !isHome && !isDark && mounted ? 'blur(8px)' : 'none'
-  const navBorder = scrolled || (!isHome && !isDark && mounted) ? '1px solid var(--border)' : '1px solid transparent'
+  const navBlur = scrolled ? 'blur(16px)' : !isHome && !isDark ? 'blur(8px)' : 'none'
+  const navBorder = scrolled || (!isHome && !isDark) ? '1px solid var(--border)' : '1px solid transparent'
 
   return (
     <header
@@ -61,13 +56,13 @@ export default function Navbar() {
     >
       <div className="w-full max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center flex-shrink-0">
+        <Link href="/" className="flex items-center shrink-0">
           <Image
-            src="/logo/2.svg"
+            src="/logo/4.svg"
             alt="Teridox"
-            width={120}
-            height={40}
-            style={{ height: 40, width: 'auto' }}
+            width={160}
+            height={52}
+            style={{ height: 52, width: 'auto' }}
             priority
           />
         </Link>
@@ -115,11 +110,11 @@ export default function Navbar() {
               <div className="flex flex-col gap-6 pt-8 px-4">
                 <div className="flex items-center">
                   <Image
-                    src="/logo/2.svg"
+                    src="/logo/4.svg"
                     alt="Teridox"
-                    width={100}
-                    height={34}
-                    style={{ height: 34, width: 'auto' }}
+                    width={140}
+                    height={46}
+                    style={{ height: 46, width: 'auto' }}
                   />
                 </div>
                 <nav className="flex flex-col gap-1">
