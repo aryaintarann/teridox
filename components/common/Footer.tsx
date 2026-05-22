@@ -1,15 +1,8 @@
+'use client'
+
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/lib/i18n/navigation'
-
-const serviceLinks = [
-  { label: 'Web Development',  href: '/services/web-development' },
-  { label: 'Mobile App',       href: '/services/mobile-development' },
-  { label: 'UI/UX Design',     href: '/services/ui-ux-design' },
-  { label: 'Digital Marketing',href: '/services/digital-marketing' },
-  { label: 'Konsultasi IT',    href: '/services/consulting' },
-  { label: 'AI Integration',   href: '/services/ai-integration' },
-]
 
 const companyLinks = [
   { labelKey: 'home',      href: '/' },
@@ -38,6 +31,10 @@ const socialLinks = [
 export default function Footer() {
   const t = useTranslations('footer')
   const nav = useTranslations('nav')
+  const st = useTranslations('services')
+  const serviceLinks = (st.raw('items') as Array<{ slug: string; title: string }>).map(
+    ({ slug, title }) => ({ label: title, href: `/services/${slug}` })
+  )
 
   return (
     <footer
