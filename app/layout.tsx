@@ -38,7 +38,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const darkClass = resolvedTheme === 'dark' ? ' dark' : ''
 
   return (
-    <html lang="id" suppressHydrationWarning className={`${syne.variable} ${dmSans.variable}${darkClass}`}>
+    <html lang="id" suppressHydrationWarning data-scroll-behavior="smooth" className={`${syne.variable} ${dmSans.variable}${darkClass}`}>
       <head>
         <link
           rel="stylesheet"
