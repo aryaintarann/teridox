@@ -29,10 +29,10 @@ const contactItems = [
 ]
 
 const socialLinks = [
-  { icon: 'instagram', brand: true,  href: 'https://instagram.com/teridox' },
+  { icon: 'instagram',   brand: true, href: 'https://instagram.com/teridox' },
   { icon: 'linkedin-in', brand: true, href: 'https://linkedin.com/company/teridox' },
-  { icon: 'x-twitter',  brand: true, href: 'https://x.com/teridox' },
-  { icon: 'youtube',    brand: true, href: 'https://youtube.com/@teridox' },
+  { icon: 'x-twitter',   brand: true, href: 'https://x.com/teridox' },
+  { icon: 'youtube',     brand: true, href: 'https://youtube.com/@teridox' },
 ]
 
 export default function Footer() {
@@ -40,15 +40,18 @@ export default function Footer() {
   const nav = useTranslations('nav')
 
   return (
-    <footer style={{ background: '#0F1B2D', color: '#94A3B8', fontFamily: 'var(--font-dmsans)' }}>
+    <footer
+      className="bg-slate-50 dark:bg-[#0F1B2D] text-slate-500 dark:text-[#94A3B8]"
+      style={{ fontFamily: 'var(--font-dmsans)' }}
+    >
       <div style={{ maxWidth: 1280, margin: '0 auto', padding: '64px 40px 0' }}>
         <div
+          className="border-b border-slate-200 dark:border-[#1E293B]"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
             gap: 40,
             paddingBottom: 48,
-            borderBottom: '1px solid #1E293B',
           }}
         >
           {/* Brand */}
@@ -81,8 +84,7 @@ export default function Footer() {
               <Link
                 key={href}
                 href={href}
-                className="block mb-2.5 text-sm transition-colors hover:text-white"
-                style={{ color: '#94A3B8' }}
+                className="block mb-2.5 text-sm transition-colors text-slate-500 dark:text-[#94A3B8] hover:text-slate-900 dark:hover:text-white"
               >
                 {labelKey === 'faq' ? 'FAQ' : nav(labelKey as any)}
               </Link>
@@ -98,8 +100,7 @@ export default function Footer() {
               <Link
                 key={href}
                 href={href}
-                className="block mb-2.5 text-sm transition-colors hover:text-white"
-                style={{ color: '#94A3B8' }}
+                className="block mb-2.5 text-sm transition-colors text-slate-500 dark:text-[#94A3B8] hover:text-slate-900 dark:hover:text-white"
               >
                 {label}
               </Link>
@@ -137,10 +138,16 @@ export default function Footer() {
         >
           <span style={{ fontSize: 13 }}>{t('copyright')}</span>
           <div style={{ display: 'flex', gap: 24 }}>
-            <Link href="/privacy" className="text-sm transition-colors hover:text-white" style={{ color: '#94A3B8' }}>
+            <Link
+              href="/privacy"
+              className="text-sm transition-colors text-slate-500 dark:text-[#94A3B8] hover:text-slate-900 dark:hover:text-white"
+            >
               {t('links.privacy')}
             </Link>
-            <Link href="/terms" className="text-sm transition-colors hover:text-white" style={{ color: '#94A3B8' }}>
+            <Link
+              href="/terms"
+              className="text-sm transition-colors text-slate-500 dark:text-[#94A3B8] hover:text-slate-900 dark:hover:text-white"
+            >
               {t('links.terms')}
             </Link>
           </div>
@@ -157,13 +164,8 @@ function FooterSocial({ icon, brand, href }: { icon: string; brand: boolean; hre
       target="_blank"
       rel="noopener noreferrer"
       aria-label={icon}
-      className="flex items-center justify-center rounded-full transition-all hover:bg-[#00C7B7] hover:border-[#00C7B7] group"
-      style={{
-        width: 36,
-        height: 36,
-        border: '1px solid #1E293B',
-        color: '#94A3B8',
-      }}
+      className="flex items-center justify-center rounded-full transition-all hover:bg-[#00C7B7] hover:border-[#00C7B7] group border border-slate-200 dark:border-[#1E293B] text-slate-500 dark:text-[#94A3B8]"
+      style={{ width: 36, height: 36 }}
     >
       <i
         className={`${brand ? 'fa-brands' : 'fa-solid'} fa-${icon} group-hover:text-white transition-colors`}

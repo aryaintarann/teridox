@@ -193,8 +193,11 @@
 
   /* Dot grid background */
   .dot-grid {
-    background-image: radial-gradient(rgba(0, 199, 183, 0.15) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(0, 199, 183, 0.08) 1px, transparent 1px);
     background-size: 32px 32px;
+  }
+  .dark .dot-grid {
+    background-image: radial-gradient(rgba(0, 199, 183, 0.15) 1px, transparent 1px);
   }
 
   /* Fade-up entry animations */

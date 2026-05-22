@@ -1,17 +1,22 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import { useTheme } from 'next-themes'
 import { Link } from '@/lib/i18n/navigation'
 
 export default function Hero() {
   const t = useTranslations('hero')
+  const { resolvedTheme } = useTheme()
+  const isDark = resolvedTheme === 'dark'
 
   return (
     <section
       className="dot-grid"
       style={{
         minHeight: '100vh',
-        background: '#060D1A',
+        background: isDark
+          ? '#060D1A'
+          : 'linear-gradient(160deg, #F0FDFC 0%, #F8FAFC 60%, #FFFFFF 100%)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -26,23 +31,28 @@ export default function Hero() {
         className="animate-float"
         style={{
           position: 'absolute', width: 280, height: 280, borderRadius: '50%',
-          border: '1px solid rgba(0,199,183,0.1)', top: '12%', left: '6%',
-          background: 'rgba(0,199,183,0.03)', pointerEvents: 'none',
+          border: `1px solid rgba(0,199,183,${isDark ? '0.1' : '0.15'})`,
+          top: '12%', left: '6%',
+          background: `rgba(0,199,183,${isDark ? '0.03' : '0.05'})`,
+          pointerEvents: 'none',
         }}
       />
       <div
         className="animate-float-2"
         style={{
           position: 'absolute', width: 160, height: 160, borderRadius: 24,
-          border: '1px solid rgba(0,199,183,0.07)', bottom: '18%', right: '8%',
-          background: 'rgba(0,199,183,0.02)', pointerEvents: 'none',
+          border: `1px solid rgba(0,199,183,${isDark ? '0.07' : '0.12'})`,
+          bottom: '18%', right: '8%',
+          background: `rgba(0,199,183,${isDark ? '0.02' : '0.04'})`,
+          pointerEvents: 'none',
         }}
       />
       <div
         className="animate-float-3"
         style={{
           position: 'absolute', width: 70, height: 70, borderRadius: '50%',
-          background: 'rgba(0,199,183,0.07)', top: '28%', right: '16%',
+          background: `rgba(0,199,183,${isDark ? '0.07' : '0.1'})`,
+          top: '28%', right: '16%',
           pointerEvents: 'none',
         }}
       />
@@ -76,7 +86,7 @@ export default function Hero() {
           }}
         >
           {t('title').split('\n').map((line: string, i: number) => (
-            <span key={i} style={{ display: 'block', color: i === 1 ? '#00C7B7' : 'white' }}>
+            <span key={i} style={{ display: 'block', color: i === 1 ? '#00C7B7' : isDark ? 'white' : '#0F172A' }}>
               {line}
             </span>
           ))}
@@ -86,7 +96,9 @@ export default function Hero() {
         <p
           className="fade-up-2"
           style={{
-            fontSize: 20, color: '#94A3B8', lineHeight: 1.7,
+            fontSize: 20,
+            color: isDark ? '#94A3B8' : '#475569',
+            lineHeight: 1.7,
             maxWidth: 580, margin: '0 auto 40px',
             fontFamily: 'var(--font-dmsans)',
           }}
@@ -99,10 +111,10 @@ export default function Hero() {
           className="fade-up-3"
           style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 40 }}
         >
-          <HeroButton href="/contact" primary>
+          <HeroButton href="/contact" primary isDark={isDark}>
             {t('ctaPrimary')}
           </HeroButton>
-          <HeroButton href="/portfolio">
+          <HeroButton href="/portfolio" isDark={isDark}>
             {t('ctaSecondary')}
           </HeroButton>
         </div>
@@ -110,7 +122,7 @@ export default function Hero() {
         {/* Trust text */}
         <div
           className="fade-up-4"
-          style={{ fontSize: 14, color: '#64748B', letterSpacing: '0.5px', fontFamily: 'var(--font-dmsans)' }}
+          style={{ fontSize: 14, color: isDark ? '#64748B' : '#94A3B8', letterSpacing: '0.5px', fontFamily: 'var(--font-dmsans)' }}
         >
           {t('trust')}
         </div>
@@ -119,7 +131,7 @@ export default function Hero() {
         <div style={{ marginTop: 56, display: 'flex', justifyContent: 'center' }}>
           <i
             className="fa-solid fa-chevron-down animate-chevron-bounce"
-            style={{ color: '#64748B', fontSize: 20 }}
+            style={{ color: isDark ? '#64748B' : '#94A3B8', fontSize: 20 }}
             aria-hidden="true"
           />
         </div>
@@ -131,10 +143,12 @@ export default function Hero() {
 function HeroButton({
   href,
   primary,
+  isDark,
   children,
 }: {
   href: string
   primary?: boolean
+  isDark: boolean
   children: React.ReactNode
 }) {
   return (
@@ -147,9 +161,9 @@ function HeroButton({
         fontSize: 16,
         fontWeight: 600,
         fontFamily: 'var(--font-dmsans)',
-        border: primary ? 'none' : '1.5px solid rgba(255,255,255,0.35)',
+        border: primary ? 'none' : isDark ? '1.5px solid rgba(255,255,255,0.35)' : '1.5px solid #CBD5E1',
         background: primary ? '#00C7B7' : 'transparent',
-        color: 'white',
+        color: primary ? 'white' : isDark ? 'white' : '#0F172A',
         boxShadow: primary ? 'var(--shadow-accent)' : 'none',
       }}
     >

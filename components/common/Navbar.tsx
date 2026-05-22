@@ -30,17 +30,14 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const isHome = pathname === '/'
   const isDark = resolvedTheme === 'dark'
-  const onDark = scrolled || isHome || isDark
+  const onDark = isDark
 
   const navBg = scrolled
-    ? 'rgba(6,13,26,0.95)'
-    : isHome || isDark
-      ? 'transparent'
-      : 'rgba(248,250,252,0.95)'
-  const navBlur = scrolled ? 'blur(16px)' : !isHome && !isDark ? 'blur(8px)' : 'none'
-  const navBorder = scrolled || (!isHome && !isDark) ? '1px solid var(--border)' : '1px solid transparent'
+    ? isDark ? 'rgba(6,13,26,0.95)' : 'rgba(255,255,255,0.97)'
+    : isDark ? 'transparent' : 'rgba(248,250,252,0.92)'
+  const navBlur = scrolled ? 'blur(16px)' : !isDark ? 'blur(8px)' : 'none'
+  const navBorder = isDark ? '1px solid transparent' : '1px solid var(--border)'
 
   return (
     <header
