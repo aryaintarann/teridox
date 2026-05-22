@@ -70,7 +70,7 @@ export default function AboutSnapshot() {
             alignItems: 'center',
             justifyContent: 'center',
             ...(isDark && {
-              background: '#0F1B2D',
+              background: '#1E293B',
               borderRadius: 24,
               padding: 40,
             }),
