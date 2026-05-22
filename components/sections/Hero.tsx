@@ -10,100 +10,87 @@ export default function Hero() {
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   useEffect(() => { setMounted(true) }, [])
-  // Before mount, render neutral light styles to match SSR, then switch to actual theme.
   const isDark = mounted && resolvedTheme === 'dark'
 
   return (
     <section
-      className="dot-grid"
       style={{
         minHeight: '100vh',
-        background: isDark
-          ? '#060D1A'
-          : 'linear-gradient(160deg, #F0FDFC 0%, #F8FAFC 60%, #FFFFFF 100%)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        padding: '100px 40px 60px',
-        position: 'relative',
-        overflow: 'hidden',
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
       }}
     >
-      {/* Floating shapes */}
+      {/* Left — text content */}
       <div
-        className="animate-float"
         style={{
-          position: 'absolute', width: 280, height: 280, borderRadius: '50%',
-          border: `1px solid rgba(0,199,183,${isDark ? '0.1' : '0.15'})`,
-          top: '12%', left: '6%',
-          background: `rgba(0,199,183,${isDark ? '0.03' : '0.05'})`,
-          pointerEvents: 'none',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          padding: 'clamp(80px, 10vw, 140px) clamp(32px, 6vw, 80px) clamp(60px, 8vw, 100px)',
+          background: isDark ? '#060D1A' : '#FFFFFF',
         }}
-      />
-      <div
-        className="animate-float-2"
-        style={{
-          position: 'absolute', width: 160, height: 160, borderRadius: 24,
-          border: `1px solid rgba(0,199,183,${isDark ? '0.07' : '0.12'})`,
-          bottom: '18%', right: '8%',
-          background: `rgba(0,199,183,${isDark ? '0.02' : '0.04'})`,
-          pointerEvents: 'none',
-        }}
-      />
-      <div
-        className="animate-float-3"
-        style={{
-          position: 'absolute', width: 70, height: 70, borderRadius: '50%',
-          background: `rgba(0,199,183,${isDark ? '0.07' : '0.1'})`,
-          top: '28%', right: '16%',
-          pointerEvents: 'none',
-        }}
-      />
-
-      <div style={{ position: 'relative', maxWidth: 820, zIndex: 1 }}>
+      >
         {/* Badge */}
         <div
-          className="fade-up"
           style={{
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-            background: 'rgba(0,199,183,0.1)', border: '1px solid rgba(0,199,183,0.25)',
-            borderRadius: 9999, padding: '8px 18px', marginBottom: 32,
-            color: '#00C7B7', fontSize: 14, fontWeight: 600,
-            fontFamily: 'var(--font-dmsans)',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            border: `1px solid ${isDark ? 'rgba(255,255,255,0.2)' : '#D1D5DB'}`,
+            borderRadius: 9999,
+            padding: '6px 14px',
+            marginBottom: 28,
+            width: 'fit-content',
           }}
         >
-          <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#00C7B7', display: 'inline-block', boxShadow: '0 0 0 3px rgba(0,199,183,0.2)' }} />
-          <i className="fa-solid fa-star" style={{ fontSize: 12 }} aria-hidden="true" />
-          {t('badge')}
+          <i
+            className="fa-solid fa-circle-dot"
+            style={{ fontSize: 11, color: isDark ? 'rgba(255,255,255,0.5)' : '#6B7280' }}
+            aria-hidden="true"
+          />
+          <span
+            style={{
+              fontSize: 11,
+              fontWeight: 600,
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              fontFamily: 'var(--font-dmsans)',
+              color: isDark ? 'rgba(255,255,255,0.6)' : '#374151',
+            }}
+          >
+            {t('badge')}
+          </span>
         </div>
 
         {/* Title */}
         <h1
-          className="fade-up-1"
           style={{
             fontFamily: 'var(--font-syne)',
-            fontSize: 'clamp(48px, 7vw, 72px)',
+            fontSize: 'clamp(40px, 5.5vw, 72px)',
             fontWeight: 800,
-            lineHeight: 1.1,
+            lineHeight: 1.08,
+            letterSpacing: '-0.02em',
+            color: isDark ? '#FFFFFF' : '#0A0A0A',
             marginBottom: 24,
           }}
         >
-          {t('title').split('\n').map((line: string, i: number) => (
-            <span key={i} style={{ display: 'block', color: i === 1 ? '#00C7B7' : isDark ? 'white' : '#0F172A' }}>
-              {line}
-            </span>
-          ))}
+          {t('title').split('\n').map((line: string, i: number, arr: string[]) =>
+            i === arr.length - 1 ? (
+              <span key={i} style={{ color: '#00C7B7' }}>{line}</span>
+            ) : (
+              <span key={i} style={{ display: 'block' }}>{line}</span>
+            )
+          )}
         </h1>
 
         {/* Subtitle */}
         <p
-          className="fade-up-2"
           style={{
-            fontSize: 20,
-            color: isDark ? '#94A3B8' : '#475569',
-            lineHeight: 1.7,
-            maxWidth: 580, margin: '0 auto 40px',
+            fontSize: 'clamp(15px, 1.5vw, 18px)',
+            lineHeight: 1.75,
+            color: isDark ? '#94A3B8' : '#4B5563',
+            marginBottom: 40,
+            maxWidth: 480,
             fontFamily: 'var(--font-dmsans)',
           }}
         >
@@ -111,67 +98,111 @@ export default function Hero() {
         </p>
 
         {/* CTAs */}
-        <div
-          className="fade-up-3"
-          style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 40 }}
-        >
-          <HeroButton href="/contact" primary isDark={isDark}>
+        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center transition-all hover:opacity-90 hover:scale-[1.02]"
+            style={{
+              padding: '14px 28px',
+              borderRadius: 9999,
+              fontSize: 15,
+              fontWeight: 600,
+              fontFamily: 'var(--font-dmsans)',
+              background: isDark ? '#FFFFFF' : '#0A0A0A',
+              color: isDark ? '#0A0A0A' : '#FFFFFF',
+              border: 'none',
+            }}
+          >
             {t('ctaPrimary')}
-          </HeroButton>
-          <HeroButton href="/portfolio" isDark={isDark}>
+          </Link>
+          <Link
+            href="/portfolio"
+            className="inline-flex items-center justify-center transition-all hover:scale-[1.02]"
+            style={{
+              padding: '14px 28px',
+              borderRadius: 9999,
+              fontSize: 15,
+              fontWeight: 600,
+              fontFamily: 'var(--font-dmsans)',
+              background: 'transparent',
+              color: isDark ? '#FFFFFF' : '#0A0A0A',
+              border: `1.5px solid ${isDark ? 'rgba(255,255,255,0.3)' : '#D1D5DB'}`,
+            }}
+          >
             {t('ctaSecondary')}
-          </HeroButton>
+          </Link>
         </div>
 
-        {/* Trust text */}
-        <div
-          className="fade-up-4"
-          style={{ fontSize: 14, color: isDark ? '#64748B' : '#94A3B8', letterSpacing: '0.5px', fontFamily: 'var(--font-dmsans)' }}
+        {/* Trust */}
+        <p
+          style={{
+            marginTop: 36,
+            fontSize: 13,
+            color: isDark ? '#64748B' : '#9CA3AF',
+            fontFamily: 'var(--font-dmsans)',
+            letterSpacing: '0.02em',
+          }}
         >
           {t('trust')}
-        </div>
+        </p>
+      </div>
 
-        {/* Scroll indicator */}
-        <div style={{ marginTop: 56, display: 'flex', justifyContent: 'center' }}>
-          <i
-            className="fa-solid fa-chevron-down animate-chevron-bounce"
-            style={{ color: isDark ? '#64748B' : '#94A3B8', fontSize: 20 }}
-            aria-hidden="true"
-          />
+      {/* Right — image panel */}
+      <div
+        style={{
+          position: 'relative',
+          overflow: 'hidden',
+          background: isDark
+            ? 'linear-gradient(135deg, #0F1B2D 0%, #0a2540 50%, #062a35 100%)'
+            : 'linear-gradient(135deg, #00C7B7 0%, #0077A8 50%, #005f8a 100%)',
+        }}
+      >
+        {/* Decorative pattern overlay */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            backgroundImage: 'radial-gradient(rgba(255,255,255,0.07) 1.5px, transparent 1.5px)',
+            backgroundSize: '28px 28px',
+          }}
+        />
+        {/* Floating accent circles */}
+        <div style={{
+          position: 'absolute', width: 320, height: 320, borderRadius: '50%',
+          background: 'rgba(255,255,255,0.06)', top: '-60px', right: '-80px',
+          pointerEvents: 'none',
+        }} />
+        <div style={{
+          position: 'absolute', width: 200, height: 200, borderRadius: '50%',
+          background: 'rgba(255,255,255,0.05)', bottom: '60px', left: '40px',
+          pointerEvents: 'none',
+        }} />
+        {/* Center text overlay */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          display: 'flex', flexDirection: 'column',
+          alignItems: 'center', justifyContent: 'center',
+          padding: 48, textAlign: 'center',
+        }}>
+          <div style={{
+            fontSize: 13, fontWeight: 600, letterSpacing: '0.15em',
+            textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)',
+            fontFamily: 'var(--font-dmsans)', marginBottom: 16,
+          }}>
+            Teridox Technology
+          </div>
+          <div style={{
+            fontFamily: 'var(--font-syne)', fontSize: 'clamp(28px, 3.5vw, 48px)',
+            fontWeight: 800, color: 'white', lineHeight: 1.2, marginBottom: 20,
+          }}>
+            Digital Agency<br />Bali
+          </div>
+          <div style={{
+            width: 48, height: 3, borderRadius: 2,
+            background: 'rgba(255,255,255,0.4)',
+          }} />
         </div>
       </div>
     </section>
-  )
-}
-
-function HeroButton({
-  href,
-  primary,
-  isDark,
-  children,
-}: {
-  href: string
-  primary?: boolean
-  isDark: boolean
-  children: React.ReactNode
-}) {
-  return (
-    <Link
-      href={href}
-      className="transition-all hover:scale-[1.04] inline-flex items-center justify-center"
-      style={{
-        padding: '14px 32px',
-        borderRadius: 9999,
-        fontSize: 16,
-        fontWeight: 600,
-        fontFamily: 'var(--font-dmsans)',
-        border: primary ? 'none' : isDark ? '1.5px solid rgba(255,255,255,0.35)' : '1.5px solid #CBD5E1',
-        background: primary ? '#00C7B7' : 'transparent',
-        color: primary ? 'white' : isDark ? 'white' : '#0F172A',
-        boxShadow: primary ? 'var(--shadow-accent)' : 'none',
-      }}
-    >
-      {children}
-    </Link>
   )
 }
