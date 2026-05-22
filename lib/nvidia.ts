@@ -7,6 +7,6 @@ export const nvidia = new OpenAI({
 
 export const MODELS = {
   chatbot: 'meta/llama-3.1-70b-instruct',
-  blogGen: 'nvidia/llama-3.1-nemotron-70b-instruct',
+  blogGen: 'meta/llama-3.3-70b-instruct',
   translate: 'meta/llama-3.1-8b-instruct',
 } as const
