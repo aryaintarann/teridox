@@ -14,13 +14,6 @@ const companyLinks = [
   { labelKey: 'faq',       href: '/faq' },
 ]
 
-const contactItems = [
-  { icon: 'location-dot', text: 'Bali, Indonesia' },
-  { icon: 'envelope',     text: 'hello@teridox.com' },
-  { icon: 'phone',        text: '+62 812-3456-7890' },
-  { icon: 'clock',        text: 'Sen–Jum, 09.00–18.00 WITA' },
-]
-
 const socialLinks = [
   { icon: 'instagram',   brand: true, href: 'https://instagram.com/teridox' },
   { icon: 'linkedin-in', brand: true, href: 'https://linkedin.com/company/teridox' },
@@ -32,6 +25,13 @@ export default function Footer() {
   const t = useTranslations('footer')
   const nav = useTranslations('nav')
   const st = useTranslations('services')
+  const contact = useTranslations('contact')
+  const contactItems = [
+    { icon: 'location-dot', text: contact('info.address') },
+    { icon: 'envelope',     text: contact('info.email') },
+    { icon: 'phone',        text: contact('info.phone') },
+    { icon: 'clock',        text: contact('info.hours') },
+  ]
   const serviceLinks = (st.raw('items') as Array<{ slug: string; title: string }>).map(
     ({ slug, title }) => ({ label: title, href: `/services/${slug}` })
   )
