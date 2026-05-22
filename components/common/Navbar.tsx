@@ -60,9 +60,9 @@ export default function Navbar() {
           <Image
             src="/logo/4.svg"
             alt="Teridox"
-            width={160}
-            height={52}
-            style={{ height: 52, width: 'auto' }}
+            width={0}
+            height={0}
+            style={{ height: '52px', width: 'auto' }}
             priority
           />
         </Link>
@@ -112,9 +112,9 @@ export default function Navbar() {
                   <Image
                     src="/logo/4.svg"
                     alt="Teridox"
-                    width={140}
-                    height={46}
-                    style={{ height: 46, width: 'auto' }}
+                    width={0}
+                    height={0}
+                    style={{ height: '46px', width: 'auto' }}
                   />
                 </div>
                 <nav className="flex flex-col gap-1">

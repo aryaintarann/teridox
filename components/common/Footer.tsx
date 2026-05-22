@@ -60,9 +60,9 @@ export default function Footer() {
               <Image
                 src="/logo/4.svg"
                 alt="Teridox"
-                width={160}
-                height={52}
-                style={{ height: 52, width: 'auto' }}
+                width={0}
+                height={0}
+                style={{ height: '52px', width: 'auto' }}
               />
             </div>
             <p style={{ fontSize: 14, lineHeight: 1.75, marginBottom: 24 }}>
