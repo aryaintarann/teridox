@@ -31,15 +31,15 @@ export default function AboutPage() {
   return (
     <div className="pt-16">
       {/* Hero */}
-      <section className="section-padding" style={{ background: 'var(--muted)' }}>
+      <section className="py-20 md:py-28 px-6 md:px-10" style={{ background: 'var(--muted)' }}>
         <div className="container-max">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             {/* Text */}
-            <div>
+            <div className="min-w-0">
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-4xl md:text-6xl font-extrabold mb-4"
+                className="text-4xl md:text-5xl font-extrabold mb-4 break-words"
               >
                 {t('title')}
               </motion.h1>
