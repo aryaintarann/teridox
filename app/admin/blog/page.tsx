@@ -199,102 +199,107 @@ export default function BlogPage() {
       </div>
 
       <Sheet open={open} onOpenChange={setOpen}>
-        <SheetContent side="right" className="w-full sm:max-w-2xl overflow-y-auto">
-          <SheetHeader className="mb-6">
-            <SheetTitle>{editing ? 'Edit Artikel' : 'Artikel Baru'}</SheetTitle>
+        <SheetContent side="right" className="!w-full !max-w-2xl p-0 flex flex-col">
+          <SheetHeader className="px-6 pt-5 pb-4 border-b border-border shrink-0">
+            <SheetTitle className="text-lg">{editing ? 'Edit Artikel' : 'Artikel Baru'}</SheetTitle>
           </SheetHeader>
 
-          {/* AI Generation */}
-          {!editing && (
-            <div className="mb-6 p-4 bg-primary/5 border border-primary/20 rounded-xl">
-              <p className="text-sm font-medium mb-2 flex items-center gap-2">
-                <Wand2 className="h-4 w-4 text-primary" /> Generate dengan AI
-              </p>
-              <div className="flex gap-2">
-                <Input
-                  placeholder="Topik artikel (mis: tips memilih software ERP)"
-                  value={aiTopic}
-                  onChange={e => setAiTopic(e.target.value)}
-                  className="text-sm"
-                />
-                <Button size="sm" onClick={generate} disabled={generating || !aiTopic.trim()}>
-                  {generating ? <RefreshCw className="h-4 w-4 animate-spin" /> : 'Generate'}
-                </Button>
+          <div className="flex-1 overflow-y-auto px-6 py-5 space-y-5">
+            {/* AI Generation */}
+            {!editing && (
+              <div className="p-4 bg-primary/5 border border-primary/20 rounded-xl">
+                <p className="text-sm font-medium mb-3 flex items-center gap-2">
+                  <Wand2 className="h-4 w-4 text-primary" /> Generate dengan AI
+                </p>
+                <div className="flex gap-2">
+                  <Input
+                    placeholder="Topik artikel (mis: tips memilih software ERP)"
+                    value={aiTopic}
+                    onChange={e => setAiTopic(e.target.value)}
+                    onKeyDown={e => e.key === 'Enter' && generate()}
+                    className="text-sm"
+                  />
+                  <Button size="sm" onClick={generate} disabled={generating || !aiTopic.trim()} className="shrink-0">
+                    {generating ? <RefreshCw className="h-4 w-4 animate-spin" /> : 'Generate'}
+                  </Button>
+                </div>
+                {generating && (
+                  <p className="text-xs text-muted-foreground mt-2 animate-pulse">Sedang membuat artikel, harap tunggu…</p>
+                )}
               </div>
-            </div>
-          )}
+            )}
 
-          <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label className="text-xs mb-1">Judul (ID) *</Label>
+              <div className="space-y-1.5">
+                <Label className="text-xs font-medium">Judul (ID) *</Label>
                 <Input value={form.title} onChange={e => set('title', e.target.value)} placeholder="Judul artikel" />
               </div>
-              <div>
-                <Label className="text-xs mb-1">Judul (EN)</Label>
+              <div className="space-y-1.5">
+                <Label className="text-xs font-medium">Judul (EN)</Label>
                 <Input value={form.title_en} onChange={e => set('title_en', e.target.value)} placeholder="Article title" />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label className="text-xs mb-1">Slug *</Label>
+              <div className="space-y-1.5">
+                <Label className="text-xs font-medium">Slug *</Label>
                 <Input value={form.slug} onChange={e => set('slug', e.target.value)} placeholder="url-artikel" />
               </div>
-              <div>
-                <Label className="text-xs mb-1">Kategori</Label>
+              <div className="space-y-1.5">
+                <Label className="text-xs font-medium">Kategori</Label>
                 <select
                   value={form.category}
                   onChange={e => set('category', e.target.value)}
-                  className="w-full h-9 rounded-md border border-input bg-background px-3 text-sm"
+                  className="w-full h-9 rounded-md border border-input bg-background px-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
                 >
                   {CATEGORIES.map(c => <option key={c} value={c} className="capitalize">{c}</option>)}
                 </select>
               </div>
             </div>
 
-            <div>
-              <Label className="text-xs mb-1">Konten (ID)</Label>
-              <Textarea value={form.content} onChange={e => set('content', e.target.value)} rows={8} placeholder="Tulis konten artikel dalam Bahasa Indonesia..." className="text-sm font-mono" />
+            <div className="space-y-1.5">
+              <Label className="text-xs font-medium">Konten (ID)</Label>
+              <Textarea value={form.content} onChange={e => set('content', e.target.value)} rows={10} placeholder="Tulis konten artikel dalam Bahasa Indonesia (markdown didukung)..." className="text-sm font-mono resize-y" />
             </div>
 
-            <div>
-              <Label className="text-xs mb-1">Konten (EN)</Label>
-              <Textarea value={form.content_en} onChange={e => set('content_en', e.target.value)} rows={8} placeholder="Write article content in English..." className="text-sm font-mono" />
+            <div className="space-y-1.5">
+              <Label className="text-xs font-medium">Konten (EN)</Label>
+              <Textarea value={form.content_en} onChange={e => set('content_en', e.target.value)} rows={10} placeholder="Write article content in English (markdown supported)..." className="text-sm font-mono resize-y" />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label className="text-xs mb-1">Meta Title</Label>
-                <Input value={form.meta_title} onChange={e => set('meta_title', e.target.value)} placeholder="SEO title" />
+              <div className="space-y-1.5">
+                <Label className="text-xs font-medium">Meta Title</Label>
+                <Input value={form.meta_title} onChange={e => set('meta_title', e.target.value)} placeholder="SEO title (maks. 60 karakter)" />
               </div>
-              <div>
-                <Label className="text-xs mb-1">Waktu Baca (menit)</Label>
-                <Input type="number" value={form.reading_time_min} onChange={e => set('reading_time_min', parseInt(e.target.value))} min={1} />
+              <div className="space-y-1.5">
+                <Label className="text-xs font-medium">Waktu Baca (menit)</Label>
+                <Input type="number" value={form.reading_time_min} onChange={e => set('reading_time_min', parseInt(e.target.value))} min={1} max={60} />
               </div>
             </div>
 
-            <div>
-              <Label className="text-xs mb-1">Meta Description</Label>
-              <Textarea value={form.meta_description} onChange={e => set('meta_description', e.target.value)} rows={2} placeholder="Deskripsi SEO" />
+            <div className="space-y-1.5">
+              <Label className="text-xs font-medium">Meta Description</Label>
+              <Textarea value={form.meta_description} onChange={e => set('meta_description', e.target.value)} rows={2} placeholder="Deskripsi SEO (maks. 160 karakter)" className="resize-none" />
             </div>
 
-            <div>
-              <Label className="text-xs mb-1 flex items-center gap-1"><Tag className="h-3 w-3" /> Tags (pisahkan dengan koma)</Label>
+            <div className="space-y-1.5">
+              <Label className="text-xs font-medium flex items-center gap-1"><Tag className="h-3 w-3" /> Tags (pisahkan dengan koma)</Label>
               <Input value={tagsInput} onChange={e => setTagsInput(e.target.value)} placeholder="next.js, react, tutorial" />
             </div>
+          </div>
 
-            <div className="flex items-center justify-between pt-2">
-              <div className="flex items-center gap-2">
-                <Switch checked={form.published} onCheckedChange={v => set('published', v)} />
-                <Label className="text-sm">{form.published ? 'Published' : 'Draft'}</Label>
-              </div>
-              <div className="flex gap-2">
-                <Button variant="outline" onClick={() => setOpen(false)}>Batal</Button>
-                <Button onClick={save} disabled={saving || !form.title || !form.slug}>
-                  {saving ? 'Menyimpan...' : 'Simpan'}
-                </Button>
-              </div>
+          {/* Footer — fixed at bottom */}
+          <div className="shrink-0 flex items-center justify-between px-6 py-4 border-t border-border bg-card">
+            <div className="flex items-center gap-2">
+              <Switch checked={form.published} onCheckedChange={v => set('published', v)} />
+              <Label className="text-sm cursor-pointer">{form.published ? 'Published' : 'Draft'}</Label>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={() => setOpen(false)}>Batal</Button>
+              <Button onClick={save} disabled={saving || !form.title || !form.slug}>
+                {saving ? 'Menyimpan…' : 'Simpan'}
+              </Button>
             </div>
           </div>
         </SheetContent>
