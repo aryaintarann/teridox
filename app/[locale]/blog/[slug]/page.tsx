@@ -1,65 +1,96 @@
 'use client'
 
+import { useState, useEffect } from 'react'
+import { useParams } from 'next/navigation'
 import { motion } from 'framer-motion'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import { Link } from '@/lib/i18n/navigation'
-import { ArrowLeft, Clock, Calendar, Share2, ChevronDown, ChevronUp } from 'lucide-react'
-import { useState } from 'react'
+import { ArrowLeft, Clock, Calendar, Share2 } from 'lucide-react'
+import { createClient } from '@/lib/supabase/client'
 
-const post = {
-  title: 'Cara Memilih Tech Stack yang Tepat untuk Produk SaaS Anda',
-  category: 'SaaS',
-  date: '15 Mei 2025',
-  readingTime: 8,
-  author: { name: 'Rizky Pratama', role: 'CEO & Co-Founder', avatar: 'RP' },
-  gradient: 'from-blue-600 to-indigo-600',
-  content: `
-## Mengapa Pemilihan Tech Stack Sangat Penting?
+interface BlogPost {
+  id: string; title: string; title_en: string; slug: string
+  content: string; content_en: string; category: string
+  reading_time_min: number; created_at: string; tags: string[]
+  meta_title: string; meta_description: string
+}
 
-Dalam membangun produk SaaS, pemilihan tech stack adalah salah satu keputusan paling krusial yang akan mempengaruhi skalabilitas, maintenance cost, dan kecepatan pengembangan fitur di masa depan.
+const CAT_GRADIENT: Record<string, string> = {
+  teknologi: 'from-blue-600 to-indigo-600',
+  bisnis: 'from-violet-600 to-purple-600',
+  tutorial: 'from-emerald-600 to-teal-600',
+  berita: 'from-orange-600 to-amber-600',
+  lainnya: 'from-cyan-600 to-blue-600',
+}
 
-Tech stack yang tepat tidak hanya harus memenuhi kebutuhan teknis saat ini, tetapi juga harus bisa berkembang seiring pertumbuhan bisnis Anda.
-
-## Faktor-Faktor yang Perlu Dipertimbangkan
-
-### 1. Skalabilitas
-Pilih teknologi yang bisa handle pertumbuhan dari 100 ke 100.000 user tanpa major rewrite.
-
-### 2. Developer Ecosystem
-Teknologi dengan komunitas besar lebih mudah direcruit dan memiliki lebih banyak library/tools.
-
-### 3. Time to Market
-Framework opinionated seperti Next.js membantu team ship faster di early stage.
-
-### 4. Total Cost of Ownership
-Pertimbangkan biaya hosting, licensing, dan maintenance jangka panjang.
-
-## Rekomendasi Stack untuk SaaS 2025
-
-Berdasarkan pengalaman kami membangun 50+ produk SaaS, berikut stack yang kami rekomendasikan:
-
-**Frontend:** Next.js 15 dengan TypeScript
-**Backend:** Node.js/Python atau Next.js API Routes
-**Database:** PostgreSQL via Supabase
-**Auth:** Supabase Auth atau Clerk
-**Payment:** Stripe
-**Email:** Resend
-**Hosting:** Vercel + Supabase
-
-## Kesimpulan
-
-Tidak ada "one size fits all" dalam pemilihan tech stack. Yang terpenting adalah memilih teknologi yang dikuasai tim Anda dan bisa memenuhi kebutuhan bisnis baik sekarang maupun di masa depan.
-  `,
-  faq: [
-    { q: 'Apakah Next.js cocok untuk semua jenis SaaS?', a: 'Next.js sangat cocok untuk SaaS dengan kebutuhan SEO atau SSR. Untuk aplikasi yang sangat interaktif, pertimbangkan menggunakan React murni dengan Vite.' },
-    { q: 'Haruskah saya menggunakan microservices dari awal?', a: 'Tidak. Mulailah dengan monolith yang well-structured, lalu ekstrak ke microservices ketika ada pain point yang nyata dan tim sudah cukup besar.' },
-    { q: 'Berapa lama waktu yang dibutuhkan untuk membangun SaaS MVP?', a: 'Dengan stack modern seperti yang kami rekomendasikan, MVP yang solid bisa dibangun dalam 2–3 bulan dengan tim 3–4 orang.' },
-  ],
+function renderMarkdown(text: string) {
+  return text.split('\n\n').filter(Boolean).map((block, i) => {
+    if (block.startsWith('### ')) return <h3 key={i} className="text-xl font-bold mt-6 mb-3">{block.slice(4)}</h3>
+    if (block.startsWith('## '))  return <h2 key={i} className="text-2xl font-bold mt-8 mb-4">{block.slice(3)}</h2>
+    if (block.startsWith('# '))   return <h1 key={i} className="text-3xl font-bold mt-8 mb-4">{block.slice(2)}</h1>
+    const html = block
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      .replace(/`(.*?)`/g, '<code class="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">$1</code>')
+    return <p key={i} className="text-muted-foreground leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: html }} />
+  })
 }
 
 export default function BlogDetailPage() {
-  const t = useTranslations('blog')
-  const [openFaq, setOpenFaq] = useState<number | null>(null)
+  const { slug }  = useParams() as { slug: string }
+  const t         = useTranslations('blog')
+  const locale    = useLocale()
+
+  const [post, setPost]       = useState<BlogPost | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [notFound, setNotFound] = useState(false)
+
+  useEffect(() => {
+    if (!slug) return
+    createClient()
+      .from('blog_posts')
+      .select('*')
+      .eq('slug', slug)
+      .eq('published', true)
+      .single()
+      .then(({ data, error }) => {
+        if (error || !data) { setNotFound(true) } else { setPost(data) }
+        setLoading(false)
+      })
+  }, [slug])
+
+  if (loading) {
+    return (
+      <div className="pt-16 section-padding">
+        <div className="container-max max-w-4xl space-y-4 animate-pulse">
+          <div className="h-64 rounded-3xl bg-muted" />
+          <div className="h-8 w-2/3 bg-muted rounded" />
+          <div className="h-4 bg-muted rounded" />
+          <div className="h-4 w-5/6 bg-muted rounded" />
+        </div>
+      </div>
+    )
+  }
+
+  if (notFound || !post) {
+    return (
+      <div className="pt-16 section-padding">
+        <div className="container-max max-w-4xl text-center py-20">
+          <p className="text-4xl font-bold mb-4">404</p>
+          <p className="text-muted-foreground mb-6">{locale === 'en' ? 'Article not found.' : 'Artikel tidak ditemukan.'}</p>
+          <Link href="/blog" className="text-primary hover:underline font-semibold">{t('title')}</Link>
+        </div>
+      </div>
+    )
+  }
+
+  const title    = locale === 'en' && post.title_en   ? post.title_en   : post.title
+  const content  = locale === 'en' && post.content_en ? post.content_en : post.content
+  const gradient = CAT_GRADIENT[post.category] ?? 'from-blue-600 to-indigo-600'
+  const date     = new Date(post.created_at).toLocaleDateString(
+    locale === 'en' ? 'en-US' : 'id-ID',
+    { day: 'numeric', month: 'long', year: 'numeric' }
+  )
 
   return (
     <div className="pt-16">
@@ -69,58 +100,33 @@ export default function BlogDetailPage() {
             <ArrowLeft className="h-4 w-4" /> {t('title')}
           </Link>
 
-          <div className={`bg-gradient-to-br ${post.gradient} rounded-3xl h-64 flex items-center justify-center mb-10`}>
-            <span className="text-white/20 text-[120px] font-black leading-none">S</span>
+          <div className={`bg-gradient-to-br ${gradient} rounded-3xl h-64 flex items-center justify-center mb-10`}>
+            <span className="text-white/20 text-[120px] font-black leading-none">{title.charAt(0)}</span>
           </div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <span className="text-primary font-semibold text-sm">{post.category}</span>
-            <h1 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4 leading-tight">{post.title}</h1>
+            <h1 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4 leading-tight">{title}</h1>
 
             <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-8 pb-8 border-b border-border">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white text-xs font-bold flex items-center justify-center">
-                  {post.author.avatar}
+              <span className="flex items-center gap-1"><Calendar className="h-3.5 w-3.5" /> {date}</span>
+              <span className="flex items-center gap-1"><Clock className="h-3.5 w-3.5" /> {post.reading_time_min} {t('minRead')}</span>
+              {post.tags?.length > 0 && (
+                <div className="flex gap-1.5 flex-wrap">
+                  {post.tags.map(tag => (
+                    <span key={tag} className="text-xs bg-muted px-2.5 py-0.5 rounded-full">{tag}</span>
+                  ))}
                 </div>
-                <div>
-                  <span className="font-medium text-foreground">{post.author.name}</span>
-                  <span className="text-muted-foreground"> · {post.author.role}</span>
-                </div>
-              </div>
-              <span className="flex items-center gap-1"><Calendar className="h-3.5 w-3.5" /> {post.date}</span>
-              <span className="flex items-center gap-1"><Clock className="h-3.5 w-3.5" /> {post.readingTime} {t('minRead')}</span>
+              )}
             </div>
 
             <div className="prose prose-lg dark:prose-invert max-w-none mb-12">
-              {post.content.split('\n\n').map((para, i) => {
-                if (para.startsWith('## ')) return <h2 key={i} className="text-2xl font-bold mt-8 mb-4">{para.slice(3)}</h2>
-                if (para.startsWith('### ')) return <h3 key={i} className="text-xl font-bold mt-6 mb-3">{para.slice(4)}</h3>
-                if (para.startsWith('**')) return <p key={i} className="text-foreground leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: para.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
-                return <p key={i} className="text-muted-foreground leading-relaxed mb-4">{para}</p>
-              })}
+              {renderMarkdown(content)}
             </div>
 
-            {/* FAQ */}
-            <div className="mb-12">
-              <h2 className="text-2xl font-bold mb-6">{t('faqTitle')}</h2>
-              <div className="space-y-3">
-                {post.faq.map((f, i) => (
-                  <div key={i} className="border border-border rounded-xl overflow-hidden">
-                    <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="w-full flex items-center justify-between p-4 text-left font-medium hover:bg-muted/50 transition-colors">
-                      {f.q}
-                      {openFaq === i ? <ChevronUp className="h-4 w-4 flex-shrink-0" /> : <ChevronDown className="h-4 w-4 flex-shrink-0" />}
-                    </button>
-                    {openFaq === i && <div className="px-4 pb-4 text-muted-foreground text-sm">{f.a}</div>}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Share */}
             <div className="flex items-center gap-4 pt-8 border-t border-border">
               <span className="text-sm font-semibold">{t('share')}:</span>
-              <a href="#" className="text-muted-foreground hover:text-[#1DA1F2] transition-colors text-sm font-medium">𝕏</a>
-              <a href="#" className="text-muted-foreground hover:text-[#0A66C2] transition-colors text-sm font-medium">in</a>
+              <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}&text=${encodeURIComponent(title)}`} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[#1DA1F2] transition-colors text-sm font-medium">𝕏</a>
               <button onClick={() => navigator.clipboard.writeText(window.location.href)} className="text-muted-foreground hover:text-foreground transition-colors">
                 <Share2 className="h-5 w-5" />
               </button>

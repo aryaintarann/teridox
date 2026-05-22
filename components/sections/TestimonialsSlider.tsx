@@ -1,17 +1,12 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
+import { createClient } from '@/lib/supabase/client'
 
-const testimonials = [
-  { name: 'Ahmad Ridwan',       role: 'CEO, PT. NusaTech',              quote: 'Teridox benar-benar mengubah cara kami berbisnis digital. Website baru kami meningkatkan leads 300% dalam 3 bulan pertama. Tim yang sangat profesional!', rating: 5 },
-  { name: 'Sari Indah Pertiwi', role: 'Owner, Batik Boutique',           quote: 'Awalnya ragu menggunakan digital agency, tapi Teridox membuktikan investasi ini sangat worth it. Online store kami kini menghasilkan lebih dari toko fisik!', rating: 5 },
-  { name: 'Denny Kurniawan',    role: 'CTO, StartupX Indonesia',         quote: 'Kolaborasi yang luar biasa! Mereka tidak hanya mengeksekusi dengan baik, tapi juga memberikan insights berharga yang tidak kami pikirkan sebelumnya.', rating: 5 },
-  { name: 'Maya Pratiwi',       role: 'Marketing Director, Bali Hotels', quote: 'Platform booking yang dibangun Teridox jauh melampaui ekspektasi. Konversi naik 85% dan review bintang 5 dari tamu terus berdatangan!', rating: 5 },
-  { name: 'Fahmi Ramadan',      role: 'Founder, EduIndo',                quote: 'Aplikasi e-learning kami kini punya 50.000+ pengguna aktif, semua dimulai dari desain yang Teridox kerjakan. Detail dan kualitasnya benar-benar top!', rating: 5 },
-  { name: 'Rina Setyawati',     role: 'Owner, FreshBakery Bali',         quote: 'Tim Teridox sangat sabar dan memahami kebutuhan bisnis kecil. Pesanan online kami naik 5x lipat setelah website baru diluncurkan. Terima kasih!', rating: 5 },
-]
-
-const doubled = [...testimonials, ...testimonials]
+interface Testimonial {
+  id: string; name: string; role: string; company: string; content: string; rating: number
+}
 
 const STYLES = `
   @keyframes testi-left {
@@ -28,67 +23,39 @@ const STYLES = `
   .testi-track-right:hover { animation-play-state: paused; }
 `
 
-function TestiCard({ item }: { item: typeof testimonials[number] }) {
+function TestiCard({ item }: { item: Testimonial }) {
   return (
-    <div
-      style={{
-        width: 320,
-        flexShrink: 0,
-        background: 'var(--card)',
-        border: '1px solid var(--border)',
-        borderRadius: 16,
-        padding: '24px 24px 20px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 12,
-      }}
-    >
+    <div style={{ width: 320, flexShrink: 0, background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, padding: '24px 24px 20px', display: 'flex', flexDirection: 'column', gap: 12 }}>
       <i className="fa-solid fa-quote-left" style={{ color: '#00C7B7', fontSize: 28 }} aria-hidden="true" />
       <p style={{ fontSize: 14, color: 'var(--muted-foreground)', lineHeight: 1.7, fontStyle: 'italic', flex: 1, fontFamily: 'var(--font-dmsans)' }}>
-        {item.quote}
+        {item.content}
       </p>
       <div style={{ display: 'flex', gap: 2, marginBottom: 2 }}>
-        {[1, 2, 3, 4, 5].map((n) => (
+        {Array.from({ length: item.rating }).map((_, n) => (
           <i key={n} className="fa-solid fa-star" style={{ color: '#F59E0B', fontSize: 12 }} aria-hidden="true" />
         ))}
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-        <div
-          style={{
-            width: 36, height: 36, borderRadius: '50%',
-            background: 'var(--accent-dim)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            color: '#00C7B7', fontWeight: 700, fontSize: 14,
-            fontFamily: 'var(--font-syne)',
-            flexShrink: 0,
-          }}
-        >
+        <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--accent-dim)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#00C7B7', fontWeight: 700, fontSize: 14, fontFamily: 'var(--font-syne)', flexShrink: 0 }}>
           {item.name[0]}
         </div>
         <div>
           <div style={{ fontWeight: 600, fontSize: 14, color: 'var(--foreground)', fontFamily: 'var(--font-dmsans)' }}>{item.name}</div>
-          <div style={{ fontSize: 12, color: 'var(--muted-foreground)', fontFamily: 'var(--font-dmsans)' }}>{item.role}</div>
+          <div style={{ fontSize: 12, color: 'var(--muted-foreground)', fontFamily: 'var(--font-dmsans)' }}>
+            {item.role}{item.company ? `, ${item.company}` : ''}
+          </div>
         </div>
       </div>
     </div>
   )
 }
 
-function MarqueeRow({ direction }: { direction: 'left' | 'right' }) {
+function MarqueeRow({ items, direction }: { items: Testimonial[]; direction: 'left' | 'right' }) {
+  const doubled = [...items, ...items]
   return (
     <div style={{ overflow: 'hidden', width: '100%' }}>
-      <div
-        className={direction === 'left' ? 'testi-track-left' : 'testi-track-right'}
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          gap: 20,
-          width: 'max-content',
-        }}
-      >
-        {doubled.map((item, i) => (
-          <TestiCard key={i} item={item} />
-        ))}
+      <div className={direction === 'left' ? 'testi-track-left' : 'testi-track-right'} style={{ display: 'flex', flexDirection: 'row', gap: 20, width: 'max-content' }}>
+        {doubled.map((item, i) => <TestiCard key={i} item={item} />)}
       </div>
     </div>
   )
@@ -96,12 +63,28 @@ function MarqueeRow({ direction }: { direction: 'left' | 'right' }) {
 
 export default function TestimonialsSlider() {
   const t = useTranslations('testimonials')
+  const [items, setItems]     = useState<Testimonial[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    createClient()
+      .from('testimonials')
+      .select('id,name,role,company,content,rating')
+      .eq('published', true)
+      .order('created_at', { ascending: false })
+      .then(({ data }) => { setItems(data ?? []); setLoading(false) })
+  }, [])
+
+  if (loading || items.length === 0) return null
+
+  const half = Math.ceil(items.length / 2)
+  const row1 = items.slice(0, half)
+  const row2 = items.slice(half).length > 0 ? items.slice(half) : items
 
   return (
     <>
       {/* eslint-disable-next-line react/no-danger */}
       <style dangerouslySetInnerHTML={{ __html: STYLES }} />
-
       <section style={{ background: 'var(--muted)', padding: '96px 0', overflow: 'hidden' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto 48px', padding: '0 40px', textAlign: 'center' }}>
           <div style={{ fontSize: 12, fontWeight: 600, color: '#00C7B7', textTransform: 'uppercase', letterSpacing: '3px', marginBottom: 12, fontFamily: 'var(--font-dmsans)' }}>
@@ -111,10 +94,9 @@ export default function TestimonialsSlider() {
             {t('title')}
           </h2>
         </div>
-
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-          <MarqueeRow direction="left" />
-          <MarqueeRow direction="right" />
+          <MarqueeRow items={row1} direction="left" />
+          <MarqueeRow items={row2} direction="right" />
         </div>
       </section>
     </>

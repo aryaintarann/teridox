@@ -1,27 +1,41 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import { Link } from '@/lib/i18n/navigation'
 import { ExternalLink } from 'lucide-react'
+import { createClient } from '@/lib/supabase/client'
 
-const projects = [
-  { slug: 'saas-crm', title: 'CRM Platform SaaS', category: 'SaaS', tags: ['Next.js', 'Supabase', 'Stripe'], gradient: 'from-blue-600 to-indigo-700', desc: 'Multi-tenant CRM untuk 500+ perusahaan' },
-  { slug: 'fintech-app', title: 'Fintech Mobile App', category: 'Mobile', tags: ['Flutter', 'Firebase'], gradient: 'from-violet-600 to-purple-700', desc: 'Aplikasi keuangan digital dengan fitur lengkap' },
-  { slug: 'elearning', title: 'E-Learning Platform', category: 'Web', tags: ['React', 'Node.js'], gradient: 'from-emerald-600 to-teal-700', desc: 'Platform belajar online dengan sertifikasi' },
-  { slug: 'hrms', title: 'HRMS System', category: 'SaaS', tags: ['Next.js', 'PostgreSQL'], gradient: 'from-rose-600 to-pink-700', desc: 'Manajemen SDM untuk perusahaan menengah' },
-  { slug: 'delivery-app', title: 'Delivery Tracking App', category: 'Mobile', tags: ['React Native', 'Maps API'], gradient: 'from-orange-600 to-amber-600', desc: 'Aplikasi tracking pengiriman real-time' },
-  { slug: 'company-website', title: 'Corporate Website', category: 'Web', tags: ['Next.js', 'CMS'], gradient: 'from-cyan-600 to-blue-600', desc: 'Website company profile premium dengan CMS' },
-]
+interface PortfolioItem {
+  id: string; title: string; slug: string; description: string
+  technologies: string[]; category: string; featured: boolean; created_at: string
+}
 
-const categories = ['All', 'Web', 'Mobile', 'SaaS']
+const CAT_COLOR: Record<string, string> = {
+  web: '#0F1B2D', mobile: '#0F172A', saas: '#1E1B4B', ai: '#1A0533',
+}
+const FALLBACK_COLORS = ['#0F1B2D', '#1E1B4B', '#064E3B', '#0F172A', '#1A0533', '#451A03']
 
 export default function PortfolioPage() {
-  const t = useTranslations('portfolio')
-  const [active, setActive] = useState('All')
+  const t      = useTranslations('portfolio')
+  const locale = useLocale()
 
-  const filtered = active === 'All' ? projects : projects.filter((p) => p.category === active)
+  const [items, setItems]     = useState<PortfolioItem[]>([])
+  const [loading, setLoading] = useState(true)
+  const [active, setActive]   = useState('All')
+
+  useEffect(() => {
+    createClient()
+      .from('portfolio_items')
+      .select('id,title,slug,description,technologies,category,featured,created_at')
+      .order('featured', { ascending: false })
+      .order('created_at', { ascending: false })
+      .then(({ data }) => { setItems(data ?? []); setLoading(false) })
+  }, [])
+
+  const categories = ['All', ...Array.from(new Set(items.map(p => p.category)))]
+  const filtered   = active === 'All' ? items : items.filter(p => p.category === active)
 
   return (
     <div className="pt-16">
@@ -38,58 +52,61 @@ export default function PortfolioPage() {
 
       <section className="section-padding">
         <div className="container-max">
-          {/* Filter */}
-          <div className="flex flex-wrap justify-center gap-3 mb-10">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActive(cat)}
-                className={`px-5 py-2 rounded-full text-sm font-semibold transition-all ${
-                  active === cat
-                    ? 'bg-primary text-white shadow-md shadow-primary/25'
-                    : 'bg-muted text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+          {loading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[0,1,2,3,4,5].map(i => <div key={i} className="rounded-2xl bg-muted animate-pulse h-72" />)}
+            </div>
+          ) : items.length === 0 ? (
+            <div className="text-center py-20 text-muted-foreground">
+              <p className="text-lg font-semibold mb-2">{locale === 'en' ? 'No projects yet' : 'Belum ada proyek'}</p>
+              <p className="text-sm">{locale === 'en' ? 'Check back soon!' : 'Segera hadir!'}</p>
+            </div>
+          ) : (
+            <>
+              <div className="flex flex-wrap justify-center gap-3 mb-10">
+                {categories.map(cat => (
+                  <button key={cat} onClick={() => setActive(cat)}
+                    className={`px-5 py-2 rounded-full text-sm font-semibold transition-all ${active === cat ? 'bg-primary text-white shadow-md shadow-primary/25' : 'bg-muted text-muted-foreground hover:text-foreground'}`}>
+                    {cat}
+                  </button>
+                ))}
+              </div>
 
-          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <AnimatePresence>
-              {filtered.map((p, i) => (
-                <motion.div
-                  key={p.slug}
-                  layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ delay: i * 0.05 }}
-                  whileHover={{ y: -4 }}
-                  className="group bg-card border border-border rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all"
-                >
-                  <div className={`bg-gradient-to-br ${p.gradient} h-48 flex items-center justify-center relative`}>
-                    <span className="text-white/20 text-8xl font-black">{p.title.charAt(0)}</span>
-                    <span className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm text-white text-xs px-2.5 py-1 rounded-full font-medium">
-                      {p.category}
-                    </span>
-                  </div>
-                  <div className="p-5">
-                    <h3 className="font-bold mb-1 group-hover:text-primary transition-colors">{p.title}</h3>
-                    <p className="text-muted-foreground text-sm mb-3">{p.desc}</p>
-                    <div className="flex flex-wrap gap-1.5 mb-4">
-                      {p.tags.map((tag) => (
-                        <span key={tag} className="text-xs bg-muted px-2.5 py-0.5 rounded-full text-muted-foreground">{tag}</span>
-                      ))}
-                    </div>
-                    <Link href={`/portfolio/${p.slug}`} className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
-                      {t('viewProject')} <ExternalLink className="h-3.5 w-3.5" />
-                    </Link>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
+              <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <AnimatePresence>
+                  {filtered.map((item, i) => {
+                    const color = CAT_COLOR[item.category.toLowerCase()] ?? FALLBACK_COLORS[i % FALLBACK_COLORS.length]
+                    return (
+                      <motion.div key={item.id} layout initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ delay: i * 0.05 }} whileHover={{ y: -4 }}
+                        className="group bg-card border border-border rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all">
+                        <div className="h-48 flex items-center justify-center relative" style={{ background: color }}>
+                          <span className="text-white/20 text-8xl font-black">{item.title.charAt(0)}</span>
+                          <span className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm text-white text-xs px-2.5 py-1 rounded-full font-medium">
+                            {item.category}
+                          </span>
+                          {item.featured && (
+                            <span className="absolute top-3 left-3 bg-primary text-white text-xs px-2.5 py-1 rounded-full font-medium">Featured</span>
+                          )}
+                        </div>
+                        <div className="p-5">
+                          <h3 className="font-bold mb-1 group-hover:text-primary transition-colors">{item.title}</h3>
+                          <p className="text-muted-foreground text-sm mb-3 line-clamp-2">{item.description}</p>
+                          <div className="flex flex-wrap gap-1.5 mb-4">
+                            {item.technologies.slice(0, 3).map(tag => (
+                              <span key={tag} className="text-xs bg-muted px-2.5 py-0.5 rounded-full text-muted-foreground">{tag}</span>
+                            ))}
+                          </div>
+                          <Link href={`/portfolio/${item.slug}`} className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
+                            {t('viewProject')} <ExternalLink className="h-3.5 w-3.5" />
+                          </Link>
+                        </div>
+                      </motion.div>
+                    )
+                  })}
+                </AnimatePresence>
+              </motion.div>
+            </>
+          )}
         </div>
       </section>
     </div>

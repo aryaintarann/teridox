@@ -1,25 +1,73 @@
 'use client'
 
+import { useState, useEffect } from 'react'
+import { useParams } from 'next/navigation'
 import { motion } from 'framer-motion'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import { Link } from '@/lib/i18n/navigation'
 import { ArrowLeft, ExternalLink } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { createClient } from '@/lib/supabase/client'
 import CTASection from '@/components/sections/CTASection'
 
-export default function PortfolioDetailPage() {
-  const t = useTranslations('portfolio')
+interface PortfolioItem {
+  id: string; title: string; slug: string; description: string
+  challenge: string; solution: string; outcome: string
+  technologies: string[]; image_url: string; project_url: string
+  category: string; featured: boolean; created_at: string
+}
 
-  const project = {
-    title: 'CRM Platform SaaS',
-    category: 'SaaS',
-    gradient: 'from-blue-600 to-indigo-700',
-    challenge: 'Perusahaan membutuhkan sistem CRM yang dapat mengelola ribuan leads, pipeline penjualan, dan komunikasi klien dalam satu platform yang terintegrasi.',
-    solution: 'Kami membangun platform SaaS multi-tenant menggunakan Next.js 15 dan Supabase dengan fitur pipeline kanban, analitik real-time, dan integrasi email via Resend.',
-    outcome: 'Produktivitas tim sales meningkat 40%, waktu closing deal berkurang 25%, dan NPS pelanggan naik dari 62 ke 78 dalam 6 bulan pertama.',
-    tags: ['Next.js', 'TypeScript', 'Supabase', 'PostgreSQL', 'Stripe', 'Resend'],
-    url: 'https://example.com',
+const CAT_COLOR: Record<string, string> = {
+  web: '#0F1B2D', mobile: '#0F172A', saas: '#1E1B4B', ai: '#1A0533',
+}
+
+export default function PortfolioDetailPage() {
+  const { slug }  = useParams() as { slug: string }
+  const t         = useTranslations('portfolio')
+  const locale    = useLocale()
+
+  const [item, setItem]         = useState<PortfolioItem | null>(null)
+  const [loading, setLoading]   = useState(true)
+  const [notFound, setNotFound] = useState(false)
+
+  useEffect(() => {
+    if (!slug) return
+    createClient()
+      .from('portfolio_items')
+      .select('*')
+      .eq('slug', slug)
+      .single()
+      .then(({ data, error }) => {
+        if (error || !data) { setNotFound(true) } else { setItem(data) }
+        setLoading(false)
+      })
+  }, [slug])
+
+  if (loading) {
+    return (
+      <div className="pt-16 section-padding">
+        <div className="container-max space-y-4 animate-pulse">
+          <div className="h-72 rounded-3xl bg-muted" />
+          <div className="h-8 w-1/2 bg-muted rounded" />
+          <div className="h-4 bg-muted rounded" />
+          <div className="h-4 w-5/6 bg-muted rounded" />
+        </div>
+      </div>
+    )
   }
+
+  if (notFound || !item) {
+    return (
+      <div className="pt-16 section-padding">
+        <div className="container-max text-center py-20">
+          <p className="text-4xl font-bold mb-4">404</p>
+          <p className="text-muted-foreground mb-6">{locale === 'en' ? 'Project not found.' : 'Proyek tidak ditemukan.'}</p>
+          <Link href="/portfolio" className="text-primary hover:underline font-semibold">{t('title')}</Link>
+        </div>
+      </div>
+    )
+  }
+
+  const bgColor = CAT_COLOR[item.category.toLowerCase()] ?? '#0F1B2D'
 
   return (
     <div className="pt-16">
@@ -29,22 +77,29 @@ export default function PortfolioDetailPage() {
             <ArrowLeft className="h-4 w-4" /> {t('title')}
           </Link>
 
-          <div className={`bg-gradient-to-br ${project.gradient} rounded-3xl h-72 flex items-center justify-center mb-10`}>
-            <span className="text-white/20 text-[140px] font-black leading-none">{project.title.charAt(0)}</span>
-          </div>
+          {item.image_url ? (
+            <img src={item.image_url} alt={item.title} className="w-full rounded-3xl h-72 object-cover mb-10" />
+          ) : (
+            <div className="rounded-3xl h-72 flex items-center justify-center mb-10" style={{ background: bgColor }}>
+              <span className="text-white/20 text-[140px] font-black leading-none">{item.title.charAt(0)}</span>
+            </div>
+          )}
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2 space-y-10">
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                <span className="text-primary font-semibold text-sm">{project.category}</span>
-                <h1 className="text-3xl md:text-4xl font-extrabold mt-1 mb-6">{project.title}</h1>
+                <span className="text-primary font-semibold text-sm">{item.category}</span>
+                <h1 className="text-3xl md:text-4xl font-extrabold mt-1 mb-6">{item.title}</h1>
+                {item.description && (
+                  <p className="text-muted-foreground leading-relaxed text-lg">{item.description}</p>
+                )}
               </motion.div>
 
               {[
-                { label: t('challenge'), content: project.challenge },
-                { label: t('solution'), content: project.solution },
-                { label: t('outcome'), content: project.outcome },
-              ].map(({ label, content }) => (
+                { label: t('challenge'), content: item.challenge },
+                { label: t('solution'),  content: item.solution  },
+                { label: t('outcome'),   content: item.outcome   },
+              ].filter(s => s.content).map(({ label, content }) => (
                 <div key={label}>
                   <h2 className="text-xl font-bold mb-3 text-primary">{label}</h2>
                   <p className="text-muted-foreground leading-relaxed">{content}</p>
@@ -53,22 +108,27 @@ export default function PortfolioDetailPage() {
             </div>
 
             <div className="lg:col-span-1 space-y-6">
-              <div className="bg-card border border-border rounded-2xl p-6">
-                <h3 className="font-bold mb-4">{t('technologies')}</h3>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span key={tag} className="text-sm bg-primary/10 text-primary px-3 py-1 rounded-full font-medium">{tag}</span>
-                  ))}
+              {item.technologies?.length > 0 && (
+                <div className="bg-card border border-border rounded-2xl p-6">
+                  <h3 className="font-bold mb-4">{t('technologies')}</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {item.technologies.map(tag => (
+                      <span key={tag} className="text-sm bg-primary/10 text-primary px-3 py-1 rounded-full font-medium">{tag}</span>
+                    ))}
+                  </div>
                 </div>
+              )}
+              {item.project_url && (
+                <a href={item.project_url} target="_blank" rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 w-full h-10 px-4 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 text-sm font-medium transition-colors">
+                  {t('visitSite')} <ExternalLink className="h-4 w-4" />
+                </a>
+              )}
+              <div className="bg-card border border-border rounded-2xl p-6 text-sm text-muted-foreground space-y-2">
+                <div><span className="font-medium text-foreground">{locale === 'en' ? 'Category' : 'Kategori'}:</span> {item.category}</div>
+                <div><span className="font-medium text-foreground">{locale === 'en' ? 'Year' : 'Tahun'}:</span> {new Date(item.created_at).getFullYear()}</div>
+                {item.featured && <div className="text-primary font-semibold">★ Featured Project</div>}
               </div>
-              <a
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full h-9 px-4 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 text-sm font-medium transition-colors"
-              >
-                {t('visitSite')} <ExternalLink className="h-4 w-4" />
-              </a>
             </div>
           </div>
         </div>

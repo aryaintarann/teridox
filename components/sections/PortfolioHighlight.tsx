@@ -1,31 +1,34 @@
 'use client'
 
-import { useState } from 'react'
-import { useTranslations } from 'next-intl'
+import { useState, useEffect } from 'react'
+import { useTranslations, useLocale } from 'next-intl'
 import { Link } from '@/lib/i18n/navigation'
+import { createClient } from '@/lib/supabase/client'
 
-const featured = [
-  { id: 1, title: 'TokoBaju E-Commerce', category: 'Web Development', tags: ['Next.js', 'PostgreSQL', 'Stripe'], featured: true,  color: '#0F1B2D', year: '2025', result: '+150% Konversi', href: '/portfolio/tokobaju' },
-  { id: 5, title: 'BaliStay Booking',    category: 'Web Development', tags: ['Vue.js', 'Laravel', 'MySQL'],    featured: false, color: '#064E3B', year: '2025', result: '+85% Booking',  href: '/portfolio/balistay' },
-  { id: 12, title: 'TravelMate App',     category: 'Mobile App',      tags: ['Flutter', 'Firebase'],           featured: false, color: '#0F172A', year: '2025', result: '4.8★ App Store', href: '/portfolio/travelmate' },
-]
+const CAT_COLOR: Record<string, string> = {
+  web: '#0F1B2D', mobile: '#0F172A', saas: '#1E1B4B', ai: '#1A0533',
+}
+const DEFAULT_COLORS = ['#0F1B2D', '#064E3B', '#0F172A']
 
-function PortfolioCard({ item, large }: { item: typeof featured[number]; large: boolean }) {
+interface PortfolioItem {
+  id: string; title: string; slug: string; description: string
+  technologies: string[]; category: string; featured: boolean; created_at: string
+}
+
+function PortfolioCard({ item, large, locale }: { item: PortfolioItem; large: boolean; locale: string }) {
   const [hov, setHov] = useState(false)
+  const color = CAT_COLOR[item.category.toLowerCase()] ?? '#0F1B2D'
+  const t = useTranslations('portfolio')
 
   return (
-    <Link href={item.href}>
+    <Link href={`/portfolio/${item.slug}`}>
       <div
         onMouseEnter={() => setHov(true)}
         onMouseLeave={() => setHov(false)}
         style={{
-          gridRow: large ? 'span 2' : 'auto',
-          borderRadius: 20,
-          overflow: 'hidden',
-          position: 'relative',
-          cursor: 'pointer',
-          minHeight: large ? 480 : 220,
-          background: item.color,
+          gridRow: large ? 'span 2' : 'auto', borderRadius: 20, overflow: 'hidden',
+          position: 'relative', cursor: 'pointer', minHeight: large ? 480 : 220,
+          background: color,
         }}
       >
         <div style={{ position: 'absolute', inset: 0, background: hov ? 'rgba(0,0,0,0.55)' : 'rgba(0,0,0,0.2)', transition: 'background 0.3s' }} />
@@ -34,15 +37,9 @@ function PortfolioCard({ item, large }: { item: typeof featured[number]; large: 
             Featured
           </div>
         )}
-        <div
-          style={{
-            position: 'absolute', bottom: 0, left: 0, right: 0, padding: 24,
-            transform: hov ? 'translateY(0)' : 'translateY(8px)',
-            transition: 'transform 0.3s', zIndex: 2,
-          }}
-        >
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: 24, transform: hov ? 'translateY(0)' : 'translateY(8px)', transition: 'transform 0.3s', zIndex: 2 }}>
           <div style={{ display: 'flex', gap: 6, marginBottom: 10, flexWrap: 'wrap' }}>
-            {item.tags.slice(0, 2).map((tag) => (
+            {item.technologies.slice(0, 2).map((tag) => (
               <span key={tag} style={{ fontSize: 11, color: 'rgba(255,255,255,0.75)', background: 'rgba(255,255,255,0.12)', padding: '2px 8px', borderRadius: 9999, fontFamily: 'var(--font-dmsans)' }}>
                 {tag}
               </span>
@@ -52,12 +49,11 @@ function PortfolioCard({ item, large }: { item: typeof featured[number]; large: 
             {item.title}
           </h3>
           <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.65)', fontFamily: 'var(--font-dmsans)' }}>
-            {item.category} · {item.year}
+            {item.category} · {new Date(item.created_at).getFullYear()}
           </div>
           {hov && (
             <div style={{ marginTop: 12, color: '#00C7B7', fontSize: 14, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 6, fontFamily: 'var(--font-dmsans)' }}>
-              Lihat Detail
-              <i className="fa-solid fa-arrow-right" style={{ fontSize: 12 }} aria-hidden="true" />
+              {t('viewProject')} <i className="fa-solid fa-arrow-right" style={{ fontSize: 12 }} aria-hidden="true" />
             </div>
           )}
         </div>
@@ -67,12 +63,26 @@ function PortfolioCard({ item, large }: { item: typeof featured[number]; large: 
 }
 
 export default function PortfolioHighlight() {
-  const t = useTranslations('portfolio')
+  const t      = useTranslations('portfolio')
+  const locale = useLocale()
+  const [items, setItems]     = useState<PortfolioItem[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    createClient()
+      .from('portfolio_items')
+      .select('id,title,slug,description,technologies,category,featured,created_at')
+      .order('featured', { ascending: false })
+      .order('created_at', { ascending: false })
+      .limit(3)
+      .then(({ data }) => { setItems(data ?? []); setLoading(false) })
+  }, [])
+
+  if (!loading && items.length === 0) return null
 
   return (
     <section style={{ background: 'var(--background)', padding: '96px 40px' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-        {/* Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 48, flexWrap: 'wrap', gap: 16 }}>
           <div>
             <div style={{ fontSize: 12, fontWeight: 600, color: '#00C7B7', textTransform: 'uppercase', letterSpacing: '3px', marginBottom: 12, fontFamily: 'var(--font-dmsans)' }}>
@@ -82,22 +92,24 @@ export default function PortfolioHighlight() {
               {t('title')}
             </h2>
           </div>
-          <Link
-            href="/portfolio"
-            className="inline-flex items-center gap-2 transition-colors hover:opacity-80"
-            style={{ color: '#00C7B7', fontWeight: 600, fontSize: 15, fontFamily: 'var(--font-dmsans)' }}
-          >
-            {t('viewAll')}
-            <i className="fa-solid fa-arrow-right" style={{ fontSize: 12 }} aria-hidden="true" />
+          <Link href="/portfolio" className="inline-flex items-center gap-2 transition-colors hover:opacity-80" style={{ color: '#00C7B7', fontWeight: 600, fontSize: 15, fontFamily: 'var(--font-dmsans)' }}>
+            {t('viewAll')} <i className="fa-solid fa-arrow-right" style={{ fontSize: 12 }} aria-hidden="true" />
           </Link>
         </div>
 
-        {/* Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: 'auto auto', gap: 20 }}>
-          {featured.map((item, i) => (
-            <PortfolioCard key={item.id} item={item} large={i === 0} />
-          ))}
-        </div>
+        {loading ? (
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+            {[0, 1, 2].map(i => (
+              <div key={i} style={{ height: i === 0 ? 480 : 220, borderRadius: 20, background: 'var(--muted)', animation: 'pulse 1.5s infinite', gridRow: i === 0 ? 'span 2' : 'auto' }} />
+            ))}
+          </div>
+        ) : (
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: 'auto auto', gap: 20 }}>
+            {items.map((item, i) => (
+              <PortfolioCard key={item.id} item={item} large={i === 0} locale={locale} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   )
