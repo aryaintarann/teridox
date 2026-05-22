@@ -1,13 +1,21 @@
+'use client'
+
+import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
+import { useTheme } from 'next-themes'
 import { Link } from '@/lib/i18n/navigation'
 
 export default function CTASection() {
   const t = useTranslations('cta')
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => { setMounted(true) }, [])
+  const isDark = mounted && resolvedTheme === 'dark'
 
   return (
     <section
       style={{
-        background: '#0F1B2D',
+        background: isDark ? '#0F1B2D' : '#F1F5F9',
         padding: '96px 40px',
         textAlign: 'center',
         position: 'relative',
@@ -25,7 +33,7 @@ export default function CTASection() {
             fontFamily: 'var(--font-syne)',
             fontSize: 'clamp(32px, 5vw, 48px)',
             fontWeight: 800,
-            color: 'white',
+            color: isDark ? 'white' : '#0F172A',
             marginBottom: 20,
             lineHeight: 1.15,
             whiteSpace: 'pre-line',
@@ -33,7 +41,7 @@ export default function CTASection() {
         >
           {t('title')}
         </h2>
-        <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.65)', marginBottom: 40, lineHeight: 1.7, fontFamily: 'var(--font-dmsans)' }}>
+        <p style={{ fontSize: 18, color: isDark ? 'rgba(255,255,255,0.65)' : '#475569', marginBottom: 40, lineHeight: 1.7, fontFamily: 'var(--font-dmsans)' }}>
           {t('subtitle')}
         </p>
         <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -53,14 +61,15 @@ export default function CTASection() {
           </Link>
           <Link
             href="/services"
-            className="inline-flex items-center justify-center rounded-full text-white transition-all hover:bg-white/10"
+            className="inline-flex items-center justify-center rounded-full transition-all hover:scale-[1.04]"
             style={{
               background: 'transparent',
               padding: '13px 28px',
               fontSize: 15,
               fontWeight: 600,
               fontFamily: 'var(--font-dmsans)',
-              border: '1.5px solid rgba(255,255,255,0.6)',
+              border: isDark ? '1.5px solid rgba(255,255,255,0.6)' : '1.5px solid #CBD5E1',
+              color: isDark ? 'white' : '#0F172A',
             }}
           >
             {t('secondary')}
