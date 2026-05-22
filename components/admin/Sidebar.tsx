@@ -36,7 +36,7 @@ export default function Sidebar() {
   }
 
   return (
-    <aside className="w-60 flex-shrink-0 bg-sidebar border-r border-sidebar-border flex flex-col">
+    <aside className="w-60 shrink-0 bg-sidebar border-r border-sidebar-border flex flex-col">
       <div className="px-6 py-5 border-b border-sidebar-border">
         <span className="font-bold text-lg text-primary">Teridox Admin</span>
       </div>
@@ -54,7 +54,7 @@ export default function Sidebar() {
             )}
           >
             <Icon className="h-4 w-4" />
-            {t(key as any)}
+            {t(key)}
           </Link>
         ))}
       </nav>
