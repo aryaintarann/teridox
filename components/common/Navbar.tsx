@@ -22,15 +22,18 @@ export default function Navbar() {
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const { resolvedTheme } = useTheme()
 
   useEffect(() => {
+    setMounted(true)
     const onScroll = () => setScrolled(window.scrollY > 80)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const isDark = resolvedTheme === 'dark'
+  // Before mount, render neutral (matches SSR). After mount, use actual theme.
+  const isDark = mounted && resolvedTheme === 'dark'
   const onDark = isDark
 
   const navBg = scrolled

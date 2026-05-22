@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 import { Link } from '@/lib/i18n/navigation'
@@ -7,7 +8,10 @@ import { Link } from '@/lib/i18n/navigation'
 export default function Hero() {
   const t = useTranslations('hero')
   const { resolvedTheme } = useTheme()
-  const isDark = resolvedTheme === 'dark'
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => { setMounted(true) }, [])
+  // Before mount, render neutral light styles to match SSR, then switch to actual theme.
+  const isDark = mounted && resolvedTheme === 'dark'
 
   return (
     <section
