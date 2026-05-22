@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
 import { Shield, Zap, Users, Award } from 'lucide-react'
@@ -25,22 +26,43 @@ export default function AboutPage() {
     <div className="pt-16">
       {/* Hero */}
       <section className="section-padding" style={{ background: 'var(--muted)' }}>
-        <div className="container-max text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-extrabold mb-4"
-          >
-            {t('title')}
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-muted-foreground text-lg max-w-2xl mx-auto"
-          >
-            {t('subtitle')}
-          </motion.p>
+        <div className="container-max">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            {/* Text */}
+            <div>
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-4xl md:text-6xl font-extrabold mb-4"
+              >
+                {t('title')}
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-muted-foreground text-lg"
+              >
+                {t('subtitle')}
+              </motion.p>
+            </div>
+            {/* Logo */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.15 }}
+              className="flex items-center justify-center"
+            >
+              <Image
+                src="/logo/1.png"
+                alt="Teridox"
+                width={480}
+                height={360}
+                style={{ width: '100%', height: 'auto', maxWidth: 440 }}
+                priority
+              />
+            </motion.div>
+          </div>
         </div>
       </section>
 
