@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Syne, DM_Sans } from 'next/font/google'
+import { Providers } from './providers'
 import './globals.css'
 
 const syne = Syne({
@@ -42,7 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="min-h-screen bg-background antialiased">
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   )
