@@ -84,20 +84,23 @@ export default function BlogPage() {
         body: JSON.stringify({ topic: aiTopic, language: 'id', length: 'medium', tone: 'informative' }),
       })
       const data = await res.json()
-      if (data.title) {
+      // API returns { original: {id content}, translated: {en content}, sourceLang }
+      const id = data.original
+      const en = data.translated
+      if (id?.title) {
         setForm(prev => ({
           ...prev,
-          title: data.title ?? prev.title,
-          title_en: data.titleEn ?? prev.title_en,
-          slug: slugify(data.title ?? prev.title),
-          content: data.content ?? prev.content,
-          content_en: data.contentEn ?? prev.content_en,
-          meta_title: data.metaTitle ?? prev.meta_title,
-          meta_description: data.metaDescription ?? prev.meta_description,
-          tags: data.tags ?? prev.tags,
-          reading_time_min: data.readingTimeMin ?? prev.reading_time_min,
+          title: id.title ?? prev.title,
+          title_en: en?.title ?? prev.title_en,
+          slug: slugify(id.title ?? prev.title),
+          content: id.content ?? prev.content,
+          content_en: en?.content ?? prev.content_en,
+          meta_title: id.metaTitle ?? prev.meta_title,
+          meta_description: id.metaDescription ?? prev.meta_description,
+          tags: id.tags ?? prev.tags,
+          reading_time_min: id.readingTimeMin ?? prev.reading_time_min,
         }))
-        setTagsInput((data.tags ?? []).join(', '))
+        setTagsInput((id.tags ?? []).join(', '))
       }
     } catch {}
     setGenerating(false)
