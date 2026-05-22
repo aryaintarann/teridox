@@ -10,14 +10,6 @@ import CTASection from '@/components/sections/CTASection'
 
 const iconMap: Record<string, React.ElementType> = { Shield, Zap, Users, Award }
 
-const team = [
-  { name: 'Rizky Pratama', role: 'CEO & Co-Founder', avatar: 'RP', bio: '10+ tahun di industri software' },
-  { name: 'Dewi Sari', role: 'CTO', avatar: 'DS', bio: 'Ahli cloud architecture & DevOps' },
-  { name: 'Andi Kurniawan', role: 'Lead Designer', avatar: 'AK', bio: 'Spesialis UI/UX & product design' },
-  { name: 'Mira Lestari', role: 'Head of Mobile', avatar: 'ML', bio: 'Flutter & React Native expert' },
-  { name: 'Fajar Hidayat', role: 'Backend Lead', avatar: 'FH', bio: 'Node.js, PostgreSQL, AWS' },
-  { name: 'Siti Rahayu', role: 'Project Manager', avatar: 'SR', bio: 'PMP certified, agile specialist' },
-]
 
 export default function AboutPage() {
   const t = useTranslations('about')
@@ -140,35 +132,6 @@ export default function AboutPage() {
                 </motion.div>
               )
             })}
-          </div>
-        </div>
-      </section>
-
-      {/* Team */}
-      <section className="section-padding bg-muted/30">
-        <div className="container-max">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-3">{t('team.title')}</h2>
-            <p className="text-muted-foreground">{t('team.subtitle')}</p>
-          </motion.div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            {team.map((member, i) => (
-              <motion.div
-                key={member.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.07 }}
-                className="text-center"
-              >
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center mx-auto mb-3 text-white font-bold">
-                  {member.avatar}
-                </div>
-                <p className="font-semibold text-sm">{member.name}</p>
-                <p className="text-primary text-xs">{member.role}</p>
-                <p className="text-muted-foreground text-xs mt-1">{member.bio}</p>
-              </motion.div>
-            ))}
           </div>
         </div>
       </section>
