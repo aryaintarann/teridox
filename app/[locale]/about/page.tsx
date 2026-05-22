@@ -1,8 +1,10 @@
 'use client'
 
 import Image from 'next/image'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
+import { useTheme } from 'next-themes'
 import { Shield, Zap, Users, Award } from 'lucide-react'
 import CTASection from '@/components/sections/CTASection'
 
@@ -21,6 +23,10 @@ export default function AboutPage() {
   const t = useTranslations('about')
   const values = t.raw('values.items') as Array<{ icon: string; title: string; desc: string }>
   const timeline = t.raw('timeline.items') as Array<{ year: string; title: string; desc: string }>
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => { setMounted(true) }, [])
+  const isDark = mounted && resolvedTheme === 'dark'
 
   return (
     <div className="pt-16">
@@ -52,6 +58,13 @@ export default function AboutPage() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.15 }}
               className="flex items-center justify-center"
+              style={{
+                ...(isDark && {
+                  background: '#b9bdbf',
+                  borderRadius: 24,
+                  padding: 40,
+                }),
+              }}
             >
               <Image
                 src="/logo/1.png"
