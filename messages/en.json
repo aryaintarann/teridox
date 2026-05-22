@@ -11,9 +11,9 @@
   },
   "hero": {
     "badge": "Available for New Projects",
-    "title": "We Bring Your\nDigital Vision\nTo Life",
+    "title": "We Bring Your\nTechnology Vision\nTo Life",
     "titleHighlight": "To Life",
-    "subtitle": "Full-service digital agency from Bali — web, mobile, AI, and marketing for businesses ready to grow.",
+    "subtitle": "A technology company from Bali — providing web development, mobile apps, and software sales services for businesses ready to grow.",
     "ctaPrimary": "Start a Project",
     "ctaSecondary": "View Portfolio",
     "scrollText": "Scroll to explore",
@@ -26,13 +26,12 @@
     "clients": "Active Clients",
     "years": "Years Experience",
     "projects": "Projects Completed",
-    "uptime": "SaaS Uptime",
     "satisfaction": "Client Satisfaction"
   },
   "services": {
     "label": "Our Services",
-    "title": "Complete Digital Solutions for Your Business",
-    "subtitle": "From ideation to launch, we handle every aspect of your digital transformation with precision.",
+    "title": "Technology Solutions for Your Business",
+    "subtitle": "From development to software sales, we are ready to help your business grow with the right technology.",
     "viewAll": "View All Services",
     "learnMore": "Learn More",
     "items": [
@@ -40,43 +39,22 @@
         "slug": "web-development",
         "icon": "Globe",
         "title": "Web Development",
-        "desc": "Modern, fast, and responsive websites that deliver the best user experience and drive significant business conversions.",
+        "desc": "Modern, fast, and responsive websites that deliver the best user experience and drive significant business growth.",
         "features": ["Landing Page & Company Profile", "E-Commerce Platform", "Custom Web Application", "CMS & Headless Integration", "API Development & Integration"]
       },
       {
         "slug": "mobile-development",
         "icon": "Smartphone",
-        "title": "Mobile App",
-        "desc": "Intuitive iOS and Android mobile apps with high performance, seamless user experience, and cutting-edge features.",
+        "title": "Mobile App Development",
+        "desc": "Intuitive iOS and Android mobile apps with high performance, seamless user experience, and features tailored to your business needs.",
         "features": ["React Native Cross-Platform", "Native iOS & Android", "App Store & Play Store Publishing", "Push Notifications & Deep Linking", "Offline-First Capability"]
       },
       {
-        "slug": "ui-ux-design",
-        "icon": "Palette",
-        "title": "UI/UX Design",
-        "desc": "Beautiful, intuitive, and user-centered interface design — turning ordinary visitors into loyal customers.",
-        "features": ["User Research & Persona", "Wireframing & Prototyping", "High-Fidelity Visual Design", "Design System & Component Library", "Usability Testing"]
-      },
-      {
-        "slug": "digital-marketing",
-        "icon": "Zap",
-        "title": "Digital Marketing",
-        "desc": "Integrated digital marketing strategy to sustainably increase visibility, organic traffic, and business conversions.",
-        "features": ["SEO & Content Strategy", "Google & Meta Ads", "Social Media Management", "Email Marketing Automation", "Analytics & A/B Testing"]
-      },
-      {
-        "slug": "consulting",
-        "icon": "Server",
-        "title": "IT Consulting",
-        "desc": "Strategic guidance and expert solutions to comprehensively accelerate your business's digital transformation.",
-        "features": ["IT Infrastructure Assessment", "Tech Stack Selection", "Digital Transformation Roadmap", "Security Audit & Compliance", "Team Training"]
-      },
-      {
-        "slug": "ai-integration",
-        "icon": "Cloud",
-        "title": "AI Integration",
-        "desc": "Integrate artificial intelligence into your business processes for maximum efficiency, smart automation, and competitive advantage.",
-        "features": ["Chatbot & Virtual Assistant", "AI-Powered Analytics", "Process Automation (RPA + AI)", "Custom ML Models", "LLM & RAG Integration"]
+        "slug": "software-sales",
+        "icon": "Package",
+        "title": "Software Sales",
+        "desc": "We provide and sell ready-to-use and licensed software solutions tailored to your operational needs and business scale.",
+        "features": ["Official Licensed Software", "Business Management Software", "Accounting & Finance Software", "HR & Payroll Software", "Installation & Onboarding"]
       }
     ]
   },
@@ -90,7 +68,7 @@
       "all": "All",
       "web": "Web",
       "mobile": "Mobile",
-      "saas": "SaaS"
+      "software": "Software"
     },
     "challenge": "Challenge",
     "solution": "Solution",
@@ -105,8 +83,8 @@
   },
   "blog": {
     "label": "Blog & Insights",
-    "title": "Digital Insights & Inspiration",
-    "subtitle": "Articles about technology, digital business, and software development best practices",
+    "title": "Technology Insights & Inspiration",
+    "subtitle": "Articles about technology, software development, and tips for growing your business",
     "viewAll": "View All",
     "readMore": "Read More",
     "minRead": "min read",
@@ -119,16 +97,16 @@
     "faqTitle": "Frequently Asked Questions"
   },
   "cta": {
-    "title": "Ready to Start\nYour Digital Project?",
-    "subtitle": "Let's discuss how Teridox can bring your business vision to life. First consultation is free!",
+    "title": "Ready to Start\nYour Project?",
+    "subtitle": "Let's discuss how Teridox can support your business technology needs. First consultation is free!",
     "primary": "Free Consultation",
     "secondary": "View Services"
   },
   "about": {
     "label": "About Us",
-    "title": "A Creative Team Dedicated to Your Digital Growth",
-    "p1": "Teridox was born from a deep passion for technology and the belief that every business deserves the best digital solutions. We build more than products — we build digital foundations that drive real growth.",
-    "p2": "With a solid team and 3+ years of experience across diverse industries, we stand as your trusted partner in your digital transformation journey.",
+    "title": "A Technology Company Focused on Real Solutions",
+    "p1": "Teridox was born from a deep passion for technology and the belief that every business deserves the best software solutions. We build more than products — we build the technology foundation that drives real growth.",
+    "p2": "With an experienced team and 3+ years of proven track record across various industries, we stand as your trusted technology partner for web development, mobile apps, and software needs.",
     "fast": "Fast",
     "fastDesc": "On-time delivery, always.",
     "precise": "On-Target",
@@ -136,18 +114,18 @@
     "quality": "Quality",
     "qualityDesc": "Premium standards in every detail.",
     "more": "Learn More",
-    "subtitle": "We're a team of passionate developers and designers dedicated to building the best digital solutions",
+    "subtitle": "We are an experienced team of developers dedicated to delivering the best technology solutions for your business",
     "story": {
       "title": "Our Story",
-      "content": "Teridox was founded in 2020 by a group of developers frustrated by seeing many Indonesian businesses struggle to adopt the right technology. We believe good technology must be accessible, scalable, and truly solve real business problems. From a small team of 3, we've grown into a solid team that has served hundreds of clients across various industries."
+      "content": "Teridox was founded in 2020 by a group of developers who saw many Indonesian businesses struggling to find affordable and reliable technology solutions. We believe good technology must be accessible, scalable, and truly solve real business problems. From a small team of 3, we've grown into a technology company that has served dozens of clients across various industries with web development, mobile apps, and software sales services."
     },
     "mission": {
       "title": "Mission",
-      "content": "Accelerate the digital transformation of Indonesian businesses with high-quality, affordable, and sustainable technology solutions."
+      "content": "To help Indonesian businesses grow by providing high-quality, affordable, and precisely targeted web development, mobile apps, and software services."
     },
     "vision": {
       "title": "Vision",
-      "content": "To become the premier software house in Southeast Asia, known for innovation, quality, and positive impact on our clients."
+      "content": "To become the leading technology company in Indonesia, known for quality, reliability, and positive impact on every client we serve."
     },
     "values": {
       "title": "Our Values",
@@ -155,7 +133,7 @@
         { "icon": "Shield", "title": "Integrity", "desc": "We are transparent, honest, and committed on every project." },
         { "icon": "Zap", "title": "Innovation", "desc": "Always adopting the latest technology to deliver the best solutions." },
         { "icon": "Users", "title": "Collaboration", "desc": "We work as partners, not just vendors." },
-        { "icon": "Award", "title": "Quality", "desc": "High standards in every line of code and every pixel of design." }
+        { "icon": "Award", "title": "Quality", "desc": "High standards in every line of code and every product we sell." }
       ]
     },
     "team": {
@@ -165,18 +143,18 @@
     "timeline": {
       "title": "Our Journey",
       "items": [
-        { "year": "2020", "title": "Teridox Founded", "desc": "Started with 3 people and a big vision to help Indonesian businesses go digital." },
-        { "year": "2021", "title": "First 50 Clients", "desc": "Reached the milestone of 50 clients within the first year of operations." },
-        { "year": "2022", "title": "Team Expansion", "desc": "Grew to 15 people with dedicated Mobile and Cloud divisions." },
-        { "year": "2023", "title": "SaaS Product Launch", "desc": "Launched our first SaaS product, now used by thousands of users." },
-        { "year": "2024", "title": "150+ Clients", "desc": "Surpassed 150 active clients and expanded to the Southeast Asian regional market." },
-        { "year": "2025", "title": "AI Innovation", "desc": "Integrated AI into all of our software development services." }
+        { "year": "2020", "title": "Teridox Founded", "desc": "Started with 3 people and a vision to help Indonesian businesses get the best technology solutions." },
+        { "year": "2021", "title": "First 50 Projects", "desc": "Reached the milestone of 50 completed web and mobile projects within the first year of operations." },
+        { "year": "2022", "title": "Service Expansion", "desc": "Grew to 15 people and began offering licensed software sales to complement development services." },
+        { "year": "2023", "title": "Software Partnerships", "desc": "Established official partnerships with leading software vendors to expand our product catalog." },
+        { "year": "2024", "title": "150+ Projects", "desc": "Surpassed 150 completed projects and served clients from various industries across Indonesia." },
+        { "year": "2025", "title": "Continuous Innovation", "desc": "Continuing to innovate and deliver the latest web, mobile, and software solutions for our clients." }
       ]
     }
   },
   "contact": {
     "title": "Let's Collaborate",
-    "subtitle": "Tell us about your dream project. Our team is ready to help make it real.",
+    "subtitle": "Have a project or software need to discuss? Our team is ready to help.",
     "form": {
       "name": "Full Name",
       "namePlaceholder": "Enter your name",
@@ -187,7 +165,7 @@
       "service": "Service of Interest",
       "servicePlaceholder": "Select a service",
       "message": "Message",
-      "messagePlaceholder": "Tell us about your project needs...",
+      "messagePlaceholder": "Tell us about your project or software needs...",
       "submit": "Send Message",
       "submitting": "Sending...",
       "success": "Message sent successfully! We'll get back to you shortly.",
@@ -210,7 +188,11 @@
       },
       {
         "q": "How much does mobile app development cost?",
-        "a": "Cost depends on the platform (iOS/Android/both), features, and design complexity. Starting from IDR 30 million for simple apps up to hundreds of millions for enterprise apps. Contact us for a free estimate."
+        "a": "Cost depends on the platform (iOS/Android/both), features, and complexity. Starting from IDR 30 million for simple apps up to hundreds of millions for enterprise apps. Contact us for a free estimate."
+      },
+      {
+        "q": "What software products are available for purchase?",
+        "a": "We offer a range of officially licensed software, including business management, accounting & finance, HR & payroll, and more. Contact us to view our full catalog and get a recommendation suited to your needs."
       },
       {
         "q": "Does Teridox provide maintenance after the project is done?",
@@ -230,11 +212,7 @@
       },
       {
         "q": "Does Teridox serve clients outside Bali?",
-        "a": "Yes! We serve clients from across Indonesia and internationally. Our workflow is fully remote-friendly with collaboration tools like Figma, Notion, and Slack."
-      },
-      {
-        "q": "What's the difference between a web app and a regular website?",
-        "a": "A regular website is informational (company profile, blog). A web app has interactive features like login, dashboards, transactions, and data management. We build both to high performance standards."
+        "a": "Yes! We serve clients from across Indonesia. Our workflow is fully remote-friendly with collaboration tools like Figma, Notion, and Slack."
       }
     ]
   },
@@ -254,7 +232,7 @@
     "fallback": "Thank you for contacting Teridox!\n\nFor further questions:\n✉ hello@teridox.com\n📞 +62 812-3456-7890"
   },
   "footer": {
-    "description": "Full-service digital agency from Bali. We build digital solutions that drive your business growth.",
+    "description": "A technology company from Bali. We provide web development, mobile apps, and software sales services for your business.",
     "services": "Services",
     "company": "Company",
     "resources": "Contact",

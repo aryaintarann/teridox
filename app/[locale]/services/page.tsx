@@ -3,11 +3,11 @@
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/lib/i18n/navigation'
-import { Globe, Smartphone, Cloud, Palette, Zap, Server, ArrowRight } from 'lucide-react'
+import { Globe, Smartphone, Package, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import CTASection from '@/components/sections/CTASection'
 
-const iconMap: Record<string, React.ElementType> = { Globe, Smartphone, Cloud, Palette, Zap, Server }
+const iconMap: Record<string, React.ElementType> = { Globe, Smartphone, Package }
 
 export default function ServicesPage() {
   const t = useTranslations('services')
