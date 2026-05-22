@@ -36,14 +36,14 @@ export default function BlogPage() {
   const [aiTopic, setAiTopic] = useState('')
   const supabase = createClient()
 
-  const fetch = useCallback(async () => {
+  const loadPosts = useCallback(async () => {
     setLoading(true)
     const { data } = await supabase.from('blog_posts').select('*').order('created_at', { ascending: false })
     setPosts(data ?? [])
     setLoading(false)
   }, [])
 
-  useEffect(() => { fetch() }, [fetch])
+  useEffect(() => { loadPosts() }, [loadPosts])
 
   function openNew() {
     setEditing(null)
@@ -113,18 +113,18 @@ export default function BlogPage() {
     }
     setSaving(false)
     setOpen(false)
-    fetch()
+    loadPosts()
   }
 
   async function togglePublish(post: BlogPost) {
     await supabase.from('blog_posts').update({ published: !post.published }).eq('id', post.id)
-    fetch()
+    loadPosts()
   }
 
   async function remove(id: string) {
     if (!confirm('Hapus artikel ini?')) return
     await supabase.from('blog_posts').delete().eq('id', id)
-    fetch()
+    loadPosts()
   }
 
   return (
@@ -135,7 +135,7 @@ export default function BlogPage() {
           <p className="text-muted-foreground mt-1 text-sm">{posts.length} artikel</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" onClick={fetch} disabled={loading}>
+          <Button variant="outline" size="sm" onClick={loadPosts} disabled={loading}>
             <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
           </Button>
           <Button size="sm" onClick={openNew}>

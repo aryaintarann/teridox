@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { TeamMember } from '@/lib/types/admin'
-import { Plus, Pencil, Trash2, RefreshCw, Linkedin } from 'lucide-react'
+import { Plus, Pencil, Trash2, RefreshCw, Link2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -100,7 +100,7 @@ export default function TeamPage() {
               <div className="mb-3">
                 <a href={m.linkedin_url} target="_blank" rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-xs text-blue-600 hover:underline">
-                  <Linkedin className="h-3 w-3" /> LinkedIn
+                  <Link2 className="h-3 w-3" /> LinkedIn
                 </a>
               </div>
             )}

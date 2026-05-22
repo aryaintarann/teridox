@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
-import { useTheme } from 'next-themes'
+import { useTheme } from '@/lib/theme-context'
 import { Link } from '@/lib/i18n/navigation'
 
 const valueProps = [

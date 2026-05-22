@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
-import { useTheme } from 'next-themes'
+import { useTheme } from '@/lib/theme-context'
 import Image from 'next/image'
 import { Link, usePathname } from '@/lib/i18n/navigation'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'

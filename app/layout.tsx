@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Syne, DM_Sans } from 'next/font/google'
+import Script from 'next/script'
 import { Providers } from './providers'
 import './globals.css'
 
@@ -42,6 +43,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           referrerPolicy="no-referrer"
         />
       </head>
+      <Script id="theme-init" strategy="beforeInteractive">{`
+        try {
+          var t = localStorage.getItem('theme');
+          var dark = t === 'dark' || ((!t || t === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.classList.toggle('dark', dark);
+        } catch(e) {}
+      `}</Script>
       <body className="min-h-screen bg-background antialiased">
         <Providers>{children}</Providers>
       </body>

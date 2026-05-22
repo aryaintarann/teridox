@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { useTheme } from 'next-themes'
+import { useTheme } from '@/lib/theme-context'
 
 const statData = [
   { num: '50', suffix: '+', labelKey: 'projects',    icon: 'rocket' },
