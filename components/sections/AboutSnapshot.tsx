@@ -60,7 +60,7 @@ export default function AboutSnapshot() {
         {/* Right: logo */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <Image
-            src="/logo/1.svg"
+            src="/logo/1.png"
             alt="Teridox"
             width={480}
             height={360}
