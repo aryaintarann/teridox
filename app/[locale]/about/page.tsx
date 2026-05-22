@@ -152,7 +152,7 @@ export default function AboutPage() {
             <div className="space-y-8">
               {timeline.map((item, i) => (
                 <motion.div
-                  key={item.year}
+                  key={i}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
