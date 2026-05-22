@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/lib/i18n/navigation'
 
@@ -10,64 +10,6 @@ const valueProps = [
   { icon: 'gem',      titleKey: 'quality',  descKey: 'qualityDesc' },
 ]
 
-const stats = [
-  { num: '50', suffix: '+', label: 'Proyek Selesai' },
-  { num: '98', suffix: '%', label: 'Kepuasan Klien' },
-  { num: '3',  suffix: '+', label: 'Tahun Pengalaman' },
-]
-
-function useCountUp(target: number, duration = 2000) {
-  const [count, setCount] = useState(0)
-  const [started, setStarted] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting && !started) setStarted(true) },
-      { threshold: 0.5 }
-    )
-    if (ref.current) obs.observe(ref.current)
-    return () => obs.disconnect()
-  }, [started])
-
-  useEffect(() => {
-    if (!started) return
-    let cur = 0
-    const steps = 50
-    const iv = setInterval(() => {
-      cur += target / steps
-      if (cur >= target) { setCount(target); clearInterval(iv) }
-      else setCount(Math.floor(cur))
-    }, duration / steps)
-    return () => clearInterval(iv)
-  }, [started, target, duration])
-
-  return [count, ref] as const
-}
-
-function StatCard({ num, suffix, label, offset }: { num: string; suffix: string; label: string; offset?: boolean }) {
-  const [val, ref] = useCountUp(parseInt(num))
-  return (
-    <div
-      ref={ref}
-      style={{
-        background: 'white',
-        borderRadius: 16,
-        padding: '20px 28px',
-        display: 'flex',
-        alignItems: 'center',
-        gap: 20,
-        boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-        transform: offset ? 'translateX(24px)' : 'none',
-      }}
-    >
-      <div style={{ fontFamily: 'var(--font-syne)', fontSize: 40, fontWeight: 800, color: '#00C7B7', minWidth: 80 }}>
-        {val}{suffix}
-      </div>
-      <div style={{ fontSize: 14, color: '#64748B', fontWeight: 500, fontFamily: 'var(--font-dmsans)' }}>{label}</div>
-    </div>
-  )
-}
 
 export default function AboutSnapshot() {
   const t = useTranslations('about')
@@ -115,13 +57,15 @@ export default function AboutSnapshot() {
           </Link>
         </div>
 
-        {/* Right: stat cards */}
-        <div style={{ background: '#0F1B2D', borderRadius: 24, padding: 48 }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            {stats.map((s, i) => (
-              <StatCard key={s.label} num={s.num} suffix={s.suffix} label={s.label} offset={i === 1} />
-            ))}
-          </div>
+        {/* Right: logo */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Image
+            src="/logo/1.svg"
+            alt="Teridox"
+            width={480}
+            height={360}
+            style={{ width: '100%', height: 'auto' }}
+          />
         </div>
       </div>
     </section>
