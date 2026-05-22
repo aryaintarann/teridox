@@ -17,7 +17,7 @@
     "ctaPrimary": "Mulai Proyek",
     "ctaSecondary": "Lihat Portfolio",
     "scrollText": "Scroll untuk explore",
-    "trust": "✓ 50+ Proyek   ✓ 3+ Tahun   ✓ 98% Kepuasan",
+    "trust": "✓ 50+ Proyek   ✓ Sejak 2024   ✓ 98% Kepuasan",
     "techBadges": ["Next.js", "React Native", "Node.js", "Flutter", "Supabase", "AWS"]
   },
   "stats": {
@@ -106,7 +106,7 @@
     "label": "Tentang Kami",
     "title": "Perusahaan Teknologi yang Berfokus pada Solusi Nyata",
     "p1": "Teridox lahir dari passion mendalam terhadap teknologi dan keyakinan bahwa setiap bisnis berhak mendapatkan solusi software terbaik. Kami membangun lebih dari sekadar produk — kami membangun fondasi teknologi yang menggerakkan pertumbuhan nyata.",
-    "p2": "Dengan tim berpengalaman dan rekam jejak 3+ tahun menangani proyek dari berbagai industri, kami hadir sebagai mitra teknologi terpercaya untuk bisnis Anda.",
+    "p2": "Dengan tim berdedikasi dan semangat tinggi sejak 2024, kami hadir sebagai mitra teknologi terpercaya yang siap membantu bisnis Anda tumbuh.",
     "fast": "Cepat",
     "fastDesc": "Pengerjaan tepat waktu, selalu.",
     "precise": "Tepat Sasaran",
@@ -117,7 +117,7 @@
     "subtitle": "Kami adalah tim developer berpengalaman yang berdedikasi memberikan solusi teknologi terbaik untuk bisnis Anda",
     "story": {
       "title": "Cerita Kami",
-      "content": "Teridox didirikan pada 2020 oleh sekelompok developer yang melihat banyak bisnis di Indonesia membutuhkan solusi teknologi yang tepat dan terjangkau. Kami percaya bahwa teknologi yang baik harus accessible, scalable, dan benar-benar memecahkan masalah bisnis nyata. Dari tim kecil dengan 3 orang, kami tumbuh menjadi perusahaan teknologi yang telah melayani puluhan klien dari berbagai industri dengan layanan web development, mobile apps, dan penjualan software."
+      "content": "Teridox didirikan pada 2024 dengan semangat untuk membantu bisnis Indonesia mendapatkan solusi teknologi yang tepat dan terjangkau. Kami percaya bahwa teknologi yang baik harus accessible, scalable, dan benar-benar memecahkan masalah bisnis nyata. Mulai dari nol, kami terus tumbuh dan kini melayani klien dari berbagai industri dengan layanan web development, mobile apps, dan penjualan software."
     },
     "mission": {
       "title": "Misi",
@@ -143,12 +143,11 @@
     "timeline": {
       "title": "Perjalanan Kami",
       "items": [
-        { "year": "2020", "title": "Teridox Didirikan", "desc": "Mulai dengan 3 orang dan visi membantu bisnis Indonesia mendapatkan solusi teknologi terbaik." },
-        { "year": "2021", "title": "50 Proyek Pertama", "desc": "Mencapai milestone 50 proyek web dan mobile dalam setahun pertama beroperasi." },
-        { "year": "2022", "title": "Ekspansi Layanan", "desc": "Berkembang menjadi 15 orang dan mulai menawarkan layanan penjualan software berlisensi." },
-        { "year": "2023", "title": "Kemitraan Software", "desc": "Menjalin kemitraan resmi dengan vendor software terkemuka untuk memperluas katalog produk." },
-        { "year": "2024", "title": "150+ Proyek", "desc": "Melampaui 150 proyek selesai dan melayani klien dari berbagai industri di seluruh Indonesia." },
-        { "year": "2025", "title": "Inovasi Berkelanjutan", "desc": "Terus berinovasi menghadirkan solusi web, mobile, dan software terkini untuk klien kami." }
+        { "year": "2024", "title": "Teridox Didirikan", "desc": "Berdiri dengan visi menyediakan jasa web development, mobile apps, dan software terjangkau untuk bisnis Indonesia." },
+        { "year": "2024", "title": "Proyek Pertama", "desc": "Menyelesaikan proyek web dan mobile pertama, membangun kepercayaan klien dari awal." },
+        { "year": "2025", "title": "Layanan Software", "desc": "Memperluas layanan dengan menambahkan penjualan software berlisensi sesuai kebutuhan klien." },
+        { "year": "2025", "title": "Pertumbuhan Klien", "desc": "Mulai melayani klien dari berbagai industri di seluruh Indonesia secara konsisten." },
+        { "year": "2026", "title": "Terus Berkembang", "desc": "Terus berinovasi dan meningkatkan kualitas layanan untuk memberikan solusi terbaik bagi klien." }
       ]
     }
   },

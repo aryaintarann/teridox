@@ -7,7 +7,7 @@ import { useTheme } from 'next-themes'
 const statData = [
   { num: '50', suffix: '+', labelKey: 'projects',    icon: 'rocket' },
   { num: '98', suffix: '%', labelKey: 'satisfaction', icon: 'heart' },
-  { num: '3',  suffix: '+', labelKey: 'years',        icon: 'calendar-days' },
+  { num: '2',  suffix: '+', labelKey: 'years',        icon: 'calendar-days' },
   { num: '20', suffix: '+', labelKey: 'clients',      icon: 'handshake' },
 ]
 

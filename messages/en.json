@@ -17,7 +17,7 @@
     "ctaPrimary": "Start a Project",
     "ctaSecondary": "View Portfolio",
     "scrollText": "Scroll to explore",
-    "trust": "✓ 50+ Projects   ✓ 3+ Years   ✓ 98% Satisfaction",
+    "trust": "✓ 50+ Projects   ✓ Since 2024   ✓ 98% Satisfaction",
     "techBadges": ["Next.js", "React Native", "Node.js", "Flutter", "Supabase", "AWS"]
   },
   "stats": {
@@ -106,7 +106,7 @@
     "label": "About Us",
     "title": "A Technology Company Focused on Real Solutions",
     "p1": "Teridox was born from a deep passion for technology and the belief that every business deserves the best software solutions. We build more than products — we build the technology foundation that drives real growth.",
-    "p2": "With an experienced team and 3+ years of proven track record across various industries, we stand as your trusted technology partner for web development, mobile apps, and software needs.",
+    "p2": "With a dedicated team and strong commitment since 2024, we stand as your trusted technology partner ready to help your business grow.",
     "fast": "Fast",
     "fastDesc": "On-time delivery, always.",
     "precise": "On-Target",
@@ -117,7 +117,7 @@
     "subtitle": "We are an experienced team of developers dedicated to delivering the best technology solutions for your business",
     "story": {
       "title": "Our Story",
-      "content": "Teridox was founded in 2020 by a group of developers who saw many Indonesian businesses struggling to find affordable and reliable technology solutions. We believe good technology must be accessible, scalable, and truly solve real business problems. From a small team of 3, we've grown into a technology company that has served dozens of clients across various industries with web development, mobile apps, and software sales services."
+      "content": "Teridox was founded in 2024 with a drive to help Indonesian businesses access affordable and reliable technology solutions. We believe good technology must be accessible, scalable, and truly solve real business problems. Starting from scratch, we have grown steadily and now serve clients from various industries with web development, mobile apps, and software sales services."
     },
     "mission": {
       "title": "Mission",
@@ -143,12 +143,11 @@
     "timeline": {
       "title": "Our Journey",
       "items": [
-        { "year": "2020", "title": "Teridox Founded", "desc": "Started with 3 people and a vision to help Indonesian businesses get the best technology solutions." },
-        { "year": "2021", "title": "First 50 Projects", "desc": "Reached the milestone of 50 completed web and mobile projects within the first year of operations." },
-        { "year": "2022", "title": "Service Expansion", "desc": "Grew to 15 people and began offering licensed software sales to complement development services." },
-        { "year": "2023", "title": "Software Partnerships", "desc": "Established official partnerships with leading software vendors to expand our product catalog." },
-        { "year": "2024", "title": "150+ Projects", "desc": "Surpassed 150 completed projects and served clients from various industries across Indonesia." },
-        { "year": "2025", "title": "Continuous Innovation", "desc": "Continuing to innovate and deliver the latest web, mobile, and software solutions for our clients." }
+        { "year": "2024", "title": "Teridox Founded", "desc": "Established with a vision to provide affordable web development, mobile apps, and software services for Indonesian businesses." },
+        { "year": "2024", "title": "First Projects", "desc": "Completed our first web and mobile projects, building client trust from the ground up." },
+        { "year": "2025", "title": "Software Services", "desc": "Expanded our offering by adding licensed software sales to meet growing client needs." },
+        { "year": "2025", "title": "Growing Client Base", "desc": "Started serving clients from various industries across Indonesia on a consistent basis." },
+        { "year": "2026", "title": "Continuing to Grow", "desc": "Continuously innovating and improving our services to deliver the best solutions for every client." }
       ]
     }
   },
