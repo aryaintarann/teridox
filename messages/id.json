@@ -34,34 +34,87 @@
     "subtitle": "Dari pengembangan hingga penjualan software, kami siap membantu bisnis Anda tumbuh dengan teknologi yang tepat.",
     "viewAll": "Lihat Semua Layanan",
     "learnMore": "Selengkapnya",
+    "detail": {
+      "featuresHeading": "Yang Anda Dapatkan",
+      "processHeading": "Proses Kerja",
+      "faqHeading": "FAQ",
+      "sidebarTitle": "Siap Memulai?",
+      "sidebarDesc": "Konsultasikan kebutuhan proyek Anda dengan tim kami. Gratis, tanpa komitmen.",
+      "sidebarCta": "Hubungi Kami",
+      "notFound": "Layanan tidak ditemukan."
+    },
     "items": [
       {
         "slug": "web-development",
         "icon": "Globe",
         "title": "Web Development",
         "desc": "Website modern, cepat, dan responsif yang menghadirkan pengalaman pengguna terbaik dan mendorong pertumbuhan bisnis Anda secara signifikan.",
-        "features": ["Landing Page & Company Profile", "E-Commerce Platform", "Custom Web Application", "CMS & Headless Integration", "API Development & Integration"]
+        "features": ["Landing Page & Company Profile", "E-Commerce Platform", "Custom Web Application", "CMS & Headless Integration", "API Development & Integration"],
+        "process": [
+          { "step": 1, "title": "Discovery & Planning", "desc": "Kami memahami kebutuhan bisnis dan tujuan Anda secara menyeluruh." },
+          { "step": 2, "title": "Design & Prototyping", "desc": "Membuat wireframe dan desain UI yang disetujui klien sebelum development." },
+          { "step": 3, "title": "Development", "desc": "Pengembangan dengan teknologi modern, clean code, dan best practices." },
+          { "step": 4, "title": "Testing & Launch", "desc": "QA menyeluruh di berbagai perangkat dan browser sebelum go-live." }
+        ],
+        "detailFaq": [
+          { "q": "Berapa lama pembuatan website?", "a": "Company profile: 2–4 minggu. Web app kompleks: 2–4 bulan. Estimasi diberikan di awal proyek." },
+          { "q": "Teknologi apa yang digunakan?", "a": "Next.js, React, TypeScript, Tailwind CSS, Supabase/PostgreSQL." },
+          { "q": "Apakah ada revisi desain?", "a": "Ya, termasuk 3 kali revisi desain tanpa biaya tambahan." }
+        ]
       },
       {
         "slug": "mobile-development",
         "icon": "Smartphone",
         "title": "Mobile App Development",
         "desc": "Aplikasi mobile iOS dan Android yang intuitif dengan performa tinggi, pengalaman pengguna yang mulus, dan fitur-fitur yang sesuai kebutuhan bisnis Anda.",
-        "features": ["React Native Cross-Platform", "Native iOS & Android", "App Store & Play Store Publishing", "Push Notifications & Deep Linking", "Offline-First Capability"]
+        "features": ["React Native Cross-Platform", "Native iOS & Android", "App Store & Play Store Publishing", "Push Notifications & Deep Linking", "Offline-First Capability"],
+        "process": [
+          { "step": 1, "title": "Konsultasi & Scope", "desc": "Mendefinisikan fitur, user flow, dan target pengguna aplikasi." },
+          { "step": 2, "title": "UI/UX Design", "desc": "Prototype interaktif yang bisa dicoba sebelum masuk tahap development." },
+          { "step": 3, "title": "Development Sprint", "desc": "Agile development dengan demo dan review setiap 2 minggu." },
+          { "step": 4, "title": "QA & Submit", "desc": "Testing di berbagai device dan submit ke App Store serta Google Play." }
+        ],
+        "detailFaq": [
+          { "q": "Flutter atau React Native?", "a": "Kami merekomendasikan Flutter untuk performa terbaik, React Native untuk integrasi ekosistem React." },
+          { "q": "Berapa lama proses review App Store?", "a": "Apple App Store: 1–3 hari kerja. Google Play: beberapa jam hingga 2 hari." },
+          { "q": "Apakah ada support update di masa depan?", "a": "Ya, tersedia paket maintenance dan update fitur secara berkala." }
+        ]
       },
       {
         "slug": "software-sales",
         "icon": "Package",
         "title": "Penjualan Software",
         "desc": "Kami menyediakan dan menjual solusi software siap pakai maupun berlisensi yang sesuai dengan kebutuhan operasional dan skala bisnis Anda.",
-        "features": ["Software Berlisensi Resmi", "Software Manajemen Bisnis", "Software Akuntansi & Keuangan", "Software HR & Payroll", "Instalasi & Onboarding"]
+        "features": ["Software Berlisensi Resmi", "Software Manajemen Bisnis", "Software Akuntansi & Keuangan", "Software HR & Payroll", "Instalasi & Onboarding"],
+        "process": [
+          { "step": 1, "title": "Konsultasi Kebutuhan", "desc": "Kami memahami kebutuhan operasional dan skala bisnis Anda." },
+          { "step": 2, "title": "Rekomendasi Produk", "desc": "Kami merekomendasikan software yang paling sesuai dari katalog kami." },
+          { "step": 3, "title": "Pembelian & Lisensi", "desc": "Proses pembelian dan aktivasi lisensi resmi yang mudah dan cepat." },
+          { "step": 4, "title": "Instalasi & Training", "desc": "Instalasi, konfigurasi, dan pelatihan penggunaan untuk tim Anda." }
+        ],
+        "detailFaq": [
+          { "q": "Software apa saja yang tersedia?", "a": "Kami menyediakan software manajemen bisnis, akuntansi, HR & payroll, dan lainnya. Hubungi kami untuk katalog lengkap." },
+          { "q": "Apakah lisensi resmi dan terjamin?", "a": "Ya, semua software yang kami jual berlisensi resmi dari vendor aslinya." },
+          { "q": "Apakah ada dukungan teknis setelah pembelian?", "a": "Ya, kami menyediakan support teknis untuk instalasi dan penggunaan setelah pembelian." }
+        ]
       },
       {
         "slug": "ai-integration",
         "icon": "BrainCircuit",
         "title": "AI Integration",
         "desc": "Integrasikan kecerdasan buatan ke dalam produk atau proses bisnis Anda untuk efisiensi maksimal, otomasi cerdas, dan keunggulan kompetitif.",
-        "features": ["Chatbot & Virtual Assistant", "AI-Powered Analytics", "Otomasi Proses dengan AI", "Integrasi LLM & RAG", "Computer Vision & OCR"]
+        "features": ["Chatbot & Virtual Assistant", "AI-Powered Analytics", "Otomasi Proses dengan AI", "Integrasi LLM & RAG", "Computer Vision & OCR"],
+        "process": [
+          { "step": 1, "title": "Analisis Proses Bisnis", "desc": "Mengidentifikasi proses yang paling potensial untuk diotomasi atau ditingkatkan dengan AI." },
+          { "step": 2, "title": "Desain Solusi AI", "desc": "Merancang arsitektur dan memilih model AI yang paling tepat untuk kebutuhan Anda." },
+          { "step": 3, "title": "Development & Integrasi", "desc": "Membangun dan mengintegrasikan solusi AI ke dalam sistem atau aplikasi yang sudah ada." },
+          { "step": 4, "title": "Testing & Deployment", "desc": "Pengujian menyeluruh, fine-tuning, dan deployment ke lingkungan produksi." }
+        ],
+        "detailFaq": [
+          { "q": "Solusi AI apa yang bisa diintegrasikan?", "a": "Chatbot, analitik prediktif, otomasi dokumen, computer vision, dan integrasi model bahasa besar (LLM)." },
+          { "q": "Berapa lama waktu integrasi AI?", "a": "Tergantung kompleksitas, mulai dari 2 minggu untuk chatbot sederhana hingga beberapa bulan untuk solusi enterprise." },
+          { "q": "Apakah perlu infrastruktur khusus?", "a": "Tidak selalu. Kami menyesuaikan solusi dengan infrastruktur yang sudah ada atau merekomendasikan yang paling efisien." }
+        ]
       }
     ]
   },

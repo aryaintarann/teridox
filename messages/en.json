@@ -34,34 +34,87 @@
     "subtitle": "From development to software sales, we are ready to help your business grow with the right technology.",
     "viewAll": "View All Services",
     "learnMore": "Learn More",
+    "detail": {
+      "featuresHeading": "What You Get",
+      "processHeading": "Our Process",
+      "faqHeading": "FAQ",
+      "sidebarTitle": "Ready to Start?",
+      "sidebarDesc": "Discuss your project needs with our team. Free, no commitment.",
+      "sidebarCta": "Contact Us",
+      "notFound": "Service not found."
+    },
     "items": [
       {
         "slug": "web-development",
         "icon": "Globe",
         "title": "Web Development",
         "desc": "Modern, fast, and responsive websites that deliver the best user experience and drive significant business growth.",
-        "features": ["Landing Page & Company Profile", "E-Commerce Platform", "Custom Web Application", "CMS & Headless Integration", "API Development & Integration"]
+        "features": ["Landing Page & Company Profile", "E-Commerce Platform", "Custom Web Application", "CMS & Headless Integration", "API Development & Integration"],
+        "process": [
+          { "step": 1, "title": "Discovery & Planning", "desc": "We thoroughly understand your business needs and goals." },
+          { "step": 2, "title": "Design & Prototyping", "desc": "We create wireframes and UI designs approved by the client before development." },
+          { "step": 3, "title": "Development", "desc": "Development using modern technologies, clean code, and best practices." },
+          { "step": 4, "title": "Testing & Launch", "desc": "Thorough QA across devices and browsers before going live." }
+        ],
+        "detailFaq": [
+          { "q": "How long does website development take?", "a": "Company profile: 2–4 weeks. Complex web app: 2–4 months. A timeline estimate is provided at the start of the project." },
+          { "q": "What technologies do you use?", "a": "Next.js, React, TypeScript, Tailwind CSS, Supabase/PostgreSQL." },
+          { "q": "Are design revisions included?", "a": "Yes, up to 3 design revisions are included at no extra cost." }
+        ]
       },
       {
         "slug": "mobile-development",
         "icon": "Smartphone",
         "title": "Mobile App Development",
         "desc": "Intuitive iOS and Android mobile apps with high performance, seamless user experience, and features tailored to your business needs.",
-        "features": ["React Native Cross-Platform", "Native iOS & Android", "App Store & Play Store Publishing", "Push Notifications & Deep Linking", "Offline-First Capability"]
+        "features": ["React Native Cross-Platform", "Native iOS & Android", "App Store & Play Store Publishing", "Push Notifications & Deep Linking", "Offline-First Capability"],
+        "process": [
+          { "step": 1, "title": "Consultation & Scope", "desc": "Defining the features, user flow, and target audience of the app." },
+          { "step": 2, "title": "UI/UX Design", "desc": "An interactive prototype you can try before development begins." },
+          { "step": 3, "title": "Development Sprints", "desc": "Agile development with demos and reviews every 2 weeks." },
+          { "step": 4, "title": "QA & Submission", "desc": "Testing on multiple devices and submission to the App Store and Google Play." }
+        ],
+        "detailFaq": [
+          { "q": "Flutter or React Native?", "a": "We recommend Flutter for best performance, React Native for React ecosystem integration." },
+          { "q": "How long does the App Store review take?", "a": "Apple App Store: 1–3 business days. Google Play: a few hours to 2 days." },
+          { "q": "Is future update support available?", "a": "Yes, we offer maintenance packages and periodic feature updates." }
+        ]
       },
       {
         "slug": "software-sales",
         "icon": "Package",
         "title": "Software Sales",
         "desc": "We provide and sell ready-to-use and licensed software solutions tailored to your operational needs and business scale.",
-        "features": ["Official Licensed Software", "Business Management Software", "Accounting & Finance Software", "HR & Payroll Software", "Installation & Onboarding"]
+        "features": ["Official Licensed Software", "Business Management Software", "Accounting & Finance Software", "HR & Payroll Software", "Installation & Onboarding"],
+        "process": [
+          { "step": 1, "title": "Needs Consultation", "desc": "We understand your operational needs and business scale." },
+          { "step": 2, "title": "Product Recommendation", "desc": "We recommend the most suitable software from our catalog." },
+          { "step": 3, "title": "Purchase & Licensing", "desc": "A simple and fast official license purchase and activation process." },
+          { "step": 4, "title": "Installation & Training", "desc": "Installation, configuration, and usage training for your team." }
+        ],
+        "detailFaq": [
+          { "q": "What software products are available?", "a": "We carry business management, accounting, HR & payroll software, and more. Contact us for the full catalog." },
+          { "q": "Are the licenses genuine?", "a": "Yes, all software we sell comes with official licenses from the original vendor." },
+          { "q": "Is technical support included after purchase?", "a": "Yes, we provide technical support for installation and usage after purchase." }
+        ]
       },
       {
         "slug": "ai-integration",
         "icon": "BrainCircuit",
         "title": "AI Integration",
         "desc": "Integrate artificial intelligence into your products or business processes for maximum efficiency, smart automation, and competitive advantage.",
-        "features": ["Chatbot & Virtual Assistant", "AI-Powered Analytics", "Business Process Automation with AI", "LLM & RAG Integration", "Computer Vision & OCR"]
+        "features": ["Chatbot & Virtual Assistant", "AI-Powered Analytics", "Business Process Automation with AI", "LLM & RAG Integration", "Computer Vision & OCR"],
+        "process": [
+          { "step": 1, "title": "Business Process Analysis", "desc": "Identifying the processes most suited for automation or enhancement with AI." },
+          { "step": 2, "title": "AI Solution Design", "desc": "Designing the architecture and selecting the most appropriate AI models for your needs." },
+          { "step": 3, "title": "Development & Integration", "desc": "Building and integrating the AI solution into your existing systems or applications." },
+          { "step": 4, "title": "Testing & Deployment", "desc": "Thorough testing, fine-tuning, and deployment to the production environment." }
+        ],
+        "detailFaq": [
+          { "q": "What AI solutions can be integrated?", "a": "Chatbots, predictive analytics, document automation, computer vision, and large language model (LLM) integrations." },
+          { "q": "How long does AI integration take?", "a": "Depending on complexity, from 2 weeks for a simple chatbot to several months for enterprise solutions." },
+          { "q": "Is special infrastructure required?", "a": "Not always. We tailor the solution to your existing infrastructure or recommend the most efficient setup." }
+        ]
       }
     ]
   },
