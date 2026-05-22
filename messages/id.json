@@ -55,6 +55,13 @@
         "title": "Penjualan Software",
         "desc": "Kami menyediakan dan menjual solusi software siap pakai maupun berlisensi yang sesuai dengan kebutuhan operasional dan skala bisnis Anda.",
         "features": ["Software Berlisensi Resmi", "Software Manajemen Bisnis", "Software Akuntansi & Keuangan", "Software HR & Payroll", "Instalasi & Onboarding"]
+      },
+      {
+        "slug": "ai-integration",
+        "icon": "BrainCircuit",
+        "title": "AI Integration",
+        "desc": "Integrasikan kecerdasan buatan ke dalam produk atau proses bisnis Anda untuk efisiensi maksimal, otomasi cerdas, dan keunggulan kompetitif.",
+        "features": ["Chatbot & Virtual Assistant", "AI-Powered Analytics", "Otomasi Proses dengan AI", "Integrasi LLM & RAG", "Computer Vision & OCR"]
       }
     ]
   },

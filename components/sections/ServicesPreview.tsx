@@ -5,9 +5,10 @@ import { useTranslations } from 'next-intl'
 import { Link } from '@/lib/i18n/navigation'
 
 const services = [
-  { id: 'web',      icon: 'globe',              accentColor: '#00C7B7', href: '/services/web-development' },
+  { id: 'web',      icon: 'globe',               accentColor: '#00C7B7', href: '/services/web-development' },
   { id: 'mobile',   icon: 'mobile-screen-button', accentColor: '#6366F1', href: '/services/mobile-development' },
-  { id: 'software', icon: 'box-open',           accentColor: '#F59E0B', href: '/services/software-sales' },
+  { id: 'software', icon: 'box-open',             accentColor: '#F59E0B', href: '/services/software-sales' },
+  { id: 'ai',       icon: 'microchip',            accentColor: '#8B5CF6', href: '/services/ai-integration' },
 ]
 
 function ServiceCard({ service, index }: { service: typeof services[number]; index: number }) {

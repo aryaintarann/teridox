@@ -55,6 +55,13 @@
         "title": "Software Sales",
         "desc": "We provide and sell ready-to-use and licensed software solutions tailored to your operational needs and business scale.",
         "features": ["Official Licensed Software", "Business Management Software", "Accounting & Finance Software", "HR & Payroll Software", "Installation & Onboarding"]
+      },
+      {
+        "slug": "ai-integration",
+        "icon": "BrainCircuit",
+        "title": "AI Integration",
+        "desc": "Integrate artificial intelligence into your products or business processes for maximum efficiency, smart automation, and competitive advantage.",
+        "features": ["Chatbot & Virtual Assistant", "AI-Powered Analytics", "Business Process Automation with AI", "LLM & RAG Integration", "Computer Vision & OCR"]
       }
     ]
   },
