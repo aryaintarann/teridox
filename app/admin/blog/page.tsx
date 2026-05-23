@@ -1,9 +1,9 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { BlogPost } from '@/lib/types/admin'
-import { Plus, Pencil, Trash2, Eye, EyeOff, Wand2, RefreshCw, Tag } from 'lucide-react'
+import { Plus, Pencil, Trash2, Eye, EyeOff, Wand2, RefreshCw, Tag, Upload, Sparkles, X, ImageIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -14,6 +14,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sh
 
 const EMPTY: Omit<BlogPost, 'id' | 'created_at' | 'updated_at'> = {
   title: '', title_en: '', slug: '', content: '', content_en: '',
+  cover_image_url: '',
   meta_title: '', meta_description: '', tags: [], reading_time_min: 5,
   published: false, category: 'teknologi',
 }
@@ -34,6 +35,11 @@ export default function BlogPage() {
   const [saving, setSaving] = useState(false)
   const [generating, setGenerating] = useState(false)
   const [aiTopic, setAiTopic] = useState('')
+  const [uploading, setUploading] = useState(false)
+  const [generatingImage, setGeneratingImage] = useState(false)
+  const [showImagePrompt, setShowImagePrompt] = useState(false)
+  const [imagePrompt, setImagePrompt] = useState('')
+  const fileInputRef = useRef<HTMLInputElement>(null)
   const supabase = createClient()
 
   const loadPosts = useCallback(async () => {
@@ -50,6 +56,8 @@ export default function BlogPage() {
     setForm({ ...EMPTY })
     setTagsInput('')
     setAiTopic('')
+    setShowImagePrompt(false)
+    setImagePrompt('')
     setOpen(true)
   }
 
@@ -58,18 +66,21 @@ export default function BlogPage() {
     setForm({
       title: post.title, title_en: post.title_en, slug: post.slug,
       content: post.content, content_en: post.content_en,
+      cover_image_url: post.cover_image_url ?? '',
       meta_title: post.meta_title, meta_description: post.meta_description,
       tags: post.tags ?? [], reading_time_min: post.reading_time_min,
       published: post.published, category: post.category,
     })
     setTagsInput((post.tags ?? []).join(', '))
+    setShowImagePrompt(false)
+    setImagePrompt('')
     setOpen(true)
   }
 
-  function set(field: string, value: any) {
+  function set(field: string, value: unknown) {
     setForm(prev => {
       const next = { ...prev, [field]: value }
-      if (field === 'title' && !editing) next.slug = slugify(value)
+      if (field === 'title' && !editing) next.slug = slugify(value as string)
       return next
     })
   }
@@ -78,13 +89,12 @@ export default function BlogPage() {
     if (!aiTopic.trim()) return
     setGenerating(true)
     try {
-      const res = await fetch(`/api/blog-generate`, {
+      const res = await fetch('/api/blog-generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ topic: aiTopic, language: 'id', length: 'medium', tone: 'informative' }),
       })
       const data = await res.json()
-      // API returns { original: {id content}, translated: {en content}, sourceLang }
       const id = data.original
       const en = data.translated
       if (id?.title) {
@@ -104,6 +114,45 @@ export default function BlogPage() {
       }
     } catch {}
     setGenerating(false)
+  }
+
+  async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploading(true)
+    try {
+      const fd = new FormData()
+      fd.append('file', file)
+      const res = await fetch('/api/blog/upload-image', { method: 'POST', body: fd })
+      const data = await res.json()
+      if (data.url) set('cover_image_url', data.url)
+      else alert(data.error ?? 'Upload gagal')
+    } catch {
+      alert('Upload gagal')
+    }
+    setUploading(false)
+    if (fileInputRef.current) fileInputRef.current.value = ''
+  }
+
+  async function generateImage() {
+    setGeneratingImage(true)
+    try {
+      const res = await fetch('/api/blog/generate-image', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: imagePrompt, articleTitle: form.title }),
+      })
+      const data = await res.json()
+      if (data.url) {
+        set('cover_image_url', data.url)
+        setShowImagePrompt(false)
+      } else {
+        alert(data.error ?? 'Generate gambar gagal')
+      }
+    } catch {
+      alert('Generate gambar gagal')
+    }
+    setGeneratingImage(false)
   }
 
   async function save() {
@@ -167,8 +216,19 @@ export default function BlogPage() {
               {posts.map(post => (
                 <tr key={post.id} className="hover:bg-muted/20 transition-colors">
                   <td className="px-4 py-3">
-                    <p className="text-sm font-medium">{post.title}</p>
-                    <p className="text-xs text-muted-foreground">{post.slug}</p>
+                    <div className="flex items-center gap-3">
+                      {post.cover_image_url ? (
+                        <img src={post.cover_image_url} alt={post.title} className="w-10 h-10 rounded-lg object-cover shrink-0" />
+                      ) : (
+                        <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center shrink-0">
+                          <ImageIcon className="h-4 w-4 text-muted-foreground" />
+                        </div>
+                      )}
+                      <div>
+                        <p className="text-sm font-medium">{post.title}</p>
+                        <p className="text-xs text-muted-foreground">{post.slug}</p>
+                      </div>
+                    </div>
                   </td>
                   <td className="px-4 py-3">
                     <Badge variant="outline" className="text-xs capitalize">{post.category}</Badge>
@@ -208,11 +268,11 @@ export default function BlogPage() {
           </SheetHeader>
 
           <div className="flex-1 overflow-y-auto px-6 py-5 space-y-5">
-            {/* AI Generation */}
+            {/* AI Content Generation */}
             {!editing && (
               <div className="p-4 bg-primary/5 border border-primary/20 rounded-xl">
                 <p className="text-sm font-medium mb-3 flex items-center gap-2">
-                  <Wand2 className="h-4 w-4 text-primary" /> Generate dengan AI
+                  <Wand2 className="h-4 w-4 text-primary" /> Generate Konten dengan AI
                 </p>
                 <div className="flex gap-2">
                   <Input
@@ -231,6 +291,106 @@ export default function BlogPage() {
                 )}
               </div>
             )}
+
+            {/* Cover Image */}
+            <div className="space-y-3">
+              <Label className="text-xs font-medium flex items-center gap-1">
+                <ImageIcon className="h-3 w-3" /> Cover Image
+              </Label>
+
+              {form.cover_image_url ? (
+                <div className="relative rounded-xl overflow-hidden border border-border">
+                  <img
+                    src={form.cover_image_url}
+                    alt="Cover artikel"
+                    className="w-full h-48 object-cover"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => set('cover_image_url', '')}
+                    className="absolute top-2 right-2 bg-black/60 hover:bg-black/80 text-white rounded-full p-1.5 transition-colors"
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+              ) : (
+                <div className="border-2 border-dashed border-border rounded-xl h-40 flex flex-col items-center justify-center gap-2 bg-muted/20">
+                  <ImageIcon className="h-8 w-8 text-muted-foreground" />
+                  <p className="text-xs text-muted-foreground">Belum ada cover image</p>
+                </div>
+              )}
+
+              <div className="flex gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploading || generatingImage}
+                  className="flex-1"
+                >
+                  {uploading
+                    ? <><RefreshCw className="h-4 w-4 animate-spin mr-1.5" /> Mengupload...</>
+                    : <><Upload className="h-4 w-4 mr-1.5" /> Upload Foto</>
+                  }
+                </Button>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp,image/gif"
+                  className="hidden"
+                  onChange={handleFileUpload}
+                />
+
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowImagePrompt(v => !v)}
+                  disabled={uploading || generatingImage}
+                  className="flex-1"
+                >
+                  <Sparkles className="h-4 w-4 mr-1.5" /> Generate AI
+                </Button>
+              </div>
+
+              {showImagePrompt && (
+                <div className="p-3 bg-violet-50 dark:bg-violet-950/20 border border-violet-200 dark:border-violet-800/40 rounded-xl space-y-2">
+                  <p className="text-xs text-muted-foreground">
+                    Biarkan kosong untuk auto-generate dari judul artikel
+                  </p>
+                  <Input
+                    placeholder={`Prompt gambar (mis: "teknologi AI, biru, minimalis, modern")`}
+                    value={imagePrompt}
+                    onChange={e => setImagePrompt(e.target.value)}
+                    className="text-sm"
+                    onKeyDown={e => e.key === 'Enter' && generateImage()}
+                  />
+                  <Button
+                    type="button"
+                    size="sm"
+                    onClick={generateImage}
+                    disabled={generatingImage}
+                    className="w-full bg-violet-600 hover:bg-violet-700 text-white"
+                  >
+                    {generatingImage
+                      ? <><RefreshCw className="h-4 w-4 animate-spin mr-2" /> Generating gambar…</>
+                      : <><Sparkles className="h-4 w-4 mr-2" /> Generate Gambar dengan AI</>
+                    }
+                  </Button>
+                </div>
+              )}
+
+              <div className="space-y-1">
+                <Label className="text-xs text-muted-foreground">Atau masukkan URL gambar</Label>
+                <Input
+                  value={form.cover_image_url}
+                  onChange={e => set('cover_image_url', e.target.value)}
+                  placeholder="https://..."
+                  className="text-sm"
+                />
+              </div>
+            </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
@@ -272,8 +432,14 @@ export default function BlogPage() {
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <Label className="text-xs font-medium">Meta Title</Label>
-                <Input value={form.meta_title} onChange={e => set('meta_title', e.target.value)} placeholder="SEO title (maks. 60 karakter)" />
+                <Label className="text-xs font-medium">Meta Title <span className="text-muted-foreground font-normal">(maks. 60 karakter)</span></Label>
+                <Input
+                  value={form.meta_title}
+                  onChange={e => set('meta_title', e.target.value)}
+                  placeholder="SEO title"
+                  maxLength={60}
+                />
+                <p className="text-xs text-muted-foreground text-right">{form.meta_title.length}/60</p>
               </div>
               <div className="space-y-1.5">
                 <Label className="text-xs font-medium">Waktu Baca (menit)</Label>
@@ -282,8 +448,9 @@ export default function BlogPage() {
             </div>
 
             <div className="space-y-1.5">
-              <Label className="text-xs font-medium">Meta Description</Label>
-              <Textarea value={form.meta_description} onChange={e => set('meta_description', e.target.value)} rows={2} placeholder="Deskripsi SEO (maks. 160 karakter)" className="resize-none" />
+              <Label className="text-xs font-medium">Meta Description <span className="text-muted-foreground font-normal">(maks. 160 karakter)</span></Label>
+              <Textarea value={form.meta_description} onChange={e => set('meta_description', e.target.value)} rows={2} placeholder="Deskripsi SEO" className="resize-none" maxLength={160} />
+              <p className="text-xs text-muted-foreground text-right">{form.meta_description.length}/160</p>
             </div>
 
             <div className="space-y-1.5">
@@ -292,7 +459,7 @@ export default function BlogPage() {
             </div>
           </div>
 
-          {/* Footer — fixed at bottom */}
+          {/* Footer */}
           <div className="shrink-0 flex items-center justify-between px-6 py-4 border-t border-border bg-card">
             <div className="flex items-center gap-2">
               <Switch checked={form.published} onCheckedChange={v => set('published', v)} />

@@ -12,7 +12,7 @@ interface BlogPost {
   id: string; title: string; title_en: string; slug: string
   content: string; content_en: string; category: string
   reading_time_min: number; created_at: string; tags: string[]
-  meta_title: string; meta_description: string
+  meta_title: string; meta_description: string; cover_image_url: string
 }
 
 const CAT_GRADIENT: Record<string, string> = {
@@ -100,9 +100,21 @@ export default function BlogDetailPage() {
             <ArrowLeft className="h-4 w-4" /> {t('title')}
           </Link>
 
-          <div className={`bg-gradient-to-br ${gradient} rounded-3xl h-64 flex items-center justify-center mb-10`}>
-            <span className="text-white/20 text-[120px] font-black leading-none">{title.charAt(0)}</span>
-          </div>
+          {post.cover_image_url ? (
+            <div className="rounded-3xl overflow-hidden h-64 mb-10 border border-border">
+              <img
+                src={post.cover_image_url}
+                alt={title}
+                className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          ) : (
+            <div className={`bg-gradient-to-br ${gradient} rounded-3xl h-64 flex items-center justify-center mb-10`}>
+              <span className="text-white/20 text-[120px] font-black leading-none">{title.charAt(0)}</span>
+            </div>
+          )}
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <span className="text-primary font-semibold text-sm">{post.category}</span>

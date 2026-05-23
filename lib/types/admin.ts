@@ -5,6 +5,7 @@ export interface BlogPost {
   slug: string
   content: string
   content_en: string
+  cover_image_url: string
   meta_title: string
   meta_description: string
   tags: string[]

@@ -12,6 +12,7 @@ interface BlogPost {
   id: string; title: string; title_en: string; slug: string
   content: string; content_en: string; category: string
   reading_time_min: number; created_at: string; tags: string[]
+  cover_image_url: string
 }
 
 const CAT_GRADIENT: Record<string, string> = {
@@ -43,7 +44,7 @@ export default function BlogPage() {
   useEffect(() => {
     createClient()
       .from('blog_posts')
-      .select('id,title,title_en,slug,content,content_en,category,reading_time_min,created_at,tags')
+      .select('id,title,title_en,slug,content,content_en,category,reading_time_min,created_at,tags,cover_image_url')
       .eq('published', true)
       .order('created_at', { ascending: false })
       .then(({ data }) => { setPosts(data ?? []); setLoading(false) })
@@ -124,8 +125,17 @@ export default function BlogPage() {
                     return (
                       <motion.article key={post.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} whileHover={{ y: -4 }}
                         className="group bg-card border border-border rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all">
-                        <div className={`bg-gradient-to-br ${gradient} h-36 flex items-end p-4`}>
-                          <span className="text-white text-xs font-semibold bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">{post.category}</span>
+                        <div className={`${post.cover_image_url ? '' : `bg-gradient-to-br ${gradient}`} h-36 relative overflow-hidden flex items-end p-4`}>
+                          {post.cover_image_url && (
+                            <img
+                              src={post.cover_image_url}
+                              alt={title}
+                              className="absolute inset-0 w-full h-full object-cover"
+                              loading="lazy"
+                              decoding="async"
+                            />
+                          )}
+                          <span className="relative z-10 text-white text-xs font-semibold bg-black/40 backdrop-blur-sm px-3 py-1 rounded-full">{post.category}</span>
                         </div>
                         <div className="p-5">
                           <h2 className="font-bold leading-snug mb-2 group-hover:text-primary transition-colors line-clamp-2">{title}</h2>
