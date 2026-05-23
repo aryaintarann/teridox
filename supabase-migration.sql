@@ -42,6 +42,8 @@ CREATE TABLE IF NOT EXISTS blog_posts (
 
 -- Tambah kolom cover_image_url jika belum ada (untuk database yang sudah ada)
 ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS cover_image_url TEXT DEFAULT '';
+ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS faq    JSONB DEFAULT '[]';
+ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS faq_en JSONB DEFAULT '[]';
 
 -- Portfolio items
 CREATE TABLE IF NOT EXISTS portfolio_items (

@@ -48,6 +48,8 @@ interface BlogPost {
   content: string; content_en: string; category: string
   reading_time_min: number; created_at: string; tags: string[]
   meta_title: string; meta_description: string; cover_image_url: string
+  faq: Array<{ q: string; a: string }>
+  faq_en: Array<{ q: string; a: string }>
 }
 
 const CAT_GRADIENT: Record<string, string> = {
@@ -108,9 +110,12 @@ export default function BlogDetailPage() {
     )
   }
 
-  const title              = locale === 'en' && post.title_en   ? post.title_en   : post.title
-  const rawContent         = locale === 'en' && post.content_en ? post.content_en : post.content
-  const { body, faqItems } = splitFaq(rawContent)
+  const title      = locale === 'en' && post.title_en   ? post.title_en   : post.title
+  const rawContent = locale === 'en' && post.content_en ? post.content_en : post.content
+  // Prefer structured FAQ from DB; fall back to parsing from markdown content
+  const dbFaq      = locale === 'en' ? (post.faq_en ?? []) : (post.faq ?? [])
+  const { body, faqItems: parsedFaq } = splitFaq(rawContent)
+  const faqItems   = dbFaq.length > 0 ? dbFaq : parsedFaq
   const gradient = CAT_GRADIENT[post.category] ?? 'from-blue-600 to-indigo-600'
   const date     = new Date(post.created_at).toLocaleDateString(
     locale === 'en' ? 'en-US' : 'id-ID',

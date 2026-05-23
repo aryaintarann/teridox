@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { BlogPost } from '@/lib/types/admin'
-import { Plus, Pencil, Trash2, Eye, EyeOff, Wand2, RefreshCw, Tag, Upload, Sparkles, X, ImageIcon } from 'lucide-react'
+import { Plus, Pencil, Trash2, Eye, EyeOff, Wand2, RefreshCw, Tag, Upload, Sparkles, X, ImageIcon, HelpCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -15,9 +15,12 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sh
 const EMPTY: Omit<BlogPost, 'id' | 'created_at' | 'updated_at'> = {
   title: '', title_en: '', slug: '', content: '', content_en: '',
   cover_image_url: '',
-  meta_title: '', meta_description: '', tags: [], reading_time_min: 5,
-  published: false, category: 'teknologi',
+  meta_title: '', meta_description: '', tags: [],
+  faq: [], faq_en: [],
+  reading_time_min: 5, published: false, category: 'teknologi',
 }
+
+type FaqRow = { q: string; qEn: string; a: string; aEn: string }
 
 const CATEGORIES = ['teknologi', 'bisnis', 'tutorial', 'berita', 'lainnya']
 
@@ -39,6 +42,7 @@ export default function BlogPage() {
   const [generatingImage, setGeneratingImage] = useState(false)
   const [showImagePrompt, setShowImagePrompt] = useState(false)
   const [imagePrompt, setImagePrompt] = useState('')
+  const [faqRows, setFaqRows] = useState<FaqRow[]>([])
   const fileInputRef = useRef<HTMLInputElement>(null)
   const supabase = createClient()
 
@@ -58,6 +62,7 @@ export default function BlogPage() {
     setAiTopic('')
     setShowImagePrompt(false)
     setImagePrompt('')
+    setFaqRows([])
     setOpen(true)
   }
 
@@ -68,12 +73,21 @@ export default function BlogPage() {
       content: post.content, content_en: post.content_en,
       cover_image_url: post.cover_image_url ?? '',
       meta_title: post.meta_title, meta_description: post.meta_description,
-      tags: post.tags ?? [], reading_time_min: post.reading_time_min,
+      tags: post.tags ?? [], faq: post.faq ?? [], faq_en: post.faq_en ?? [],
+      reading_time_min: post.reading_time_min,
       published: post.published, category: post.category,
     })
     setTagsInput((post.tags ?? []).join(', '))
     setShowImagePrompt(false)
     setImagePrompt('')
+    // Zip ID + EN FAQ into rows
+    const idFaq = post.faq ?? []
+    const enFaq = post.faq_en ?? []
+    const max = Math.max(idFaq.length, enFaq.length)
+    setFaqRows(Array.from({ length: max }, (_, i) => ({
+      q: idFaq[i]?.q ?? '', qEn: enFaq[i]?.q ?? '',
+      a: idFaq[i]?.a ?? '', aEn: enFaq[i]?.a ?? '',
+    })))
     setOpen(true)
   }
 
@@ -157,7 +171,12 @@ export default function BlogPage() {
 
   async function save() {
     setSaving(true)
-    const payload = { ...form, tags: tagsInput.split(',').map(t => t.trim()).filter(Boolean) }
+    const payload = {
+      ...form,
+      tags: tagsInput.split(',').map(t => t.trim()).filter(Boolean),
+      faq:    faqRows.filter(r => r.q && r.a).map(r => ({ q: r.q, a: r.a })),
+      faq_en: faqRows.filter(r => r.qEn && r.aEn).map(r => ({ q: r.qEn, a: r.aEn })),
+    }
     if (editing) {
       await supabase.from('blog_posts').update(payload).eq('id', editing.id)
     } else {
@@ -456,6 +475,83 @@ export default function BlogPage() {
             <div className="space-y-1.5">
               <Label className="text-xs font-medium flex items-center gap-1"><Tag className="h-3 w-3" /> Tags (pisahkan dengan koma)</Label>
               <Input value={tagsInput} onChange={e => setTagsInput(e.target.value)} placeholder="next.js, react, tutorial" />
+            </div>
+
+            {/* FAQ */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <Label className="text-xs font-medium flex items-center gap-1">
+                  <HelpCircle className="h-3 w-3" /> FAQ
+                </Label>
+                <Button
+                  type="button" variant="outline" size="sm"
+                  onClick={() => setFaqRows(r => [...r, { q: '', qEn: '', a: '', aEn: '' }])}
+                  className="h-7 text-xs px-2"
+                >
+                  <Plus className="h-3 w-3 mr-1" /> Tambah
+                </Button>
+              </div>
+              {faqRows.length === 0 && (
+                <p className="text-xs text-muted-foreground text-center py-3 border border-dashed border-border rounded-lg">
+                  Belum ada FAQ. Klik Tambah untuk menambahkan.
+                </p>
+              )}
+              {faqRows.map((row, i) => (
+                <div key={i} className="p-4 border border-border rounded-xl space-y-3 bg-muted/20">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-semibold text-muted-foreground">FAQ #{i + 1}</span>
+                    <button
+                      type="button"
+                      onClick={() => setFaqRows(r => r.filter((_, j) => j !== i))}
+                      className="p-1 rounded hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                    >
+                      <Trash2 className="h-3.5 w-3.5 text-red-500" />
+                    </button>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="space-y-1.5">
+                      <Label className="text-xs text-muted-foreground">Pertanyaan (ID)</Label>
+                      <Input
+                        value={row.q}
+                        onChange={e => setFaqRows(r => r.map((x, j) => j === i ? { ...x, q: e.target.value } : x))}
+                        placeholder="Pertanyaan dalam Bahasa Indonesia"
+                        className="text-sm"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label className="text-xs text-muted-foreground">Question (EN)</Label>
+                      <Input
+                        value={row.qEn}
+                        onChange={e => setFaqRows(r => r.map((x, j) => j === i ? { ...x, qEn: e.target.value } : x))}
+                        placeholder="Question in English"
+                        className="text-sm"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="space-y-1.5">
+                      <Label className="text-xs text-muted-foreground">Jawaban (ID)</Label>
+                      <Textarea
+                        value={row.a}
+                        onChange={e => setFaqRows(r => r.map((x, j) => j === i ? { ...x, a: e.target.value } : x))}
+                        placeholder="Jawaban dalam Bahasa Indonesia"
+                        rows={2}
+                        className="text-sm resize-none"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label className="text-xs text-muted-foreground">Answer (EN)</Label>
+                      <Textarea
+                        value={row.aEn}
+                        onChange={e => setFaqRows(r => r.map((x, j) => j === i ? { ...x, aEn: e.target.value } : x))}
+                        placeholder="Answer in English"
+                        rows={2}
+                        className="text-sm resize-none"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 

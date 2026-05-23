@@ -9,6 +9,8 @@ export interface BlogPost {
   meta_title: string
   meta_description: string
   tags: string[]
+  faq: Array<{ q: string; a: string }>
+  faq_en: Array<{ q: string; a: string }>
   reading_time_min: number
   published: boolean
   category: string
