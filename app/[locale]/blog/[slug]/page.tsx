@@ -130,8 +130,26 @@ export default function BlogDetailPage() {
               )}
             </div>
 
-            <div className="prose prose-lg prose-headings:font-bold prose-headings:text-foreground prose-p:text-muted-foreground prose-li:text-muted-foreground prose-strong:text-foreground prose-code:text-foreground prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm dark:prose-invert max-w-none mb-12">
-              <ReactMarkdown>{normalizeMarkdown(content)}</ReactMarkdown>
+            <div className="max-w-none mb-12 space-y-0">
+              <ReactMarkdown
+                components={{
+                  h1: ({ children }) => <h1 className="text-3xl font-extrabold mt-8 mb-4 text-foreground">{children}</h1>,
+                  h2: ({ children }) => <h2 className="text-2xl font-bold mt-8 mb-3 text-foreground">{children}</h2>,
+                  h3: ({ children }) => <h3 className="text-xl font-semibold mt-6 mb-2 text-foreground">{children}</h3>,
+                  p: ({ children }) => <p className="text-muted-foreground leading-relaxed mb-4">{children}</p>,
+                  ul: ({ children }) => <ul className="list-disc list-outside pl-6 mb-4 space-y-1 text-muted-foreground">{children}</ul>,
+                  ol: ({ children }) => <ol className="list-decimal list-outside pl-6 mb-4 space-y-1 text-muted-foreground">{children}</ol>,
+                  li: ({ children }) => <li className="leading-relaxed">{children}</li>,
+                  strong: ({ children }) => <strong className="font-bold text-foreground">{children}</strong>,
+                  em: ({ children }) => <em className="italic">{children}</em>,
+                  code: ({ children }) => <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono text-foreground">{children}</code>,
+                  blockquote: ({ children }) => <blockquote className="border-l-4 border-primary pl-4 italic text-muted-foreground my-4">{children}</blockquote>,
+                  hr: () => <hr className="border-border my-8" />,
+                  a: ({ href, children }) => <a href={href} className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">{children}</a>,
+                }}
+              >
+                {normalizeMarkdown(content)}
+              </ReactMarkdown>
             </div>
 
             <div className="flex items-center gap-4 pt-8 border-t border-border">
