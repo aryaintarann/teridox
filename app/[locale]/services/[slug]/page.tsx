@@ -130,20 +130,36 @@ export default function ServiceDetailPage() {
               <div>
                 <h2 className="text-2xl font-bold mb-6">{d('faqHeading')}</h2>
                 <div className="space-y-3">
-                  {faq.map((f, i) => (
-                    <div key={i} className="border border-border rounded-xl overflow-hidden">
-                      <button
-                        onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                        className="w-full flex items-center justify-between p-4 text-left font-medium hover:bg-muted/50 transition-colors"
+                  {faq.map((f, i) => {
+                    const isOpen = openFaq === i
+                    return (
+                      <div
+                        key={i}
+                        className="rounded-xl overflow-hidden transition-all duration-200"
+                        style={{
+                          border: `1px solid ${isOpen ? service.accent_color : 'var(--border)'}`,
+                          borderTopWidth: isOpen ? 2 : 1,
+                        }}
                       >
-                        {f.q}
-                        {openFaq === i ? <ChevronUp className="h-4 w-4 text-muted-foreground" /> : <ChevronDown className="h-4 w-4 text-muted-foreground" />}
-                      </button>
-                      {openFaq === i && (
-                        <div className="px-4 pb-4 text-muted-foreground text-sm">{f.a}</div>
-                      )}
-                    </div>
-                  ))}
+                        <button
+                          onClick={() => setOpenFaq(isOpen ? null : i)}
+                          className="w-full flex items-center justify-between px-5 py-4 text-left transition-colors"
+                        >
+                          <span className="font-medium text-sm pr-4" style={{ color: isOpen ? service.accent_color : 'var(--foreground)' }}>
+                            {f.q}
+                          </span>
+                          {isOpen
+                            ? <ChevronUp className="h-4 w-4 shrink-0" style={{ color: service.accent_color }} />
+                            : <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground" />}
+                        </button>
+                        {isOpen && (
+                          <div className="px-5 pb-4 text-sm leading-relaxed" style={{ color: service.accent_color + 'cc' }}>
+                            {f.a}
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
                 </div>
               </div>
             )}
