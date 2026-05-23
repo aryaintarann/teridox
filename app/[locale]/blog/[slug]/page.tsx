@@ -5,17 +5,42 @@ import { useParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { useTranslations, useLocale } from 'next-intl'
 import { Link } from '@/lib/i18n/navigation'
-import { ArrowLeft, Clock, Calendar, Share2 } from 'lucide-react'
+import { ArrowLeft, Clock, Calendar, Share2, ChevronDown, ChevronUp } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import ReactMarkdown from 'react-markdown'
 
-// AI sometimes writes list items inline on one line — normalize them to proper markdown
 function normalizeMarkdown(text: string): string {
   return text
-    // " 2. Word" or " 2. **Word" → newline + "2. ..."
     .replace(/ (\d{1,2})\. (?=[A-Z*\[`])/g, '\n$1. ')
-    // " * item" (not "**") → newline + "* ..."
     .replace(/ \* (?!\*)/g, '\n* ')
+}
+
+interface FaqItem { q: string; a: string }
+
+// Split raw content into body (before FAQ) and FAQ items
+function splitFaq(raw: string): { body: string; faqItems: FaqItem[] } {
+  const normalized = normalizeMarkdown(raw)
+  const faqRegex = /^#{1,3}\s*FAQ\s*$/im
+  const match = faqRegex.exec(normalized)
+  if (!match || match.index === undefined) return { body: normalized, faqItems: [] }
+
+  const body = normalized.slice(0, match.index).trim()
+  const faqSection = normalized.slice(match.index + match[0].length).trim()
+
+  // Parse "Q: ... A: ..." pairs, each possibly prefixed by "* " or a number
+  const items: FaqItem[] = []
+  const lines = faqSection.split('\n')
+  for (const line of lines) {
+    const clean = line.replace(/^[\*\-\d\.]+\s*/, '').trim()
+    const aIdx = clean.search(/\bA:\s/)
+    if (clean.startsWith('Q:') && aIdx !== -1) {
+      const q = clean.slice(2, aIdx).trim()
+      const a = clean.slice(aIdx + 2).trim()
+      if (q && a) items.push({ q, a })
+    }
+  }
+
+  return { body, faqItems: items }
 }
 
 interface BlogPost {
@@ -39,9 +64,10 @@ export default function BlogDetailPage() {
   const t         = useTranslations('blog')
   const locale    = useLocale()
 
-  const [post, setPost]       = useState<BlogPost | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [post, setPost]         = useState<BlogPost | null>(null)
+  const [loading, setLoading]   = useState(true)
   const [notFound, setNotFound] = useState(false)
+  const [openFaq, setOpenFaq]   = useState<number | null>(null)
 
   useEffect(() => {
     if (!slug) return
@@ -82,8 +108,9 @@ export default function BlogDetailPage() {
     )
   }
 
-  const title    = locale === 'en' && post.title_en   ? post.title_en   : post.title
-  const content  = locale === 'en' && post.content_en ? post.content_en : post.content
+  const title              = locale === 'en' && post.title_en   ? post.title_en   : post.title
+  const rawContent         = locale === 'en' && post.content_en ? post.content_en : post.content
+  const { body, faqItems } = splitFaq(rawContent)
   const gradient = CAT_GRADIENT[post.category] ?? 'from-blue-600 to-indigo-600'
   const date     = new Date(post.created_at).toLocaleDateString(
     locale === 'en' ? 'en-US' : 'id-ID',
@@ -130,7 +157,7 @@ export default function BlogDetailPage() {
               )}
             </div>
 
-            <div className="max-w-none mb-12 space-y-0">
+            <div className="max-w-none mb-12">
               <ReactMarkdown
                 components={{
                   h1: ({ children }) => <h1 className="text-3xl font-extrabold mt-8 mb-4 text-foreground">{children}</h1>,
@@ -148,8 +175,46 @@ export default function BlogDetailPage() {
                   a: ({ href, children }) => <a href={href} className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">{children}</a>,
                 }}
               >
-                {normalizeMarkdown(content)}
+                {body}
               </ReactMarkdown>
+
+              {faqItems.length > 0 && (
+                <div className="mt-10">
+                  <h2 className="text-2xl font-bold mb-6 text-foreground">FAQ</h2>
+                  <div className="space-y-3">
+                    {faqItems.map((item, i) => {
+                      const isOpen = openFaq === i
+                      return (
+                        <div
+                          key={i}
+                          className="rounded-xl overflow-hidden transition-all duration-200"
+                          style={{
+                            border: `1px solid ${isOpen ? 'var(--primary)' : 'var(--border)'}`,
+                            borderTopWidth: isOpen ? 2 : 1,
+                          }}
+                        >
+                          <button
+                            onClick={() => setOpenFaq(isOpen ? null : i)}
+                            className="w-full flex items-center justify-between px-5 py-4 text-left transition-colors"
+                          >
+                            <span className="font-medium text-sm pr-4" style={{ color: isOpen ? 'var(--primary)' : 'var(--foreground)' }}>
+                              {item.q}
+                            </span>
+                            {isOpen
+                              ? <ChevronUp className="h-4 w-4 shrink-0 text-primary" />
+                              : <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground" />}
+                          </button>
+                          {isOpen && (
+                            <div className="px-5 pb-4 text-sm leading-relaxed text-muted-foreground">
+                              {item.a}
+                            </div>
+                          )}
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="flex items-center gap-4 pt-8 border-t border-border">
