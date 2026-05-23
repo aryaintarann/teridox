@@ -75,11 +75,11 @@ export default function TestimonialsSlider() {
       .then(({ data }) => { setItems(data ?? []); setLoading(false) })
   }, [])
 
-  if (loading || items.length === 0) return null
+  if (loading || items.length < 3) return null
 
   const half = Math.ceil(items.length / 2)
   const row1 = items.slice(0, half)
-  const row2 = items.slice(half).length > 0 ? items.slice(half) : items
+  const row2 = items.slice(half).length > 1 ? items.slice(half) : items
 
   return (
     <>
