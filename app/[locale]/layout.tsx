@@ -6,6 +6,7 @@ import Navbar from '@/components/common/Navbar'
 import Footer from '@/components/common/Footer'
 import ChatWidget from '@/components/chatbot/ChatWidget'
 import { Toaster } from '@/components/ui/sonner'
+import { SiteSettingsProvider } from '@/lib/context/SiteSettingsContext'
 
 export default async function LocaleLayout({
   children,
@@ -22,13 +23,15 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <div className="flex flex-col min-h-screen">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <ChatWidget />
-        <Toaster richColors position="top-right" />
-      </div>
+      <SiteSettingsProvider>
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <ChatWidget />
+          <Toaster richColors position="top-right" />
+        </div>
+      </SiteSettingsProvider>
     </NextIntlClientProvider>
   )
 }

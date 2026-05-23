@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/lib/i18n/navigation'
+import { useSiteSettings } from '@/lib/context/SiteSettingsContext'
 
 const companyLinks = [
   { labelKey: 'home',      href: '/' },
@@ -14,23 +15,31 @@ const companyLinks = [
   { labelKey: 'faq',       href: '/faq' },
 ]
 
-const socialLinks = [
-  { icon: 'instagram',   brand: true, href: 'https://instagram.com/teridox' },
-  { icon: 'linkedin-in', brand: true, href: 'https://linkedin.com/company/teridox' },
-  { icon: 'x-twitter',   brand: true, href: 'https://x.com/teridox' },
-  { icon: 'youtube',     brand: true, href: 'https://youtube.com/@teridox' },
-]
-
 export default function Footer() {
   const t = useTranslations('footer')
   const nav = useTranslations('nav')
   const st = useTranslations('services')
   const contact = useTranslations('contact')
+  const settings = useSiteSettings()
+
+  const email    = settings.company_email   || contact('info.email')
+  const phone    = settings.company_phone   || contact('info.phone')
+  const address  = settings.company_address || contact('info.address')
+  const waNumber = settings.whatsapp_number
+
   const contactItems = [
-    { icon: 'location-dot', text: contact('info.address') },
-    { icon: 'envelope',     text: contact('info.email') },
-    { icon: 'phone',        text: contact('info.phone') },
-    { icon: 'clock',        text: contact('info.hours') },
+    { icon: 'location-dot', text: address,              href: null },
+    { icon: 'envelope',     text: email,                href: `mailto:${email}` },
+    { icon: 'phone',        text: phone,                href: `tel:${phone.replace(/\s/g, '')}` },
+    { icon: 'clock',        text: contact('info.hours'), href: null },
+    ...(waNumber ? [{ icon: 'whatsapp', text: `WhatsApp: +${waNumber}`, href: `https://wa.me/${waNumber}` }] : []),
+  ]
+
+  const socialLinks = [
+    { icon: 'instagram',   brand: true, href: settings.instagram_url || 'https://instagram.com/teridox' },
+    { icon: 'linkedin-in', brand: true, href: settings.linkedin_url  || 'https://linkedin.com/company/teridox' },
+    { icon: 'x-twitter',   brand: true, href: 'https://x.com/teridox' },
+    { icon: 'youtube',     brand: true, href: 'https://youtube.com/@teridox' },
   ]
   const serviceLinks = (st.raw('items') as Array<{ slug: string; title: string }>).map(
     ({ slug, title }) => ({ label: title, href: `/services/${slug}` })
@@ -109,14 +118,17 @@ export default function Footer() {
             <div style={{ fontSize: 11, fontWeight: 600, color: '#00C7B7', textTransform: 'uppercase', letterSpacing: '3px', marginBottom: 20 }}>
               {t('resources')}
             </div>
-            {contactItems.map(({ icon, text }) => (
+            {contactItems.map(({ icon, text, href }) => (
               <div key={icon} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, marginBottom: 14 }}>
                 <i
-                  className={`fa-solid fa-${icon}`}
+                  className={`${icon === 'whatsapp' ? 'fa-brands' : 'fa-solid'} fa-${icon}`}
                   style={{ color: '#00C7B7', marginTop: 3, width: 16, flexShrink: 0, fontSize: 13 }}
                   aria-hidden="true"
                 />
-                <span style={{ fontSize: 14 }}>{text}</span>
+                {href
+                  ? <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer" style={{ fontSize: 14 }} className="hover:text-slate-900 dark:hover:text-white transition-colors">{text}</a>
+                  : <span style={{ fontSize: 14 }}>{text}</span>
+                }
               </div>
             ))}
           </div>
