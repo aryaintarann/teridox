@@ -18,6 +18,7 @@ export default function ChatWidget() {
   const [loading, setLoading] = useState(false)
   const [quickShown, setQuickShown] = useState(true)
   const bottomRef = useRef<HTMLDivElement>(null)
+  const sessionId = useRef<string>(crypto.randomUUID())
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -66,6 +67,15 @@ export default function ChatWidget() {
             })
           } catch {}
         }
+      }
+
+      if (assistantContent) {
+        const fullMessages = [...messages, userMsg, { role: 'assistant' as const, content: assistantContent }]
+        fetch('/api/chat/log', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sessionId: sessionId.current, messages: fullMessages }),
+        }).catch(() => {})
       }
     } catch {
       setMessages((m) => [...m, { role: 'assistant', content: t('fallback') }])
