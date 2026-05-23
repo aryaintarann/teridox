@@ -10,7 +10,9 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { MapPin, Mail, Phone, Clock, Loader2, CheckCircle } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useParams } from 'next/navigation'
+import { createClient } from '@/lib/supabase/client'
 import { useSiteSettings } from '@/lib/context/SiteSettingsContext'
 
 const schema = z.object({
@@ -23,12 +25,23 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>
 
-const services = ['Web Development', 'Mobile App', 'SaaS Development', 'UI/UX Design', 'API & Integrasi', 'Cloud & DevOps']
+interface ServiceOption { title: string; title_en: string }
 
 export default function ContactPage() {
   const t = useTranslations('contact')
   const settings = useSiteSettings()
+  const { locale } = useParams<{ locale: string }>()
   const [submitted, setSubmitted] = useState(false)
+  const [serviceOptions, setServiceOptions] = useState<ServiceOption[]>([])
+
+  useEffect(() => {
+    createClient()
+      .from('services')
+      .select('title,title_en')
+      .eq('active', true)
+      .order('display_order', { ascending: true })
+      .then(({ data }) => setServiceOptions(data ?? []))
+  }, [])
 
   const email   = settings.company_email   || t('info.email')
   const phone   = settings.company_phone   || t('info.phone')
@@ -95,7 +108,10 @@ export default function ContactPage() {
                     <Label>{t('form.service')}</Label>
                     <select {...register('service')} className="w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring">
                       <option value="">{t('form.servicePlaceholder')}</option>
-                      {services.map((s) => <option key={s} value={s}>{s}</option>)}
+                      {serviceOptions.map((s) => {
+                        const label = locale === 'en' ? s.title_en : s.title
+                        return <option key={s.title} value={label}>{label}</option>
+                      })}
                     </select>
                   </div>
                 </div>
