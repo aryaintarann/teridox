@@ -7,6 +7,16 @@ import { useTranslations, useLocale } from 'next-intl'
 import { Link } from '@/lib/i18n/navigation'
 import { ArrowLeft, Clock, Calendar, Share2 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
+import ReactMarkdown from 'react-markdown'
+
+// AI sometimes writes list items inline on one line — normalize them to proper markdown
+function normalizeMarkdown(text: string): string {
+  return text
+    // " 2. Word" or " 2. **Word" → newline + "2. ..."
+    .replace(/ (\d{1,2})\. (?=[A-Z*\[`])/g, '\n$1. ')
+    // " * item" (not "**") → newline + "* ..."
+    .replace(/ \* (?!\*)/g, '\n* ')
+}
 
 interface BlogPost {
   id: string; title: string; title_en: string; slug: string
@@ -23,18 +33,6 @@ const CAT_GRADIENT: Record<string, string> = {
   lainnya: 'from-cyan-600 to-blue-600',
 }
 
-function renderMarkdown(text: string) {
-  return text.split('\n\n').filter(Boolean).map((block, i) => {
-    if (block.startsWith('### ')) return <h3 key={i} className="text-xl font-bold mt-6 mb-3">{block.slice(4)}</h3>
-    if (block.startsWith('## '))  return <h2 key={i} className="text-2xl font-bold mt-8 mb-4">{block.slice(3)}</h2>
-    if (block.startsWith('# '))   return <h1 key={i} className="text-3xl font-bold mt-8 mb-4">{block.slice(2)}</h1>
-    const html = block
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*(.*?)\*/g, '<em>$1</em>')
-      .replace(/`(.*?)`/g, '<code class="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">$1</code>')
-    return <p key={i} className="text-muted-foreground leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: html }} />
-  })
-}
 
 export default function BlogDetailPage() {
   const { slug }  = useParams() as { slug: string }
@@ -132,8 +130,8 @@ export default function BlogDetailPage() {
               )}
             </div>
 
-            <div className="prose prose-lg dark:prose-invert max-w-none mb-12">
-              {renderMarkdown(content)}
+            <div className="prose prose-lg prose-headings:font-bold prose-headings:text-foreground prose-p:text-muted-foreground prose-li:text-muted-foreground prose-strong:text-foreground prose-code:text-foreground prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm dark:prose-invert max-w-none mb-12">
+              <ReactMarkdown>{normalizeMarkdown(content)}</ReactMarkdown>
             </div>
 
             <div className="flex items-center gap-4 pt-8 border-t border-border">
