@@ -18,7 +18,7 @@ function stripMd(text: string) {
 interface Post {
   id: string; title: string; title_en: string; slug: string
   content: string; content_en: string; category: string
-  reading_time_min: number; created_at: string
+  reading_time_min: number; created_at: string; cover_image_url: string
 }
 
 function BlogCard({ post, color, locale }: { post: Post; color: string; locale: string }) {
@@ -43,8 +43,18 @@ function BlogCard({ post, color, locale }: { post: Post; color: string; locale: 
           transition: 'all 0.25s ease', height: '100%', display: 'flex', flexDirection: 'column',
         }}
       >
-        <div style={{ height: 180, background: color, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-          <i className="fa-solid fa-pen-nib" style={{ color: 'rgba(255,255,255,0.25)', fontSize: 48 }} aria-hidden="true" />
+        <div style={{ height: 180, background: color, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden' }}>
+          {post.cover_image_url ? (
+            <img
+              src={post.cover_image_url}
+              alt={title}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              loading="lazy"
+              decoding="async"
+            />
+          ) : (
+            <i className="fa-solid fa-pen-nib" style={{ color: 'rgba(255,255,255,0.25)', fontSize: 48 }} aria-hidden="true" />
+          )}
           <div style={{ position: 'absolute', top: 12, left: 12, background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(4px)', color: 'white', fontSize: 11, fontWeight: 600, padding: '4px 10px', borderRadius: 9999, fontFamily: 'var(--font-dmsans)' }}>
             {post.category}
           </div>
@@ -74,7 +84,7 @@ export default function BlogPreview() {
   useEffect(() => {
     createClient()
       .from('blog_posts')
-      .select('id,title,title_en,slug,content,content_en,category,reading_time_min,created_at')
+      .select('id,title,title_en,slug,content,content_en,category,reading_time_min,created_at,cover_image_url')
       .eq('published', true)
       .order('created_at', { ascending: false })
       .limit(3)
