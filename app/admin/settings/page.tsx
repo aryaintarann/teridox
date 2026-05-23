@@ -9,13 +9,17 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
 const SETTING_LABELS: Record<string, string> = {
-  company_name: 'Nama Perusahaan',
-  company_email: 'Email',
-  company_phone: 'Nomor Telepon',
-  company_address: 'Alamat',
-  whatsapp_number: 'Nomor WhatsApp (tanpa +)',
-  instagram_url: 'URL Instagram',
-  linkedin_url: 'URL LinkedIn',
+  company_name:       'Nama Perusahaan',
+  company_email:      'Email',
+  company_phone:      'Nomor Telepon',
+  company_address:    'Alamat',
+  company_hours:      'Jam Operasional',
+  whatsapp_number:    'Nomor WhatsApp (tanpa + dan spasi, contoh: 6281234567890)',
+  footer_description: 'Deskripsi Footer',
+  instagram_url:      'URL Instagram',
+  linkedin_url:       'URL LinkedIn',
+  twitter_url:        'URL X / Twitter',
+  youtube_url:        'URL YouTube',
 }
 
 export default function SettingsPage() {
@@ -72,29 +76,42 @@ export default function SettingsPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Company Info */}
-        <div className="bg-card border border-border rounded-2xl p-6">
-          <h2 className="font-semibold mb-4">Informasi Perusahaan</h2>
-          <div className="space-y-4">
-            {['company_name', 'company_email', 'company_phone', 'company_address', 'whatsapp_number'].map(key => (
-              <div key={key}>
-                <Label className="text-xs mb-1">{SETTING_LABELS[key] ?? key}</Label>
-                <Input
-                  value={settings[key] ?? ''}
-                  onChange={e => setSettings(prev => ({ ...prev, [key]: e.target.value }))}
-                  placeholder={SETTING_LABELS[key]}
-                />
-              </div>
-            ))}
-          </div>
+        <div className="bg-card border border-border rounded-2xl p-6 space-y-4">
+          <h2 className="font-semibold">Informasi Perusahaan</h2>
+          {(['company_name', 'company_email', 'company_phone', 'company_address', 'company_hours', 'whatsapp_number'] as const).map(key => (
+            <div key={key}>
+              <Label className="text-xs mb-1">{SETTING_LABELS[key]}</Label>
+              <Input
+                value={settings[key] ?? ''}
+                onChange={e => setSettings(prev => ({ ...prev, [key]: e.target.value }))}
+                placeholder={SETTING_LABELS[key]}
+              />
+            </div>
+          ))}
         </div>
 
-        {/* Social Media */}
-        <div className="bg-card border border-border rounded-2xl p-6">
-          <h2 className="font-semibold mb-4">Media Sosial</h2>
-          <div className="space-y-4">
-            {['instagram_url', 'linkedin_url'].map(key => (
+        <div className="space-y-6">
+          {/* Footer Content */}
+          <div className="bg-card border border-border rounded-2xl p-6 space-y-4">
+            <h2 className="font-semibold">Konten Footer</h2>
+            <div>
+              <Label className="text-xs mb-1">{SETTING_LABELS.footer_description}</Label>
+              <textarea
+                value={settings.footer_description ?? ''}
+                onChange={e => setSettings(prev => ({ ...prev, footer_description: e.target.value }))}
+                placeholder="Deskripsi singkat perusahaan yang muncul di footer..."
+                rows={3}
+                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
+              />
+            </div>
+          </div>
+
+          {/* Social Media */}
+          <div className="bg-card border border-border rounded-2xl p-6 space-y-4">
+            <h2 className="font-semibold">Media Sosial</h2>
+            {(['instagram_url', 'linkedin_url', 'twitter_url', 'youtube_url'] as const).map(key => (
               <div key={key}>
-                <Label className="text-xs mb-1">{SETTING_LABELS[key] ?? key}</Label>
+                <Label className="text-xs mb-1">{SETTING_LABELS[key]}</Label>
                 <Input
                   value={settings[key] ?? ''}
                   onChange={e => setSettings(prev => ({ ...prev, [key]: e.target.value }))}

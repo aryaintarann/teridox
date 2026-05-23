@@ -19,27 +19,29 @@ export default function Footer() {
   const t = useTranslations('footer')
   const nav = useTranslations('nav')
   const st = useTranslations('services')
-  const contact = useTranslations('contact')
+  const contactT = useTranslations('contact')
   const settings = useSiteSettings()
 
-  const email    = settings.company_email   || contact('info.email')
-  const phone    = settings.company_phone   || contact('info.phone')
-  const address  = settings.company_address || contact('info.address')
-  const waNumber = settings.whatsapp_number
+  const email       = settings.company_email       || contactT('info.email')
+  const phone       = settings.company_phone       || contactT('info.phone')
+  const address     = settings.company_address     || contactT('info.address')
+  const hours       = settings.company_hours       || contactT('info.hours')
+  const description = settings.footer_description  || t('description')
+  const waNumber    = settings.whatsapp_number
 
   const contactItems = [
-    { icon: 'location-dot', text: address,              href: null },
-    { icon: 'envelope',     text: email,                href: `mailto:${email}` },
-    { icon: 'phone',        text: phone,                href: `tel:${phone.replace(/\s/g, '')}` },
-    { icon: 'clock',        text: contact('info.hours'), href: null },
+    { icon: 'location-dot', text: address, href: null },
+    { icon: 'envelope',     text: email,   href: `mailto:${email}` },
+    { icon: 'phone',        text: phone,   href: `tel:${phone.replace(/\s/g, '')}` },
+    { icon: 'clock',        text: hours,   href: null },
     ...(waNumber ? [{ icon: 'whatsapp', text: `WhatsApp: +${waNumber}`, href: `https://wa.me/${waNumber}` }] : []),
   ]
 
   const socialLinks = [
     { icon: 'instagram',   brand: true, href: settings.instagram_url || 'https://instagram.com/teridox' },
     { icon: 'linkedin-in', brand: true, href: settings.linkedin_url  || 'https://linkedin.com/company/teridox' },
-    { icon: 'x-twitter',   brand: true, href: 'https://x.com/teridox' },
-    { icon: 'youtube',     brand: true, href: 'https://youtube.com/@teridox' },
+    { icon: 'x-twitter',   brand: true, href: settings.twitter_url   || 'https://x.com/teridox' },
+    { icon: 'youtube',     brand: true, href: settings.youtube_url   || 'https://youtube.com/@teridox' },
   ]
   const serviceLinks = (st.raw('items') as Array<{ slug: string; title: string }>).map(
     ({ slug, title }) => ({ label: title, href: `/services/${slug}` })
@@ -72,7 +74,7 @@ export default function Footer() {
               />
             </div>
             <p style={{ fontSize: 14, lineHeight: 1.75, marginBottom: 24 }}>
-              {t('description')}
+              {description}
             </p>
             <div style={{ display: 'flex', gap: 10 }}>
               {socialLinks.map(({ icon, brand, href }) => (

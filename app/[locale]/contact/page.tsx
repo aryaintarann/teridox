@@ -33,6 +33,7 @@ export default function ContactPage() {
   const email   = settings.company_email   || t('info.email')
   const phone   = settings.company_phone   || t('info.phone')
   const address = settings.company_address || t('info.address')
+  const hours   = settings.company_hours   || t('info.hours')
 
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -117,7 +118,7 @@ export default function ContactPage() {
               { icon: MapPin, label: 'Alamat',          value: address },
               { icon: Mail,  label: 'Email',            value: email },
               { icon: Phone, label: 'Telepon',          value: phone },
-              { icon: Clock, label: 'Jam Operasional',  value: t('info.hours') },
+              { icon: Clock, label: 'Jam Operasional',  value: hours },
             ].map(({ icon: Icon, label, value }) => (
               <div key={label} className="flex gap-4">
                 <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
