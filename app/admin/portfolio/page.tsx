@@ -161,69 +161,74 @@ export default function PortfolioPage() {
       </div>
 
       <Sheet open={open} onOpenChange={setOpen}>
-        <SheetContent side="right" className="w-full sm:max-w-2xl overflow-y-auto">
-          <SheetHeader className="mb-6">
-            <SheetTitle>{editing ? 'Edit Proyek' : 'Proyek Baru'}</SheetTitle>
+        <SheetContent side="right" className="!w-full !max-w-2xl p-0 flex flex-col">
+          <SheetHeader className="px-6 pt-5 pb-4 border-b border-border shrink-0">
+            <SheetTitle className="text-lg">{editing ? 'Edit Proyek' : 'Proyek Baru'}</SheetTitle>
           </SheetHeader>
-          <div className="space-y-4">
+
+          <div className="flex-1 overflow-y-auto px-6 py-5 space-y-5">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="text-xs mb-1">Judul *</Label>
+                <Label className="text-xs font-medium mb-1.5 block">Judul *</Label>
                 <Input value={form.title} onChange={e => set('title', e.target.value)} placeholder="Nama proyek" />
               </div>
               <div>
-                <Label className="text-xs mb-1">Slug *</Label>
+                <Label className="text-xs font-medium mb-1.5 block">Slug *</Label>
                 <Input value={form.slug} onChange={e => set('slug', e.target.value)} placeholder="url-proyek" />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="text-xs mb-1">Kategori</Label>
+                <Label className="text-xs font-medium mb-1.5 block">Kategori</Label>
                 <select value={form.category} onChange={e => set('category', e.target.value)}
                   className="w-full h-9 rounded-md border border-input bg-background px-3 text-sm">
                   {CATEGORIES.map(c => <option key={c} value={c} className="uppercase">{c}</option>)}
                 </select>
               </div>
               <div>
-                <Label className="text-xs mb-1">URL Proyek</Label>
+                <Label className="text-xs font-medium mb-1.5 block">URL Proyek</Label>
                 <Input value={form.project_url} onChange={e => set('project_url', e.target.value)} placeholder="https://..." />
               </div>
             </div>
             <div>
-              <Label className="text-xs mb-1">URL Gambar</Label>
+              <Label className="text-xs font-medium mb-1.5 block">URL Gambar</Label>
               <Input value={form.image_url} onChange={e => set('image_url', e.target.value)} placeholder="https://..." />
+              {form.image_url && (
+                <img src={form.image_url} alt="preview" className="mt-2 h-28 w-full object-cover rounded-lg border border-border" />
+              )}
             </div>
             <div>
-              <Label className="text-xs mb-1">Deskripsi</Label>
+              <Label className="text-xs font-medium mb-1.5 block">Deskripsi</Label>
               <Textarea value={form.description} onChange={e => set('description', e.target.value)} rows={3} placeholder="Deskripsi singkat proyek" />
             </div>
             <div>
-              <Label className="text-xs mb-1">Tantangan</Label>
+              <Label className="text-xs font-medium mb-1.5 block">Tantangan</Label>
               <Textarea value={form.challenge} onChange={e => set('challenge', e.target.value)} rows={2} placeholder="Tantangan yang dihadapi" />
             </div>
             <div>
-              <Label className="text-xs mb-1">Solusi</Label>
+              <Label className="text-xs font-medium mb-1.5 block">Solusi</Label>
               <Textarea value={form.solution} onChange={e => set('solution', e.target.value)} rows={2} placeholder="Solusi yang diterapkan" />
             </div>
             <div>
-              <Label className="text-xs mb-1">Hasil</Label>
+              <Label className="text-xs font-medium mb-1.5 block">Hasil</Label>
               <Textarea value={form.outcome} onChange={e => set('outcome', e.target.value)} rows={2} placeholder="Hasil yang dicapai" />
             </div>
             <div>
-              <Label className="text-xs mb-1">Teknologi (pisahkan dengan koma)</Label>
+              <Label className="text-xs font-medium mb-1.5 block">Teknologi (pisahkan dengan koma)</Label>
               <Input value={techInput} onChange={e => setTechInput(e.target.value)} placeholder="Next.js, React Native, Supabase" />
             </div>
-            <div className="flex items-center justify-between pt-2">
-              <div className="flex items-center gap-2">
-                <Switch checked={form.featured} onCheckedChange={v => set('featured', v)} />
-                <Label className="text-sm">Tampilkan sebagai Featured</Label>
-              </div>
-              <div className="flex gap-2">
-                <Button variant="outline" onClick={() => setOpen(false)}>Batal</Button>
-                <Button onClick={save} disabled={saving || !form.title || !form.slug}>
-                  {saving ? 'Menyimpan...' : 'Simpan'}
-                </Button>
-              </div>
+          </div>
+
+          <div className="shrink-0 flex items-center justify-between px-6 py-4 border-t border-border bg-card">
+            <div className="flex items-center gap-2">
+              <Switch checked={form.featured} onCheckedChange={v => set('featured', v)} />
+              <Label className="text-sm">Tampilkan sebagai Featured</Label>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={() => setOpen(false)}>Batal</Button>
+              <Button onClick={save} disabled={saving || !form.title || !form.slug}>
+                {saving ? 'Menyimpan...' : 'Simpan'}
+              </Button>
             </div>
           </div>
         </SheetContent>
