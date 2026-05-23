@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useLocale } from 'next-intl'
+import { useParams } from 'next/navigation'
 import { Star, CheckCircle, Send, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -50,7 +50,7 @@ const COPY = {
 }
 
 export default function TestimonialSubmitPage() {
-  const locale = useLocale()
+  const { locale } = useParams<{ locale: string }>()
   const c = locale === 'en' ? COPY.en : COPY.id
 
   const [form, setForm] = useState({ name: '', role: '', company: '', content: '', rating: 5 })
