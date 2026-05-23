@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS blog_posts (
   slug                TEXT        NOT NULL UNIQUE,
   content             TEXT        DEFAULT '',
   content_en          TEXT        DEFAULT '',
+  cover_image_url     TEXT        DEFAULT '',
   meta_title          TEXT        DEFAULT '',
   meta_description    TEXT        DEFAULT '',
   tags                TEXT[]      DEFAULT '{}',
@@ -38,6 +39,9 @@ CREATE TABLE IF NOT EXISTS blog_posts (
   created_at          TIMESTAMPTZ DEFAULT NOW(),
   updated_at          TIMESTAMPTZ DEFAULT NOW()
 );
+
+-- Tambah kolom cover_image_url jika belum ada (untuk database yang sudah ada)
+ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS cover_image_url TEXT DEFAULT '';
 
 -- Portfolio items
 CREATE TABLE IF NOT EXISTS portfolio_items (
@@ -190,5 +194,39 @@ CREATE INDEX IF NOT EXISTS idx_contact_unread  ON contact_messages (read, create
 CREATE INDEX IF NOT EXISTS idx_chat_created    ON chat_sessions (created_at DESC);
 
 -- ============================================================
--- Selesai. Semua tabel, policy, trigger, dan index siap.
+-- 6. STORAGE — Blog Images Bucket
+-- ============================================================
+
+INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+VALUES (
+  'blog-images',
+  'blog-images',
+  true,
+  5242880,
+  ARRAY['image/jpeg', 'image/png', 'image/webp', 'image/gif']
+)
+ON CONFLICT (id) DO NOTHING;
+
+-- Policy: siapa pun bisa membaca (publik)
+DROP POLICY IF EXISTS "blog_images_public_read" ON storage.objects;
+CREATE POLICY "blog_images_public_read"
+  ON storage.objects FOR SELECT
+  USING (bucket_id = 'blog-images');
+
+-- Policy: admin (authenticated) bisa upload
+DROP POLICY IF EXISTS "blog_images_admin_insert" ON storage.objects;
+CREATE POLICY "blog_images_admin_insert"
+  ON storage.objects FOR INSERT
+  TO authenticated
+  WITH CHECK (bucket_id = 'blog-images');
+
+-- Policy: admin bisa hapus
+DROP POLICY IF EXISTS "blog_images_admin_delete" ON storage.objects;
+CREATE POLICY "blog_images_admin_delete"
+  ON storage.objects FOR DELETE
+  TO authenticated
+  USING (bucket_id = 'blog-images');
+
+-- ============================================================
+-- Selesai. Semua tabel, policy, trigger, index, dan storage siap.
 -- ============================================================
