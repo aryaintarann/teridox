@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
   LayoutDashboard, FileText, Briefcase, FolderOpen,
-  Star, Mail, Users, Image, MessageSquare, Settings, LogOut,
+  Star, Mail, Image, MessageSquare, Settings, LogOut,
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
@@ -18,7 +18,6 @@ const navItems = [
   { key: 'portfolio', href: '/admin/portfolio', icon: FolderOpen },
   { key: 'testimonials', href: '/admin/testimonials', icon: Star },
   { key: 'messages', href: '/admin/messages', icon: Mail },
-  { key: 'team', href: '/admin/team', icon: Users },
   { key: 'media', href: '/admin/media', icon: Image },
   { key: 'chatLogs', href: '/admin/chat-logs', icon: MessageSquare },
   { key: 'settings', href: '/admin/settings', icon: Settings },
