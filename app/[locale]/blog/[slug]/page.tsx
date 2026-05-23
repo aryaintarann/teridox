@@ -131,11 +131,11 @@ export default function BlogDetailPage() {
           </Link>
 
           {post.cover_image_url ? (
-            <div className="rounded-3xl overflow-hidden h-64 mb-10 border border-border">
+            <div className="rounded-3xl overflow-hidden mb-10 border border-border">
               <img
                 src={post.cover_image_url}
                 alt={title}
-                className="w-full h-full object-cover"
+                className="w-full h-auto block"
                 loading="lazy"
                 decoding="async"
               />
