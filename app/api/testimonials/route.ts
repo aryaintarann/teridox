@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Testimoni terlalu singkat (minimal 20 karakter).' }, { status: 400 })
     }
 
-    const supabase = createAdminClient()
+    const supabase = await createAdminClient()
     const { error } = await supabase.from('testimonials').insert({
       name: name.trim(),
       role: role?.trim() ?? '',
