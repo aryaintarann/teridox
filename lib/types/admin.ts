@@ -55,6 +55,26 @@ export interface TeamMember {
   created_at: string
 }
 
+export interface Service {
+  id: string
+  slug: string
+  icon: string
+  accent_color: string
+  title: string
+  title_en: string
+  desc: string
+  desc_en: string
+  features: string[]
+  features_en: string[]
+  process: Array<{ step: number; title: string; desc: string }>
+  process_en: Array<{ step: number; title: string; desc: string }>
+  faq: Array<{ q: string; a: string }>
+  faq_en: Array<{ q: string; a: string }>
+  display_order: number
+  active: boolean
+  created_at: string
+}
+
 export interface ContactMessage {
   id: string
   name: string
