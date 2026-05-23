@@ -184,8 +184,8 @@ CREATE TABLE IF NOT EXISTS services (
   accent_color  TEXT        DEFAULT '#00C7B7',
   title         TEXT        NOT NULL DEFAULT '',
   title_en      TEXT        DEFAULT '',
-  desc          TEXT        DEFAULT '',
-  desc_en       TEXT        DEFAULT '',
+  description   TEXT        DEFAULT '',
+  description_en TEXT       DEFAULT '',
   features      JSONB       DEFAULT '[]',
   features_en   JSONB       DEFAULT '[]',
   process       JSONB       DEFAULT '[]',
@@ -228,7 +228,7 @@ CREATE POLICY "public_services" ON services FOR SELECT TO anon USING (active = t
 -- Aman dijalankan berulang karena ON CONFLICT DO NOTHING
 -- ============================================================
 
-INSERT INTO services (slug, icon, accent_color, title, title_en, desc, desc_en, features, features_en, process, process_en, faq, faq_en, display_order) VALUES
+INSERT INTO services (slug, icon, accent_color, title, title_en, description, description_en, features, features_en, process, process_en, faq, faq_en, display_order) VALUES
 
 ('web-development', 'Globe', '#00C7B7',
  'Web Development', 'Web Development',

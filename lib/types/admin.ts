@@ -62,8 +62,8 @@ export interface Service {
   accent_color: string
   title: string
   title_en: string
-  desc: string
-  desc_en: string
+  description: string
+  description_en: string
   features: string[]
   features_en: string[]
   process: Array<{ step: number; title: string; desc: string }>

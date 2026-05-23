@@ -17,7 +17,7 @@ const ICON_MAP: Record<string, React.ElementType> = {
 
 interface Service {
   id: string; slug: string; icon: string; accent_color: string
-  title: string; title_en: string; desc: string; desc_en: string
+  title: string; title_en: string; description: string; description_en: string
   display_order: number; active: boolean
 }
 
@@ -30,7 +30,7 @@ export default function ServicesPage() {
   useEffect(() => {
     createClient()
       .from('services')
-      .select('id,slug,icon,accent_color,title,title_en,desc,desc_en,display_order,active')
+      .select('id,slug,icon,accent_color,title,title_en,description,description_en,display_order,active')
       .eq('active', true)
       .order('display_order', { ascending: true })
       .then(({ data }) => { setServices(data ?? []); setLoading(false) })
@@ -64,7 +64,7 @@ export default function ServicesPage() {
               {services.map((item, i) => {
                 const Icon  = ICON_MAP[item.icon] ?? Globe
                 const title = locale === 'en' && item.title_en ? item.title_en : item.title
-                const desc  = locale === 'en' && item.desc_en  ? item.desc_en  : item.desc
+                const desc  = locale === 'en' && item.description_en ? item.description_en : item.description
                 return (
                   <motion.div
                     key={item.id}

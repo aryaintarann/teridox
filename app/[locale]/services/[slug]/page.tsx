@@ -12,7 +12,7 @@ import CTASection from '@/components/sections/CTASection'
 
 interface Service {
   id: string; slug: string; icon: string; accent_color: string
-  title: string; title_en: string; desc: string; desc_en: string
+  title: string; title_en: string; description: string; description_en: string
   features: string[]; features_en: string[]
   process: Array<{ step: number; title: string; desc: string }>
   process_en: Array<{ step: number; title: string; desc: string }>
@@ -63,7 +63,7 @@ export default function ServiceDetailPage() {
   }
 
   const title    = locale === 'en' && service.title_en ? service.title_en : service.title
-  const desc     = locale === 'en' && service.desc_en  ? service.desc_en  : service.desc
+  const desc     = locale === 'en' && service.description_en ? service.description_en : service.description
   const features = locale === 'en' && service.features_en?.length ? service.features_en : service.features
   const process  = locale === 'en' && service.process_en?.length  ? service.process_en  : service.process
   const faq      = locale === 'en' && service.faq_en?.length      ? service.faq_en      : service.faq

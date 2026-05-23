@@ -23,7 +23,7 @@ type FaqRow     = { qId: string; aId: string; qEn: string; aEn: string }
 
 type FormState = {
   slug: string; icon: string; accent_color: string
-  title: string; title_en: string; desc: string; desc_en: string
+  title: string; title_en: string; description: string; description_en: string
   featuresId: string; featuresEn: string
   process: ProcessRow[]; faq: FaqRow[]
   display_order: number; active: boolean
@@ -31,7 +31,7 @@ type FormState = {
 
 const EMPTY: FormState = {
   slug: '', icon: 'Globe', accent_color: '#00C7B7',
-  title: '', title_en: '', desc: '', desc_en: '',
+  title: '', title_en: '', description: '', description_en: '',
   featuresId: '', featuresEn: '',
   process: [], faq: [],
   display_order: 0, active: true,
@@ -44,7 +44,7 @@ function slugify(s: string) {
 function serviceToForm(s: Service): FormState {
   return {
     slug: s.slug, icon: s.icon, accent_color: s.accent_color,
-    title: s.title, title_en: s.title_en, desc: s.desc, desc_en: s.desc_en,
+    title: s.title, title_en: s.title_en, description: s.description, description_en: s.description_en,
     featuresId: (s.features ?? []).join('\n'),
     featuresEn: (s.features_en ?? []).join('\n'),
     process: (s.process ?? []).map((p, i) => ({
@@ -69,7 +69,7 @@ function formToPayload(f: FormState) {
   const faq         = f.faq.map(q => ({ q: q.qId, a: q.aId }))
   const faq_en      = f.faq.map(q => ({ q: q.qEn, a: q.aEn }))
   return { slug: f.slug, icon: f.icon, accent_color: f.accent_color,
-    title: f.title, title_en: f.title_en, desc: f.desc, desc_en: f.desc_en,
+    title: f.title, title_en: f.title_en, description: f.description, description_en: f.description_en,
     features, features_en, process, process_en, faq, faq_en,
     display_order: f.display_order, active: f.active }
 }
@@ -316,12 +316,12 @@ export default function ServicesAdminPage() {
 
             <div className="space-y-1.5">
               <Label className="text-xs font-medium">Deskripsi (ID)</Label>
-              <Textarea value={form.desc} onChange={e => set('desc', e.target.value)} rows={3}
+              <Textarea value={form.description} onChange={e => set('description', e.target.value)} rows={3}
                 placeholder="Deskripsi layanan dalam Bahasa Indonesia..." className="resize-y" />
             </div>
             <div className="space-y-1.5">
               <Label className="text-xs font-medium">Deskripsi (EN)</Label>
-              <Textarea value={form.desc_en} onChange={e => set('desc_en', e.target.value)} rows={3}
+              <Textarea value={form.description_en} onChange={e => set('description_en', e.target.value)} rows={3}
                 placeholder="Service description in English..." className="resize-y" />
             </div>
 

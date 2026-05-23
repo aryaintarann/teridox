@@ -16,7 +16,7 @@ const FA_ICON: Record<string, string> = {
 
 interface Service {
   id: string; slug: string; icon: string; accent_color: string
-  title: string; title_en: string; desc: string; desc_en: string
+  title: string; title_en: string; description: string; description_en: string
   features: string[]; features_en: string[]
 }
 
@@ -24,7 +24,7 @@ function ServiceCard({ service, locale }: { service: Service; locale: string }) 
   const t       = useTranslations('services')
   const [hov, setHov] = useState(false)
   const title    = locale === 'en' && service.title_en ? service.title_en : service.title
-  const desc     = locale === 'en' && service.desc_en  ? service.desc_en  : service.desc
+  const desc     = locale === 'en' && service.description_en ? service.description_en : service.description
   const features = locale === 'en' && service.features_en?.length ? service.features_en : (service.features ?? [])
   const faIcon   = FA_ICON[service.icon] ?? 'globe'
 
@@ -87,7 +87,7 @@ export default function ServicesPreview() {
   useEffect(() => {
     createClient()
       .from('services')
-      .select('id,slug,icon,accent_color,title,title_en,desc,desc_en,features,features_en')
+      .select('id,slug,icon,accent_color,title,title_en,description,description_en,features,features_en')
       .eq('active', true)
       .order('display_order', { ascending: true })
       .then(({ data }) => { setServices(data ?? []); setLoading(false) })
