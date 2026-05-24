@@ -3,14 +3,17 @@
 import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { useTheme } from '@/lib/theme-context'
+import { useSiteSettings } from '@/lib/context/SiteSettingsContext'
 import { Link } from '@/lib/i18n/navigation'
 
 export default function Hero() {
   const t = useTranslations('hero')
   const { resolvedTheme } = useTheme()
+  const settings = useSiteSettings()
   const [mounted, setMounted] = useState(false)
   useEffect(() => { setMounted(true) }, [])
   const isDark = mounted && resolvedTheme === 'dark'
+  const heroImage = settings.hero_image_url
 
   return (
     <section
@@ -177,11 +180,22 @@ export default function Hero() {
           background: 'rgba(255,255,255,0.05)', bottom: '60px', left: '40px',
           pointerEvents: 'none',
         }} />
-        {/* Hero illustration — inlined SVG */}
+        {/* Hero image or illustration */}
+        {heroImage ? (
+          <img
+            src={heroImage}
+            alt="Hero"
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
+          />
+        ) : null}
+
+        {/* Illustration fallback (hidden when photo is set) */}
         <div style={{
           position: 'absolute', inset: 0,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           padding: 'clamp(24px, 5vw, 56px)',
+          opacity: heroImage ? 0 : 1,
+          pointerEvents: heroImage ? 'none' : 'auto',
         }}>
           <svg viewBox="0 0 480 500" fill="none" xmlns="http://www.w3.org/2000/svg"
             style={{ width: '100%', maxWidth: 460, height: 'auto', userSelect: 'none' }}

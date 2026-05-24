@@ -15,6 +15,7 @@ const SETTING_LABELS: Record<string, string> = {
   company_address:    'Alamat',
   company_hours:      'Jam Operasional',
   whatsapp_number:    'Nomor WhatsApp (tanpa + dan spasi, contoh: 6281234567890)',
+  hero_image_url:     'URL Foto Header (kosongkan untuk pakai ilustrasi default)',
   footer_description: 'Deskripsi Footer',
   instagram_url:      'URL Instagram',
   tiktok_url:         'URL TikTok',
@@ -91,6 +92,31 @@ export default function SettingsPage() {
         </div>
 
         <div className="space-y-6">
+          {/* Hero Image */}
+          <div className="bg-card border border-border rounded-2xl p-6 space-y-4">
+            <h2 className="font-semibold">Foto Header</h2>
+            <div>
+              <Label className="text-xs mb-1">{SETTING_LABELS.hero_image_url}</Label>
+              <Input
+                value={settings.hero_image_url ?? ''}
+                onChange={e => setSettings(prev => ({ ...prev, hero_image_url: e.target.value }))}
+                placeholder="https://... (URL dari halaman Media)"
+              />
+              {settings.hero_image_url && (
+                <img
+                  src={settings.hero_image_url}
+                  alt="Preview"
+                  className="mt-2 rounded-xl object-cover w-full"
+                  style={{ maxHeight: 160 }}
+                />
+              )}
+              <p className="text-xs text-muted-foreground mt-1.5">
+                Upload foto di halaman <strong>Media</strong>, lalu salin URL-nya ke sini.
+                Ukuran ideal: minimal <strong>960×1080px</strong> (rasio 8:9), format JPG/WebP.
+              </p>
+            </div>
+          </div>
+
           {/* Footer Content */}
           <div className="bg-card border border-border rounded-2xl p-6 space-y-4">
             <h2 className="font-semibold">Konten Footer</h2>
