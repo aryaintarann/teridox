@@ -1,23 +1,58 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { nvidia, MODELS } from '@/lib/nvidia'
+import { createAdminClient } from '@/lib/supabase/server'
 
-const SYSTEM_PROMPT = `Kamu adalah asisten virtual resmi dari Teridox, sebuah software house yang menyediakan layanan web development, mobile app development, dan SaaS platform.
+// Cache the built system prompt for 5 minutes to avoid DB hit on every message
+let promptCache: { text: string; expiresAt: number } | null = null
 
-Tugasmu adalah membantu calon klien dan pengunjung website dengan pertanyaan seputar bisnis kami.
+async function buildSystemPrompt(): Promise<string> {
+  if (promptCache && Date.now() < promptCache.expiresAt) return promptCache.text
 
-HANYA jawab pertanyaan tentang:
-1. Layanan Teridox: web development (Next.js, React), mobile apps (Flutter, React Native), SaaS development, UI/UX design, API integration, cloud & DevOps
-2. Proses kerja dan timeline
-3. Cara menghubungi tim kami (email: hello@teridox.com, telepon: +62 361 123 4567)
-4. Portfolio dan pengalaman kami
-5. FAQ umum seputar bisnis kami
-6. Estimasi harga (berikan range, bukan harga pasti)
+  const supabase = await createAdminClient()
 
-JANGAN jawab pertanyaan di luar topik di atas seperti politik, pertanyaan personal, atau topik tidak relevan.
-Jika ditanya hal lain, tolak dengan sopan: "Maaf, saya hanya dapat membantu pertanyaan seputar layanan Teridox. Silakan kunjungi hello@teridox.com untuk pertanyaan lainnya."
+  const [{ data: settingsData }, { data: servicesData }] = await Promise.all([
+    supabase.from('site_settings').select('key,value'),
+    supabase.from('services').select('title,description').eq('active', true).order('display_order'),
+  ])
 
-Selalu gunakan bahasa yang sama dengan pengguna (Indonesia/English).
-Tone: profesional namun ramah dan membantu. Jawaban ringkas namun informatif.`
+  const s: Record<string, string> = {}
+  ;(settingsData ?? []).forEach(({ key, value }: { key: string; value: string }) => { s[key] = value })
+
+  const companyName = s.company_name    || 'Teridox'
+  const email       = s.company_email   || 'hello@teridox.com'
+  const phone       = s.company_phone   || '+62 361 123 4567'
+  const address     = s.company_address || 'Bali, Indonesia'
+  const hours       = s.company_hours   || 'Senin – Jumat: 09:00 – 18:00 WITA'
+  const description = s.footer_description || 'software house yang menyediakan solusi teknologi untuk bisnis'
+  const waLine      = s.whatsapp_number ? `\n- WhatsApp: +${s.whatsapp_number}` : ''
+
+  const servicesList = (servicesData ?? [])
+    .map((sv: { title: string; description: string }) => `- ${sv.title}: ${sv.description}`)
+    .join('\n')
+
+  const prompt = `Kamu adalah asisten virtual resmi dari ${companyName}, ${description}.
+
+Tugasmu adalah membantu calon klien dan pengunjung website dengan pertanyaan seputar layanan kami.
+
+LAYANAN YANG KAMI TAWARKAN:
+${servicesList || '- Informasi layanan sedang diperbarui.'}
+
+INFORMASI KONTAK:
+- Email: ${email}
+- Telepon: ${phone}${waLine}
+- Alamat: ${address}
+- Jam operasional: ${hours}
+
+PANDUAN MENJAWAB:
+1. Jawab pertanyaan tentang layanan di atas, proses kerja, timeline, estimasi harga (range, bukan harga pasti), portfolio, dan cara menghubungi kami.
+2. Jika ditanya estimasi harga, berikan gambaran umum berdasarkan kompleksitas — hindari angka pasti.
+3. Jika pertanyaan di luar topik bisnis (politik, hal pribadi, topik tidak relevan), tolak dengan sopan: "Maaf, saya hanya dapat membantu pertanyaan seputar layanan ${companyName}. Silakan hubungi kami di ${email} untuk pertanyaan lainnya."
+4. Selalu gunakan bahasa yang sama dengan pengguna (Indonesia atau English).
+5. Tone: profesional, ramah, dan ringkas.`
+
+  promptCache = { text: prompt, expiresAt: Date.now() + 5 * 60 * 1000 }
+  return prompt
+}
 
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>()
 
@@ -41,11 +76,12 @@ export async function POST(req: NextRequest) {
 
   try {
     const { messages } = await req.json()
+    const systemPrompt = await buildSystemPrompt()
 
     const stream = await nvidia.chat.completions.create({
       model: MODELS.chatbot,
       messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
+        { role: 'system', content: systemPrompt },
         ...messages.slice(-10),
       ],
       max_tokens: 512,
