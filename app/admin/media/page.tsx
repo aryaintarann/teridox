@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { Upload, Trash2, Copy, RefreshCw, Check, Search, ImageIcon, X } from 'lucide-react'
+import { Upload, Trash2, Copy, RefreshCw, Check, Search, ImageIcon, X, LayoutTemplate } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
@@ -29,6 +29,9 @@ export default function MediaPage() {
   const [copied, setCopied] = useState<string | null>(null)
   const [preview, setPreview] = useState<MediaFile | null>(null)
   const [deleting, setDeleting] = useState<string | null>(null)
+  const [settingHero, setSettingHero] = useState(false)
+  const [heroSet, setHeroSet] = useState(false)
+  const [currentHeroUrl, setCurrentHeroUrl] = useState<string>('')
   const fileInputRef = useRef<HTMLInputElement>(null)
   const supabase = createClient()
 
@@ -52,7 +55,12 @@ export default function MediaPage() {
     setLoading(false)
   }, [])
 
-  useEffect(() => { loadFiles() }, [loadFiles])
+  useEffect(() => {
+    loadFiles()
+    // Load current hero URL
+    supabase.from('site_settings').select('value').eq('key', 'hero_image_url').single()
+      .then(({ data }) => { if (data) setCurrentHeroUrl(data.value ?? '') })
+  }, [loadFiles])
 
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const fileList = e.target.files
@@ -75,6 +83,18 @@ export default function MediaPage() {
     setDeleting(null)
     if (preview?.name === file.name) setPreview(null)
     loadFiles()
+  }
+
+  async function setAsHero(url: string) {
+    setSettingHero(true)
+    await supabase.from('site_settings').upsert(
+      { key: 'hero_image_url', value: url, updated_at: new Date().toISOString() },
+      { onConflict: 'key' }
+    )
+    setCurrentHeroUrl(url)
+    setSettingHero(false)
+    setHeroSet(true)
+    setTimeout(() => setHeroSet(false), 2500)
   }
 
   function copyUrl(url: string) {
@@ -151,6 +171,11 @@ export default function MediaPage() {
                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 loading="lazy"
               />
+              {currentHeroUrl === file.publicUrl && (
+                <div className="absolute top-2 left-2 bg-primary text-primary-foreground text-[10px] font-semibold px-2 py-0.5 rounded-full">
+                  Header
+                </div>
+              )}
               {/* Hover overlay */}
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2">
                 <button
@@ -216,6 +241,26 @@ export default function MediaPage() {
                   {copied === preview.publicUrl ? <><Check className="h-4 w-4" /> Tersalin</> : <><Copy className="h-4 w-4" /> Salin</>}
                 </Button>
               </div>
+
+              {/* Set as hero button */}
+              <Button
+                size="sm"
+                variant={currentHeroUrl === preview.publicUrl ? 'outline' : 'default'}
+                onClick={() => setAsHero(preview.publicUrl)}
+                disabled={settingHero || currentHeroUrl === preview.publicUrl}
+                className="w-full gap-2"
+              >
+                <LayoutTemplate className="h-4 w-4" />
+                {heroSet
+                  ? <><Check className="h-4 w-4" /> Berhasil dipasang sebagai Foto Header!</>
+                  : settingHero
+                    ? 'Menyimpan...'
+                    : currentHeroUrl === preview.publicUrl
+                      ? 'Sedang digunakan sebagai Foto Header'
+                      : 'Gunakan sebagai Foto Header'
+                }
+              </Button>
+
               <div className="flex justify-end">
                 <Button
                   size="sm"
