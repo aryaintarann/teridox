@@ -67,9 +67,9 @@ export default function MediaPage() {
     if (!fileList || fileList.length === 0) return
     setUploading(true)
     for (const file of Array.from(fileList)) {
-      const ext = file.name.split('.').pop()
-      const uniqueName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
-      await supabase.storage.from(BUCKET).upload(uniqueName, file, { contentType: file.type })
+      const form = new FormData()
+      form.append('file', file)
+      await fetch('/api/admin/upload', { method: 'POST', body: form })
     }
     setUploading(false)
     if (fileInputRef.current) fileInputRef.current.value = ''
