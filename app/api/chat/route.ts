@@ -1,18 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { nvidia, MODELS } from '@/lib/nvidia'
-import { createAdminClient } from '@/lib/supabase/server'
+import { createClient } from '@supabase/supabase-js'
 
-// Cache the built system prompt for 5 minutes to avoid DB hit on every message
+// Singleton — no cookies needed, service role bypasses RLS
+const supabaseAdmin = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+)
+
+// Cache built prompt per warm instance (avoids repeated DB round-trips)
 let promptCache: { text: string; expiresAt: number } | null = null
 
 async function buildSystemPrompt(): Promise<string> {
   if (promptCache && Date.now() < promptCache.expiresAt) return promptCache.text
 
-  const supabase = await createAdminClient()
-
   const [{ data: settingsData }, { data: servicesData }] = await Promise.all([
-    supabase.from('site_settings').select('key,value'),
-    supabase.from('services').select('title,description').eq('active', true).order('display_order'),
+    supabaseAdmin.from('site_settings').select('key,value'),
+    supabaseAdmin.from('services').select('title,description').eq('active', true).order('display_order'),
   ])
 
   const s: Record<string, string> = {}
