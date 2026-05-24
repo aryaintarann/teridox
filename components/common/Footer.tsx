@@ -38,11 +38,11 @@ export default function Footer() {
   ]
 
   const socialLinks = [
-    { icon: 'instagram',   brand: true, href: settings.instagram_url || 'https://instagram.com/teridox' },
-    { icon: 'linkedin-in', brand: true, href: settings.linkedin_url  || 'https://linkedin.com/company/teridox' },
-    { icon: 'x-twitter',   brand: true, href: settings.twitter_url   || 'https://x.com/teridox' },
-    { icon: 'youtube',     brand: true, href: settings.youtube_url   || 'https://youtube.com/@teridox' },
-  ]
+    { icon: 'instagram', href: settings.instagram_url || '' },
+    { icon: 'tiktok',    href: settings.tiktok_url    || '' },
+    { icon: 'x-twitter', href: settings.twitter_url   || '' },
+    { icon: 'threads',   href: settings.threads_url   || '' },
+  ].filter(s => s.href)
   const serviceLinks = (st.raw('items') as Array<{ slug: string; title: string }>).map(
     ({ slug, title }) => ({ label: title, href: `/services/${slug}` })
   )
@@ -77,8 +77,8 @@ export default function Footer() {
               {description}
             </p>
             <div style={{ display: 'flex', gap: 10 }}>
-              {socialLinks.map(({ icon, brand, href }) => (
-                <FooterSocial key={icon} icon={icon} brand={brand} href={href} />
+              {socialLinks.map(({ icon, href }) => (
+                <FooterSocial key={icon} icon={icon} href={href} />
               ))}
             </div>
           </div>
@@ -168,7 +168,7 @@ export default function Footer() {
   )
 }
 
-function FooterSocial({ icon, brand, href }: { icon: string; brand: boolean; href: string }) {
+function FooterSocial({ icon, href }: { icon: string; href: string }) {
   return (
     <a
       href={href}
@@ -179,7 +179,7 @@ function FooterSocial({ icon, brand, href }: { icon: string; brand: boolean; hre
       style={{ width: 36, height: 36 }}
     >
       <i
-        className={`${brand ? 'fa-brands' : 'fa-solid'} fa-${icon} group-hover:text-white transition-colors`}
+        className={`fa-brands fa-${icon} group-hover:text-white transition-colors`}
         style={{ fontSize: 14 }}
         aria-hidden="true"
       />

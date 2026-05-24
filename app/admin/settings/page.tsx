@@ -17,9 +17,9 @@ const SETTING_LABELS: Record<string, string> = {
   whatsapp_number:    'Nomor WhatsApp (tanpa + dan spasi, contoh: 6281234567890)',
   footer_description: 'Deskripsi Footer',
   instagram_url:      'URL Instagram',
-  linkedin_url:       'URL LinkedIn',
+  tiktok_url:         'URL TikTok',
   twitter_url:        'URL X / Twitter',
-  youtube_url:        'URL YouTube',
+  threads_url:        'URL Threads',
 }
 
 export default function SettingsPage() {
@@ -109,7 +109,7 @@ export default function SettingsPage() {
           {/* Social Media */}
           <div className="bg-card border border-border rounded-2xl p-6 space-y-4">
             <h2 className="font-semibold">Media Sosial</h2>
-            {(['instagram_url', 'linkedin_url', 'twitter_url', 'youtube_url'] as const).map(key => (
+            {(['instagram_url', 'tiktok_url', 'twitter_url', 'threads_url'] as const).map(key => (
               <div key={key}>
                 <Label className="text-xs mb-1">{SETTING_LABELS[key]}</Label>
                 <Input
