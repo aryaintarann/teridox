@@ -14,13 +14,13 @@ export async function POST(req: NextRequest) {
     const file = formData.get('file') as File | null
     if (!file) return NextResponse.json({ error: 'No file' }, { status: 400 })
 
-    // Auto-create bucket if it doesn't exist yet
-    await supabaseAdmin.storage.createBucket(BUCKET, {
+    // Ensure bucket exists and has correct settings (no file size limit)
+    await supabaseAdmin.storage.createBucket(BUCKET, { public: true })
+    await supabaseAdmin.storage.updateBucket(BUCKET, {
       public: true,
-      fileSizeLimit: 5242880,
+      fileSizeLimit: null,
       allowedMimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
     })
-    // Ignore error — it just means bucket already exists
 
     const ext = file.name.split('.').pop()
     const uniqueName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
