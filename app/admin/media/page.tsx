@@ -58,7 +58,7 @@ export default function MediaPage() {
   useEffect(() => {
     loadFiles()
     // Load current hero URL
-    supabase.from('site_settings').select('value').eq('key', 'hero_image_url').single()
+    supabase.from('site_settings').select('value').eq('key', 'hero_image_url').maybeSingle()
       .then(({ data }) => { if (data) setCurrentHeroUrl(data.value ?? '') })
   }, [loadFiles])
 
