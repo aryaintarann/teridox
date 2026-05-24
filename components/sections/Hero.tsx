@@ -177,30 +177,18 @@ export default function Hero() {
           background: 'rgba(255,255,255,0.05)', bottom: '60px', left: '40px',
           pointerEvents: 'none',
         }} />
-        {/* Center text overlay */}
+        {/* Hero illustration */}
         <div style={{
           position: 'absolute', inset: 0,
-          display: 'flex', flexDirection: 'column',
-          alignItems: 'center', justifyContent: 'center',
-          padding: 48, textAlign: 'center',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          padding: 'clamp(24px, 5vw, 56px)',
         }}>
-          <div style={{
-            fontSize: 13, fontWeight: 600, letterSpacing: '0.15em',
-            textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)',
-            fontFamily: 'var(--font-dmsans)', marginBottom: 16,
-          }}>
-            Teridox Technology
-          </div>
-          <div style={{
-            fontFamily: 'var(--font-syne)', fontSize: 'clamp(28px, 3.5vw, 48px)',
-            fontWeight: 800, color: 'white', lineHeight: 1.2, marginBottom: 20,
-          }}>
-            Digital Agency<br />Bali
-          </div>
-          <div style={{
-            width: 48, height: 3, borderRadius: 2,
-            background: 'rgba(255,255,255,0.4)',
-          }} />
+          <img
+            src="/hero-illustration.svg"
+            alt="Teridox — Software House Dashboard"
+            style={{ width: '100%', maxWidth: 460, height: 'auto', userSelect: 'none' }}
+            draggable={false}
+          />
         </div>
       </div>
     </section>
