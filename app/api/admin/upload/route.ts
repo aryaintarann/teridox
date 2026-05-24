@@ -9,20 +9,36 @@ const supabaseAdmin = createClient(
 const BUCKET = 'blog-images'
 
 export async function POST(req: NextRequest) {
-  const formData = await req.formData()
-  const file = formData.get('file') as File | null
-  if (!file) return NextResponse.json({ error: 'No file' }, { status: 400 })
+  try {
+    const formData = await req.formData()
+    const file = formData.get('file') as File | null
+    if (!file) return NextResponse.json({ error: 'No file' }, { status: 400 })
 
-  const ext = file.name.split('.').pop()
-  const uniqueName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
+    // Auto-create bucket if it doesn't exist yet
+    await supabaseAdmin.storage.createBucket(BUCKET, {
+      public: true,
+      fileSizeLimit: 5242880,
+      allowedMimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
+    })
+    // Ignore error — it just means bucket already exists
 
-  const arrayBuffer = await file.arrayBuffer()
-  const { error } = await supabaseAdmin.storage
-    .from(BUCKET)
-    .upload(uniqueName, arrayBuffer, { contentType: file.type })
+    const ext = file.name.split('.').pop()
+    const uniqueName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+    const buffer = Buffer.from(await file.arrayBuffer())
+    const { error } = await supabaseAdmin.storage
+      .from(BUCKET)
+      .upload(uniqueName, buffer, { contentType: file.type || 'application/octet-stream', upsert: false })
 
-  const { data: { publicUrl } } = supabaseAdmin.storage.from(BUCKET).getPublicUrl(uniqueName)
-  return NextResponse.json({ name: uniqueName, publicUrl })
+    if (error) {
+      console.error('[upload] Supabase storage error:', error)
+      return NextResponse.json({ error: error.message }, { status: 500 })
+    }
+
+    const { data: { publicUrl } } = supabaseAdmin.storage.from(BUCKET).getPublicUrl(uniqueName)
+    return NextResponse.json({ name: uniqueName, publicUrl })
+  } catch (e) {
+    console.error('[upload] Unexpected error:', e)
+    return NextResponse.json({ error: String(e) }, { status: 500 })
+  }
 }

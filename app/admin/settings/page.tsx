@@ -1,9 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { SiteSetting } from '@/lib/types/admin'
-import { Save, RefreshCw } from 'lucide-react'
+import { Save, RefreshCw, Upload, X, Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -15,7 +15,6 @@ const SETTING_LABELS: Record<string, string> = {
   company_address:    'Alamat',
   company_hours:      'Jam Operasional',
   whatsapp_number:    'Nomor WhatsApp (tanpa + dan spasi, contoh: 6281234567890)',
-  hero_image_url:     'URL Foto Header (kosongkan untuk pakai ilustrasi default)',
   footer_description: 'Deskripsi Footer',
   instagram_url:      'URL Instagram',
   tiktok_url:         'URL TikTok',
@@ -28,6 +27,9 @@ export default function SettingsPage() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
+  const [uploadingHero, setUploadingHero] = useState(false)
+  const [heroUploaded, setHeroUploaded] = useState(false)
+  const heroInputRef = useRef<HTMLInputElement>(null)
   const supabase = createClient()
 
   useEffect(() => {
@@ -50,6 +52,40 @@ export default function SettingsPage() {
     setSaving(false)
     setSaved(true)
     setTimeout(() => setSaved(false), 2000)
+  }
+
+  async function handleHeroUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploadingHero(true)
+
+    const form = new FormData()
+    form.append('file', file)
+    const res = await fetch('/api/admin/upload', { method: 'POST', body: form })
+    const json = await res.json()
+
+    if (res.ok && json.publicUrl) {
+      const newUrl = json.publicUrl
+      setSettings(prev => ({ ...prev, hero_image_url: newUrl }))
+      // Save immediately to DB
+      await supabase.from('site_settings').upsert(
+        { key: 'hero_image_url', value: newUrl, updated_at: new Date().toISOString() },
+        { onConflict: 'key' }
+      )
+      setHeroUploaded(true)
+      setTimeout(() => setHeroUploaded(false), 3000)
+    }
+
+    setUploadingHero(false)
+    if (heroInputRef.current) heroInputRef.current.value = ''
+  }
+
+  async function clearHero() {
+    setSettings(prev => ({ ...prev, hero_image_url: '' }))
+    await supabase.from('site_settings').upsert(
+      { key: 'hero_image_url', value: '', updated_at: new Date().toISOString() },
+      { onConflict: 'key' }
+    )
   }
 
   if (loading) {
@@ -95,26 +131,57 @@ export default function SettingsPage() {
           {/* Hero Image */}
           <div className="bg-card border border-border rounded-2xl p-6 space-y-4">
             <h2 className="font-semibold">Foto Header</h2>
-            <div>
-              <Label className="text-xs mb-1">{SETTING_LABELS.hero_image_url}</Label>
-              <Input
-                value={settings.hero_image_url ?? ''}
-                onChange={e => setSettings(prev => ({ ...prev, hero_image_url: e.target.value }))}
-                placeholder="https://... (URL dari halaman Media)"
-              />
-              {settings.hero_image_url && (
+            <p className="text-xs text-muted-foreground -mt-2">
+              Ukuran ideal: minimal <strong>960×1080px</strong> (rasio 8:9), format JPG/WebP.
+              Kosongkan untuk pakai ilustrasi default.
+            </p>
+
+            {/* Preview */}
+            {settings.hero_image_url ? (
+              <div className="relative rounded-xl overflow-hidden border border-border">
                 <img
                   src={settings.hero_image_url}
-                  alt="Preview"
-                  className="mt-2 rounded-xl object-cover w-full"
-                  style={{ maxHeight: 160 }}
+                  alt="Foto Header"
+                  className="w-full object-cover"
+                  style={{ maxHeight: 180 }}
                 />
-              )}
-              <p className="text-xs text-muted-foreground mt-1.5">
-                Upload foto di halaman <strong>Media</strong>, lalu salin URL-nya ke sini.
-                Ukuran ideal: minimal <strong>960×1080px</strong> (rasio 8:9), format JPG/WebP.
-              </p>
-            </div>
+                <button
+                  onClick={clearHero}
+                  className="absolute top-2 right-2 bg-black/60 hover:bg-black/80 text-white rounded-full p-1.5 transition-colors"
+                  title="Hapus foto header"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+            ) : (
+              <div className="rounded-xl border-2 border-dashed border-border flex flex-col items-center justify-center py-10 text-muted-foreground text-sm gap-2">
+                <Upload className="h-8 w-8 opacity-40" />
+                <span>Belum ada foto header</span>
+              </div>
+            )}
+
+            {/* Upload button */}
+            <input
+              ref={heroInputRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              className="hidden"
+              onChange={handleHeroUpload}
+            />
+            <Button
+              size="sm"
+              variant="outline"
+              className="w-full gap-2"
+              disabled={uploadingHero}
+              onClick={() => heroInputRef.current?.click()}
+            >
+              {heroUploaded
+                ? <><Check className="h-4 w-4 text-green-500" /> Foto berhasil dipasang!</>
+                : uploadingHero
+                  ? <><RefreshCw className="h-4 w-4 animate-spin" /> Mengupload...</>
+                  : <><Upload className="h-4 w-4" /> {settings.hero_image_url ? 'Ganti Foto Header' : 'Upload Foto Header'}</>
+              }
+            </Button>
           </div>
 
           {/* Footer Content */}
