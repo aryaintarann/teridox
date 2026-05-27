@@ -75,7 +75,7 @@ export default function TestimonialsSlider() {
       .then(({ data }) => { setItems(data ?? []); setLoading(false) })
   }, [])
 
-  if (loading || items.length < 3) return null
+  if (loading) return null
 
   const half = Math.ceil(items.length / 2)
   const row1 = items.slice(0, half)
@@ -94,10 +94,16 @@ export default function TestimonialsSlider() {
             {t('title')}
           </h2>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-          <MarqueeRow items={row1} direction="left" />
-          <MarqueeRow items={row2} direction="right" />
-        </div>
+        {items.length >= 3 ? (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            <MarqueeRow items={row1} direction="left" />
+            <MarqueeRow items={row2} direction="right" />
+          </div>
+        ) : (
+          <div style={{ textAlign: 'center', color: 'var(--muted-foreground)', fontFamily: 'var(--font-dmsans)', fontSize: 15, padding: '0 40px' }}>
+            {t('empty')}
+          </div>
+        )}
       </section>
     </>
   )

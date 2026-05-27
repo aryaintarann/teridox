@@ -139,7 +139,8 @@
   "testimonials": {
     "label": "Testimoni Klien",
     "title": "Apa Kata Klien Kami",
-    "subtitle": "Kepuasan klien adalah prioritas utama kami"
+    "subtitle": "Kepuasan klien adalah prioritas utama kami",
+    "empty": "Belum ada testimoni. Jadilah yang pertama berbagi pengalaman Anda!"
   },
   "blog": {
     "label": "Blog & Insight",

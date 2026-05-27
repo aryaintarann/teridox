@@ -139,7 +139,8 @@
   "testimonials": {
     "label": "Client Testimonials",
     "title": "What Our Clients Say",
-    "subtitle": "Client satisfaction is our top priority"
+    "subtitle": "Client satisfaction is our top priority",
+    "empty": "No testimonials yet. Be the first to share your experience!"
   },
   "blog": {
     "label": "Blog & Insights",
