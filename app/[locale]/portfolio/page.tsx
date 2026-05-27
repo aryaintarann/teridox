@@ -8,7 +8,8 @@ import { ExternalLink } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 
 interface PortfolioItem {
-  id: string; title: string; slug: string; description: string
+  id: string; title: string; title_en: string; slug: string
+  description: string; description_en: string
   technologies: string[]; category: string; featured: boolean; created_at: string; image_url: string
 }
 
@@ -28,7 +29,7 @@ export default function PortfolioPage() {
   useEffect(() => {
     createClient()
       .from('portfolio_items')
-      .select('id,title,slug,description,technologies,category,featured,created_at,image_url')
+      .select('id,title,title_en,slug,description,description_en,technologies,category,featured,created_at,image_url')
       .order('featured', { ascending: false })
       .order('created_at', { ascending: false })
       .then(({ data }) => { setItems(data ?? []); setLoading(false) })
@@ -76,6 +77,9 @@ export default function PortfolioPage() {
                 <AnimatePresence>
                   {filtered.map((item, i) => {
                     const color = CAT_COLOR[item.category.toLowerCase()] ?? FALLBACK_COLORS[i % FALLBACK_COLORS.length]
+                    const isEn = locale === 'en'
+                    const localTitle       = (isEn && item.title_en)       ? item.title_en       : item.title
+                    const localDescription = (isEn && item.description_en) ? item.description_en : item.description
                     return (
                       <motion.div key={item.id} layout initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ delay: i * 0.05 }} whileHover={{ y: -4 }}
                         className="group bg-card border border-border rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all">
@@ -92,8 +96,8 @@ export default function PortfolioPage() {
                           )}
                         </div>
                         <div className="p-5">
-                          <h3 className="font-bold mb-1 group-hover:text-primary transition-colors">{item.title}</h3>
-                          <p className="text-muted-foreground text-sm mb-3 line-clamp-2">{item.description}</p>
+                          <h3 className="font-bold mb-1 group-hover:text-primary transition-colors">{localTitle}</h3>
+                          <p className="text-muted-foreground text-sm mb-3 line-clamp-2">{localDescription}</p>
                           <div className="flex flex-wrap gap-1.5 mb-4">
                             {item.technologies.slice(0, 3).map(tag => (
                               <span key={tag} className="text-xs bg-muted px-2.5 py-0.5 rounded-full text-muted-foreground">{tag}</span>

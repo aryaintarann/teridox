@@ -85,12 +85,12 @@ export default function PortfolioPage() {
   async function save() {
     setSaving(true)
     const payload = { ...form, technologies: techInput.split(',').map(t => t.trim()).filter(Boolean) }
-    if (editing) {
-      await supabase.from('portfolio_items').update(payload).eq('id', editing.id)
-    } else {
-      await supabase.from('portfolio_items').insert(payload)
-    }
-    setSaving(false); setOpen(false); fetchItems()
+    const { error } = editing
+      ? await supabase.from('portfolio_items').update(payload).eq('id', editing.id)
+      : await supabase.from('portfolio_items').insert(payload)
+    setSaving(false)
+    if (error) { alert(`Gagal menyimpan: ${error.message}`); return }
+    setOpen(false); fetchItems()
   }
 
   async function toggleFeatured(item: PortfolioItem) {
