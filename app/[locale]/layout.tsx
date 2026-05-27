@@ -7,6 +7,7 @@ import Footer from '@/components/common/Footer'
 import ChatWidget from '@/components/chatbot/ChatWidget'
 import { Toaster } from '@/components/ui/sonner'
 import { SiteSettingsProvider } from '@/lib/context/SiteSettingsContext'
+import { Analytics } from '@vercel/analytics/next'
 
 export default async function LocaleLayout({
   children,
@@ -30,6 +31,7 @@ export default async function LocaleLayout({
           <Footer />
           <ChatWidget />
           <Toaster richColors position="top-right" />
+          <Analytics />
         </div>
       </SiteSettingsProvider>
     </NextIntlClientProvider>
