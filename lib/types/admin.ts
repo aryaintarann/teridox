@@ -21,11 +21,16 @@ export interface BlogPost {
 export interface PortfolioItem {
   id: string
   title: string
+  title_en: string
   slug: string
   description: string
+  description_en: string
   challenge: string
+  challenge_en: string
   solution: string
+  solution_en: string
   outcome: string
+  outcome_en: string
   technologies: string[]
   image_url: string
   project_url: string

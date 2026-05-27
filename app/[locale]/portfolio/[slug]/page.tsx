@@ -10,8 +10,11 @@ import { createClient } from '@/lib/supabase/client'
 import CTASection from '@/components/sections/CTASection'
 
 interface PortfolioItem {
-  id: string; title: string; slug: string; description: string
-  challenge: string; solution: string; outcome: string
+  id: string; title: string; title_en: string; slug: string
+  description: string; description_en: string
+  challenge: string; challenge_en: string
+  solution: string; solution_en: string
+  outcome: string; outcome_en: string
   technologies: string[]; image_url: string; project_url: string
   category: string; featured: boolean; created_at: string
 }
@@ -68,6 +71,12 @@ export default function PortfolioDetailPage() {
   }
 
   const bgColor = CAT_COLOR[item.category.toLowerCase()] ?? '#0F1B2D'
+  const isEn = locale === 'en'
+  const localTitle       = (isEn && item.title_en)       ? item.title_en       : item.title
+  const localDescription = (isEn && item.description_en) ? item.description_en : item.description
+  const localChallenge   = (isEn && item.challenge_en)   ? item.challenge_en   : item.challenge
+  const localSolution    = (isEn && item.solution_en)    ? item.solution_en    : item.solution
+  const localOutcome     = (isEn && item.outcome_en)     ? item.outcome_en     : item.outcome
 
   return (
     <div className="pt-16">
@@ -91,16 +100,16 @@ export default function PortfolioDetailPage() {
             <div className="lg:col-span-2 space-y-10">
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
                 <span className="text-primary font-semibold text-sm">{item.category}</span>
-                <h1 className="text-3xl md:text-4xl font-extrabold mt-1 mb-6">{item.title}</h1>
-                {item.description && (
-                  <p className="text-muted-foreground leading-relaxed text-lg">{item.description}</p>
+                <h1 className="text-3xl md:text-4xl font-extrabold mt-1 mb-6">{localTitle}</h1>
+                {localDescription && (
+                  <p className="text-muted-foreground leading-relaxed text-lg">{localDescription}</p>
                 )}
               </motion.div>
 
               {[
-                { label: t('challenge'), content: item.challenge },
-                { label: t('solution'),  content: item.solution  },
-                { label: t('outcome'),   content: item.outcome   },
+                { label: t('challenge'), content: localChallenge },
+                { label: t('solution'),  content: localSolution  },
+                { label: t('outcome'),   content: localOutcome   },
               ].filter(s => s.content).map(({ label, content }) => (
                 <div key={label}>
                   <h2 className="text-xl font-bold mb-3 text-primary">{label}</h2>

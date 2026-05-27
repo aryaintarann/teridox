@@ -13,8 +13,9 @@ import { Switch } from '@/components/ui/switch'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 
 const EMPTY: Omit<PortfolioItem, 'id' | 'created_at'> = {
-  title: '', slug: '', description: '', challenge: '', solution: '',
-  outcome: '', technologies: [], image_url: '', project_url: '', category: 'web', featured: false,
+  title: '', title_en: '', slug: '', description: '', description_en: '',
+  challenge: '', challenge_en: '', solution: '', solution_en: '',
+  outcome: '', outcome_en: '', technologies: [], image_url: '', project_url: '', category: 'web', featured: false,
 }
 
 const CATEGORIES = ['web', 'mobile', 'software']
@@ -49,9 +50,17 @@ export default function PortfolioPage() {
 
   function openEdit(item: PortfolioItem) {
     setEditing(item)
-    setForm({ title: item.title, slug: item.slug, description: item.description, challenge: item.challenge,
-      solution: item.solution, outcome: item.outcome, technologies: item.technologies ?? [],
-      image_url: item.image_url, project_url: item.project_url, category: item.category, featured: item.featured })
+    setForm({
+      title: item.title, title_en: item.title_en ?? '',
+      slug: item.slug,
+      description: item.description, description_en: item.description_en ?? '',
+      challenge: item.challenge, challenge_en: item.challenge_en ?? '',
+      solution: item.solution, solution_en: item.solution_en ?? '',
+      outcome: item.outcome, outcome_en: item.outcome_en ?? '',
+      technologies: item.technologies ?? [],
+      image_url: item.image_url, project_url: item.project_url,
+      category: item.category, featured: item.featured,
+    })
     setTechInput((item.technologies ?? []).join(', '))
     setOpen(true)
   }
@@ -180,15 +189,9 @@ export default function PortfolioPage() {
           <div className="flex-1 overflow-y-auto px-6 py-5 space-y-5">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="text-xs font-medium mb-1.5 block">Judul *</Label>
-                <Input value={form.title} onChange={e => set('title', e.target.value)} placeholder="Nama proyek" />
-              </div>
-              <div>
                 <Label className="text-xs font-medium mb-1.5 block">Slug *</Label>
                 <Input value={form.slug} onChange={e => set('slug', e.target.value)} placeholder="url-proyek" />
               </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label className="text-xs font-medium mb-1.5 block">Kategori</Label>
                 <select value={form.category} onChange={e => set('category', e.target.value)}
@@ -196,10 +199,10 @@ export default function PortfolioPage() {
                   {CATEGORIES.map(c => <option key={c} value={c} className="uppercase">{c}</option>)}
                 </select>
               </div>
-              <div>
-                <Label className="text-xs font-medium mb-1.5 block">URL Proyek</Label>
-                <Input value={form.project_url} onChange={e => set('project_url', e.target.value)} placeholder="https://..." />
-              </div>
+            </div>
+            <div>
+              <Label className="text-xs font-medium mb-1.5 block">URL Proyek</Label>
+              <Input value={form.project_url} onChange={e => set('project_url', e.target.value)} placeholder="https://..." />
             </div>
             <div>
               <Label className="text-xs font-medium mb-1.5 block">Gambar Proyek</Label>
@@ -234,21 +237,55 @@ export default function PortfolioPage() {
                 </label>
               )}
             </div>
-            <div>
-              <Label className="text-xs font-medium mb-1.5 block">Deskripsi</Label>
-              <Textarea value={form.description} onChange={e => set('description', e.target.value)} rows={3} placeholder="Deskripsi singkat proyek" />
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label className="text-xs font-medium mb-1.5 block">Judul (ID) *</Label>
+                <Input value={form.title} onChange={e => set('title', e.target.value)} placeholder="Nama proyek" />
+              </div>
+              <div>
+                <Label className="text-xs font-medium mb-1.5 block">Judul (EN)</Label>
+                <Input value={form.title_en} onChange={e => set('title_en', e.target.value)} placeholder="Project name" />
+              </div>
             </div>
-            <div>
-              <Label className="text-xs font-medium mb-1.5 block">Tantangan</Label>
-              <Textarea value={form.challenge} onChange={e => set('challenge', e.target.value)} rows={2} placeholder="Tantangan yang dihadapi" />
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label className="text-xs font-medium mb-1.5 block">Deskripsi (ID)</Label>
+                <Textarea value={form.description} onChange={e => set('description', e.target.value)} rows={3} placeholder="Deskripsi singkat proyek" />
+              </div>
+              <div>
+                <Label className="text-xs font-medium mb-1.5 block">Deskripsi (EN)</Label>
+                <Textarea value={form.description_en} onChange={e => set('description_en', e.target.value)} rows={3} placeholder="Short project description" />
+              </div>
             </div>
-            <div>
-              <Label className="text-xs font-medium mb-1.5 block">Solusi</Label>
-              <Textarea value={form.solution} onChange={e => set('solution', e.target.value)} rows={2} placeholder="Solusi yang diterapkan" />
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label className="text-xs font-medium mb-1.5 block">Tantangan (ID)</Label>
+                <Textarea value={form.challenge} onChange={e => set('challenge', e.target.value)} rows={2} placeholder="Tantangan yang dihadapi" />
+              </div>
+              <div>
+                <Label className="text-xs font-medium mb-1.5 block">Tantangan (EN)</Label>
+                <Textarea value={form.challenge_en} onChange={e => set('challenge_en', e.target.value)} rows={2} placeholder="Challenges faced" />
+              </div>
             </div>
-            <div>
-              <Label className="text-xs font-medium mb-1.5 block">Hasil</Label>
-              <Textarea value={form.outcome} onChange={e => set('outcome', e.target.value)} rows={2} placeholder="Hasil yang dicapai" />
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label className="text-xs font-medium mb-1.5 block">Solusi (ID)</Label>
+                <Textarea value={form.solution} onChange={e => set('solution', e.target.value)} rows={2} placeholder="Solusi yang diterapkan" />
+              </div>
+              <div>
+                <Label className="text-xs font-medium mb-1.5 block">Solusi (EN)</Label>
+                <Textarea value={form.solution_en} onChange={e => set('solution_en', e.target.value)} rows={2} placeholder="Solutions applied" />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label className="text-xs font-medium mb-1.5 block">Hasil (ID)</Label>
+                <Textarea value={form.outcome} onChange={e => set('outcome', e.target.value)} rows={2} placeholder="Hasil yang dicapai" />
+              </div>
+              <div>
+                <Label className="text-xs font-medium mb-1.5 block">Hasil (EN)</Label>
+                <Textarea value={form.outcome_en} onChange={e => set('outcome_en', e.target.value)} rows={2} placeholder="Outcomes achieved" />
+              </div>
             </div>
             <div>
               <Label className="text-xs font-medium mb-1.5 block">Teknologi (pisahkan dengan koma)</Label>
