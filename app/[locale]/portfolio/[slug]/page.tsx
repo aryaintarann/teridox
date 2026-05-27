@@ -78,7 +78,9 @@ export default function PortfolioDetailPage() {
           </Link>
 
           {item.image_url ? (
-            <img src={item.image_url} alt={item.title} className="w-full rounded-3xl h-72 object-cover mb-10" />
+            <div className="w-full rounded-3xl overflow-hidden mb-10 bg-muted flex items-center justify-center">
+              <img src={item.image_url} alt={item.title} className="w-full h-auto max-h-[70vh] object-contain" />
+            </div>
           ) : (
             <div className="rounded-3xl h-72 flex items-center justify-center mb-10" style={{ background: bgColor }}>
               <span className="text-white/20 text-[140px] font-black leading-none">{item.title.charAt(0)}</span>
