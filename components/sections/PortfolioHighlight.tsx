@@ -12,7 +12,7 @@ const DEFAULT_COLORS = ['#0F1B2D', '#064E3B', '#0F172A']
 
 interface PortfolioItem {
   id: string; title: string; slug: string; description: string
-  technologies: string[]; category: string; featured: boolean; created_at: string
+  technologies: string[]; category: string; featured: boolean; created_at: string; image_url: string
 }
 
 function PortfolioCard({ item, large, locale }: { item: PortfolioItem; large: boolean; locale: string }) {
@@ -29,9 +29,11 @@ function PortfolioCard({ item, large, locale }: { item: PortfolioItem; large: bo
           gridRow: large ? 'span 2' : 'auto', borderRadius: 20, overflow: 'hidden',
           position: 'relative', cursor: 'pointer', minHeight: large ? 480 : 220,
           background: color,
+          backgroundImage: item.image_url ? `url(${item.image_url})` : undefined,
+          backgroundSize: 'cover', backgroundPosition: 'center',
         }}
       >
-        <div style={{ position: 'absolute', inset: 0, background: hov ? 'rgba(0,0,0,0.55)' : 'rgba(0,0,0,0.2)', transition: 'background 0.3s' }} />
+        <div style={{ position: 'absolute', inset: 0, background: hov ? 'rgba(0,0,0,0.6)' : item.image_url ? 'rgba(0,0,0,0.35)' : 'rgba(0,0,0,0.2)', transition: 'background 0.3s' }} />
         {item.featured && (
           <div style={{ position: 'absolute', top: 16, right: 16, background: '#00C7B7', color: 'white', fontSize: 11, fontWeight: 700, padding: '4px 10px', borderRadius: 9999, zIndex: 2, fontFamily: 'var(--font-dmsans)' }}>
             Featured
@@ -71,7 +73,7 @@ export default function PortfolioHighlight() {
   useEffect(() => {
     createClient()
       .from('portfolio_items')
-      .select('id,title,slug,description,technologies,category,featured,created_at')
+      .select('id,title,slug,description,technologies,category,featured,created_at,image_url')
       .order('featured', { ascending: false })
       .order('created_at', { ascending: false })
       .limit(3)
