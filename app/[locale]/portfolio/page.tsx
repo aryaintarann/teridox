@@ -9,7 +9,7 @@ import { createClient } from '@/lib/supabase/client'
 
 interface PortfolioItem {
   id: string; title: string; slug: string; description: string
-  technologies: string[]; category: string; featured: boolean; created_at: string
+  technologies: string[]; category: string; featured: boolean; created_at: string; image_url: string
 }
 
 const CAT_COLOR: Record<string, string> = {
@@ -28,7 +28,7 @@ export default function PortfolioPage() {
   useEffect(() => {
     createClient()
       .from('portfolio_items')
-      .select('id,title,slug,description,technologies,category,featured,created_at')
+      .select('id,title,slug,description,technologies,category,featured,created_at,image_url')
       .order('featured', { ascending: false })
       .order('created_at', { ascending: false })
       .then(({ data }) => { setItems(data ?? []); setLoading(false) })
@@ -79,8 +79,11 @@ export default function PortfolioPage() {
                     return (
                       <motion.div key={item.id} layout initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ delay: i * 0.05 }} whileHover={{ y: -4 }}
                         className="group bg-card border border-border rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all">
-                        <div className="h-48 flex items-center justify-center relative" style={{ background: color }}>
-                          <span className="text-white/20 text-8xl font-black">{item.title.charAt(0)}</span>
+                        <div className="h-48 relative overflow-hidden" style={{ background: color, backgroundImage: item.image_url ? `url(${item.image_url})` : undefined, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+                          {!item.image_url && (
+                            <span className="absolute inset-0 flex items-center justify-center text-white/20 text-8xl font-black">{item.title.charAt(0)}</span>
+                          )}
+                          <div className="absolute inset-0" style={{ background: item.image_url ? 'rgba(0,0,0,0.25)' : 'transparent' }} />
                           <span className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm text-white text-xs px-2.5 py-1 rounded-full font-medium">
                             {item.category}
                           </span>
