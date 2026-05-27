@@ -94,7 +94,7 @@ export default function BlogPreview() {
   if (!loading && posts.length === 0) return null
 
   return (
-    <section style={{ background: 'var(--background)', padding: '96px 40px' }}>
+    <section style={{ background: 'var(--background)', padding: 'clamp(48px, 8vw, 96px) clamp(16px, 5vw, 40px)' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 48, flexWrap: 'wrap', gap: 16 }}>
           <div>

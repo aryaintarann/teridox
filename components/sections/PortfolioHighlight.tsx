@@ -21,17 +21,19 @@ function PortfolioCard({ item, large, locale }: { item: PortfolioItem; large: bo
   const t = useTranslations('portfolio')
 
   return (
-    <Link href={`/portfolio/${item.slug}`}>
+    <Link href={`/portfolio/${item.slug}`} className={large ? 'row-span-1 md:row-span-2' : ''}>
       <div
         onMouseEnter={() => setHov(true)}
         onMouseLeave={() => setHov(false)}
         style={{
-          gridRow: large ? 'span 2' : 'auto', borderRadius: 20, overflow: 'hidden',
-          position: 'relative', cursor: 'pointer', minHeight: large ? 480 : 220,
+          borderRadius: 20, overflow: 'hidden',
+          position: 'relative', cursor: 'pointer',
+          minHeight: large ? 220 : 220,
           background: color,
           backgroundImage: item.image_url ? `url(${item.image_url})` : undefined,
           backgroundSize: 'cover', backgroundPosition: 'center',
         }}
+        className={large ? 'md:min-h-[480px]' : ''}
       >
         <div style={{ position: 'absolute', inset: 0, background: hov ? 'rgba(0,0,0,0.6)' : item.image_url ? 'rgba(0,0,0,0.35)' : 'rgba(0,0,0,0.2)', transition: 'background 0.3s' }} />
         {item.featured && (
@@ -83,7 +85,7 @@ export default function PortfolioHighlight() {
   if (!loading && items.length === 0) return null
 
   return (
-    <section style={{ background: 'var(--background)', padding: '96px 40px' }}>
+    <section style={{ background: 'var(--background)', padding: 'clamp(48px, 8vw, 96px) clamp(16px, 5vw, 40px)' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 48, flexWrap: 'wrap', gap: 16 }}>
           <div>
@@ -100,13 +102,13 @@ export default function PortfolioHighlight() {
         </div>
 
         {loading ? (
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {[0, 1, 2].map(i => (
-              <div key={i} style={{ height: i === 0 ? 480 : 220, borderRadius: 20, background: 'var(--muted)', animation: 'pulse 1.5s infinite', gridRow: i === 0 ? 'span 2' : 'auto' }} />
+              <div key={i} className={i === 0 ? 'md:row-span-2' : ''} style={{ height: i === 0 ? 480 : 220, borderRadius: 20, background: 'var(--muted)', animation: 'pulse 1.5s infinite' }} />
             ))}
           </div>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: 'auto auto', gap: 20 }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {items.map((item, i) => (
               <PortfolioCard key={item.id} item={item} large={i === 0} locale={locale} />
             ))}

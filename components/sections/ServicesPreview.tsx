@@ -96,7 +96,7 @@ export default function ServicesPreview() {
   if (!loading && services.length === 0) return null
 
   return (
-    <section style={{ background: 'var(--muted)', padding: '96px 40px' }}>
+    <section style={{ background: 'var(--muted)', padding: 'clamp(48px, 8vw, 96px) clamp(16px, 5vw, 40px)' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: 64 }}>
           <div style={{ fontSize: 12, fontWeight: 600, color: '#00C7B7', textTransform: 'uppercase', letterSpacing: '3px', marginBottom: 12, fontFamily: 'var(--font-dmsans)' }}>

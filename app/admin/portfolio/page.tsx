@@ -105,7 +105,7 @@ export default function PortfolioPage() {
   }
 
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-8 pt-14 lg:pt-4">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold">Portfolio</h1>
@@ -125,6 +125,7 @@ export default function PortfolioPage() {
         ) : items.length === 0 ? (
           <div className="p-8 text-center text-muted-foreground text-sm">Belum ada proyek. Tambahkan proyek pertama!</div>
         ) : (
+          <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="border-b border-border bg-muted/30">
               <tr>
@@ -176,6 +177,7 @@ export default function PortfolioPage() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </div>
 

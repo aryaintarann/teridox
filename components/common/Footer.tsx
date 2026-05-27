@@ -52,13 +52,13 @@ export default function Footer() {
       className="bg-slate-50 dark:bg-[#0F1B2D] text-slate-500 dark:text-[#94A3B8]"
       style={{ fontFamily: 'var(--font-dmsans)' }}
     >
-      <div style={{ maxWidth: 1280, margin: '0 auto', padding: '64px 40px 0' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto', padding: 'clamp(40px, 6vw, 64px) clamp(16px, 5vw, 40px) 0' }}>
         <div
           className="border-b border-slate-200 dark:border-[#1E293B]"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            gap: 40,
+            gap: 'clamp(24px, 4vw, 40px)',
             paddingBottom: 48,
           }}
         >

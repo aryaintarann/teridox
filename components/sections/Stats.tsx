@@ -34,21 +34,20 @@ function useCountUp(target: number, duration = 2000) {
   return [count, ref] as const
 }
 
-function StatItem({ num, suffix, labelKey, icon, last, isDark }: { num: string; suffix: string; labelKey: string; icon: string; last: boolean; isDark: boolean }) {
+function StatItem({ num, suffix, labelKey, icon, isDark }: {
+  num: string; suffix: string; labelKey: string; icon: string; isDark: boolean
+}) {
   const t = useTranslations('stats')
   const [val, ref] = useCountUp(parseInt(num))
 
   return (
     <div
       ref={ref}
-      style={{
-        textAlign: 'center',
-        padding: '0 32px',
-        borderRight: last ? 'none' : `1px solid ${isDark ? '#1E293B' : '#E2E8F0'}`,
-      }}
+      className="text-center py-7 px-4 md:py-0 md:px-8 border-slate-200 dark:border-slate-800
+                 not-last:border-b md:not-last:border-b-0 md:not-last:border-r"
     >
       <i className={`fa-solid fa-${icon}`} style={{ color: '#00C7B7', fontSize: 24, marginBottom: 12, display: 'block' }} aria-hidden="true" />
-      <div style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(40px, 5vw, 60px)', fontWeight: 800, color: '#00C7B7', lineHeight: 1 }}>
+      <div style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(32px, 5vw, 60px)', fontWeight: 800, color: '#00C7B7', lineHeight: 1 }}>
         {val}{suffix}
       </div>
       <div style={{ fontSize: 15, color: isDark ? '#94A3B8' : '#64748B', marginTop: 8, fontFamily: 'var(--font-dmsans)' }}>
@@ -97,18 +96,13 @@ export default function Stats() {
   ]
 
   return (
-    <section style={{ background: isDark ? '#0F1B2D' : '#F1F5F9', padding: '80px 40px' }}>
+    <section style={{ background: isDark ? '#0F1B2D' : '#F1F5F9', padding: 'clamp(48px, 8vw, 80px) clamp(16px, 5vw, 40px)' }}>
       <div
-        style={{
-          maxWidth: 1200,
-          margin: '0 auto',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: 0,
-        }}
+        className="grid grid-cols-2 md:grid-cols-4"
+        style={{ maxWidth: 1200, margin: '0 auto' }}
       >
-        {statData.map((s, i) => (
-          <StatItem key={s.labelKey} {...s} last={i === statData.length - 1} isDark={isDark} />
+        {statData.map((s) => (
+          <StatItem key={s.labelKey} {...s} isDark={isDark} />
         ))}
       </div>
     </section>

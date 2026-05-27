@@ -106,7 +106,7 @@ export default function MediaPage() {
   const filtered = files.filter(f => f.name.toLowerCase().includes(search.toLowerCase()))
 
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-8 pt-14 lg:pt-4">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>

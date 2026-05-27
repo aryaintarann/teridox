@@ -173,7 +173,7 @@ export default function ServicesAdminPage() {
   }
 
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-8 pt-14 lg:pt-4">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
@@ -197,6 +197,7 @@ export default function ServicesAdminPage() {
         ) : services.length === 0 ? (
           <div className="p-8 text-center text-muted-foreground text-sm">Belum ada layanan. Buat layanan pertama!</div>
         ) : (
+          <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="border-b border-border bg-muted/30">
               <tr>
@@ -252,6 +253,7 @@ export default function ServicesAdminPage() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </div>
 

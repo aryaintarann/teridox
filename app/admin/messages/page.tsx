@@ -48,7 +48,7 @@ export default function MessagesPage() {
   const unread = messages.filter(m => !m.read).length
 
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-8 pt-14 lg:pt-4">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold flex items-center gap-2">
