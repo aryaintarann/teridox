@@ -68,7 +68,6 @@ export default function PortfolioPage() {
   function set(field: string, value: any) {
     setForm(prev => {
       const next = { ...prev, [field]: value }
-      if (field === 'title' && !editing) next.slug = slugify(value)
       return next
     })
   }
