@@ -3,13 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { useTheme } from '@/lib/theme-context'
-
-const statData = [
-  { num: '50', suffix: '+', labelKey: 'projects',    icon: 'rocket' },
-  { num: '98', suffix: '%', labelKey: 'satisfaction', icon: 'heart' },
-  { num: '2',  suffix: '+', labelKey: 'years',        icon: 'calendar-days' },
-  { num: '20', suffix: '+', labelKey: 'clients',      icon: 'handshake' },
-]
+import { createClient } from '@/lib/supabase/client'
 
 function useCountUp(target: number, duration = 2000) {
   const [count, setCount] = useState(0)
@@ -67,8 +61,40 @@ function StatItem({ num, suffix, labelKey, icon, last, isDark }: { num: string; 
 export default function Stats() {
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const [portfolioCount, setPortfolioCount] = useState(0)
+  const [satisfactionPct, setSatisfactionPct] = useState(0)
+
   useEffect(() => { setMounted(true) }, [])
+
+  useEffect(() => {
+    const supabase = createClient()
+
+    async function fetchStats() {
+      const [{ count: portCount }, { data: testimonials }] = await Promise.all([
+        supabase.from('portfolio_items').select('*', { count: 'exact', head: true }),
+        supabase.from('testimonials').select('rating').eq('published', true),
+      ])
+
+      const count = portCount ?? 0
+      setPortfolioCount(count)
+
+      if (testimonials && testimonials.length > 0) {
+        const avg = testimonials.reduce((sum, t) => sum + (t.rating ?? 0), 0) / testimonials.length
+        setSatisfactionPct(Math.round((avg / 5) * 100))
+      }
+    }
+
+    fetchStats()
+  }, [])
+
   const isDark = mounted && resolvedTheme === 'dark'
+
+  const statData = [
+    { num: String(portfolioCount),  suffix: '+', labelKey: 'projects',    icon: 'rocket' },
+    { num: String(satisfactionPct), suffix: '%', labelKey: 'satisfaction', icon: 'heart' },
+    { num: '2',                     suffix: '+', labelKey: 'years',        icon: 'calendar-days' },
+    { num: String(portfolioCount),  suffix: '+', labelKey: 'clients',      icon: 'handshake' },
+  ]
 
   return (
     <section style={{ background: isDark ? '#0F1B2D' : '#F1F5F9', padding: '80px 40px' }}>
