@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { nvidia, MODELS } from '@/lib/nvidia'
+import { createClient } from '@/lib/supabase/server'
 import { z } from 'zod'
 
 const schema = z.object({
@@ -12,6 +13,11 @@ const schema = z.object({
 const wordCounts = { short: 800, medium: 1500, long: 2500 }
 
 export async function POST(req: NextRequest) {
+  // Auth check — middleware excludes /api/* so we verify here
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
   try {
     const body = await req.json()
     const { topic, language, length, tone } = schema.parse(body)

@@ -1,4 +1,5 @@
 import { createAdminClient } from '@/lib/supabase/server'
+import { createClient } from '@/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
 
 export const maxDuration = 60
@@ -71,6 +72,11 @@ async function uploadToSupabase(buffer: Buffer, contentType: string): Promise<st
 }
 
 export async function POST(req: NextRequest) {
+  // Auth check — middleware excludes /api/* so we verify here
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
   try {
     const { prompt, articleTitle } = await req.json() as { prompt?: string; articleTitle?: string }
 
