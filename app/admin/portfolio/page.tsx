@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { PortfolioItem } from '@/lib/types/admin'
-import { Plus, Pencil, Trash2, Star, StarOff, RefreshCw } from 'lucide-react'
+import { Plus, Pencil, Trash2, Star, StarOff, RefreshCw, Upload, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -31,6 +31,7 @@ export default function PortfolioPage() {
   const [form, setForm] = useState({ ...EMPTY })
   const [techInput, setTechInput] = useState('')
   const [saving, setSaving] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const supabase = createClient()
 
   const fetchItems = useCallback(async () => {
@@ -61,6 +62,16 @@ export default function PortfolioPage() {
       if (field === 'title' && !editing) next.slug = slugify(value)
       return next
     })
+  }
+
+  async function uploadImage(file: File) {
+    setUploading(true)
+    const fd = new FormData()
+    fd.append('file', file)
+    const res = await fetch('/api/admin/upload', { method: 'POST', body: fd })
+    const json = await res.json()
+    if (json.publicUrl) set('image_url', json.publicUrl)
+    setUploading(false)
   }
 
   async function save() {
@@ -191,10 +202,36 @@ export default function PortfolioPage() {
               </div>
             </div>
             <div>
-              <Label className="text-xs font-medium mb-1.5 block">URL Gambar</Label>
-              <Input value={form.image_url} onChange={e => set('image_url', e.target.value)} placeholder="https://..." />
-              {form.image_url && (
-                <img src={form.image_url} alt="preview" className="mt-2 h-28 w-full object-cover rounded-lg border border-border" />
+              <Label className="text-xs font-medium mb-1.5 block">Gambar Proyek</Label>
+              {form.image_url ? (
+                <div className="relative mt-1">
+                  <img src={form.image_url} alt="preview" className="h-36 w-full object-cover rounded-lg border border-border" />
+                  <button
+                    type="button"
+                    onClick={() => set('image_url', '')}
+                    className="absolute top-2 right-2 p-1 rounded-full bg-black/50 hover:bg-black/70 text-white transition-colors"
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+              ) : (
+                <label className={`flex flex-col items-center justify-center gap-2 h-36 w-full rounded-lg border-2 border-dashed border-border cursor-pointer hover:border-primary/50 hover:bg-muted/30 transition-colors ${uploading ? 'opacity-60 pointer-events-none' : ''}`}>
+                  {uploading ? (
+                    <RefreshCw className="h-5 w-5 animate-spin text-muted-foreground" />
+                  ) : (
+                    <>
+                      <Upload className="h-5 w-5 text-muted-foreground" />
+                      <span className="text-xs text-muted-foreground">Klik untuk upload gambar</span>
+                      <span className="text-xs text-muted-foreground/60">JPG, PNG, WebP</span>
+                    </>
+                  )}
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    className="hidden"
+                    onChange={e => { const f = e.target.files?.[0]; if (f) uploadImage(f) }}
+                  />
+                </label>
               )}
             </div>
             <div>
@@ -226,7 +263,7 @@ export default function PortfolioPage() {
             </div>
             <div className="flex gap-2">
               <Button variant="outline" onClick={() => setOpen(false)}>Batal</Button>
-              <Button onClick={save} disabled={saving || !form.title || !form.slug}>
+              <Button onClick={save} disabled={saving || uploading || !form.title || !form.slug}>
                 {saving ? 'Menyimpan...' : 'Simpan'}
               </Button>
             </div>
