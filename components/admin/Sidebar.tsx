@@ -82,18 +82,6 @@ function NavContent({ onNavigate }: { onNavigate?: () => void }) {
   );
 }
 
-export function MobileMenuButton({ onClick }: { onClick: () => void }) {
-  return (
-    <button
-      onClick={onClick}
-      className="lg:hidden p-2 rounded-xl hover:bg-muted transition-colors"
-      aria-label="Buka menu"
-    >
-      <Menu className="h-5 w-5" />
-    </button>
-  );
-}
-
 export default function Sidebar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
