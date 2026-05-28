@@ -1,4 +1,3 @@
-import { getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
 import Hero from '@/components/sections/Hero'
 import AboutSnapshot from '@/components/sections/AboutSnapshot'
