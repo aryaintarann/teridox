@@ -43,9 +43,37 @@ export async function generateMetadata({
   }
 }
 
+const orgJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Teridox',
+  url: 'https://teridox.com',
+  logo: 'https://teridox.com/logo.png',
+  description:
+    'Full-service digital agency from Bali — web development, mobile apps, AI integration, and digital marketing for businesses ready to grow.',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Bali',
+    addressCountry: 'ID',
+  },
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'customer service',
+    availableLanguage: ['Indonesian', 'English'],
+  },
+  sameAs: [
+    'https://instagram.com/teridox',
+    'https://tiktok.com/@teridox',
+  ],
+}
+
 export default function HomePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+      />
       <Hero />
       <AboutSnapshot />
       <ServicesPreview />
