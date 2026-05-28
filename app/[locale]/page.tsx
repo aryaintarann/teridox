@@ -15,15 +15,31 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>
 }): Promise<Metadata> {
   const { locale } = await params
+  const isEn = locale === 'en'
   return {
     title: 'Teridox — Full-Service Digital Agency Bali',
-    description:
-      locale === 'id'
-        ? 'Teridox adalah full-service digital agency dari Bali. Web development, mobile app, UI/UX design, dan AI integration untuk bisnis yang ingin berkembang.'
-        : 'Teridox is a full-service digital agency from Bali — web, mobile, AI, and marketing for businesses ready to grow.',
+    description: isEn
+      ? 'Teridox is a full-service digital agency from Bali — web, mobile, AI, and marketing for businesses ready to grow.'
+      : 'Teridox adalah full-service digital agency dari Bali. Web development, mobile app, UI/UX design, dan AI integration untuk bisnis yang ingin berkembang.',
     alternates: {
       canonical: `/${locale}`,
       languages: { id: '/id', en: '/en' },
+    },
+    openGraph: {
+      title: 'Teridox — Full-Service Digital Agency Bali',
+      description: isEn
+        ? 'Teridox is a full-service digital agency from Bali — web, mobile, AI, and marketing for businesses ready to grow.'
+        : 'Teridox adalah full-service digital agency dari Bali. Web, mobile, AI, dan marketing untuk bisnis yang ingin berkembang.',
+      url: `/${locale}`,
+      type: 'website',
+      locale: isEn ? 'en_US' : 'id_ID',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Teridox — Full-Service Digital Agency Bali',
+      description: isEn
+        ? 'Full-service digital agency from Bali — web, mobile, AI, and marketing.'
+        : 'Digital agency dari Bali — web development, mobile app, dan AI integration.',
     },
   }
 }

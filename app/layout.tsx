@@ -17,6 +17,7 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? 'https://teridox.com'),
   title: {
     default: 'Teridox — Full-Service Digital Agency Bali',
     template: '%s | Teridox',
@@ -29,6 +30,21 @@ export const metadata: Metadata = {
     type: 'website',
     siteName: 'Teridox',
     locale: 'id_ID',
+    url: '/',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@teridox',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 }
 
