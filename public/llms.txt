@@ -1,37 +1,43 @@
 # Teridox
-> Teridox is a trusted software house based in Bali, Indonesia, specializing in web development, mobile app development, and SaaS platform solutions for businesses across Indonesia and Southeast Asia.
+> Teridox is a full-service digital agency based in Bali, Indonesia, specializing in web development, mobile app development, UI/UX design, AI integration, and digital marketing for businesses across Indonesia and Southeast Asia. Operating since 2024.
 
 ## Services
-- Web Development (/en/services/web-development): High-performance websites and web apps with Next.js, React, and TypeScript
-- Mobile App Development (/en/services/mobile-development): iOS & Android apps with Flutter and React Native
-- SaaS Development (/en/services/saas-development): Scalable multi-tenant SaaS platforms with billing and analytics
-- UI/UX Design (/en/services/ui-ux-design): Intuitive and beautiful interface designs
-- API & Integration (/en/services/api-integration): System integration, REST APIs, and GraphQL
-- Cloud & DevOps (/en/services/cloud-devops): Cloud infrastructure and CI/CD pipelines
+- Web Development (/en/services/web-development): High-performance websites and web apps built with Next.js, React, and TypeScript
+- Mobile App Development (/en/services/mobile-development): Native iOS & Android apps using Flutter and React Native
+- UI/UX Design (/en/services/ui-ux-design): Intuitive, conversion-focused interface design
+- AI Integration (/en/services/ai-integration): AI-powered features, chatbots, and automation using LLMs
+- Software/SaaS Development (/en/services/saas-development): Scalable multi-tenant SaaS platforms
+- Digital Marketing (/en/services/digital-marketing): SEO, social media, and growth strategies
 
 ## Key Pages
-- About Us: /en/about
+- Home: /en
+- Services: /en/services
 - Portfolio: /en/portfolio
 - Blog: /en/blog
 - Contact: /en/contact
 - FAQ: /en/faq
+- Testimonials: /en/testimonials
+- Submit Testimonial: /en/testimonials
 
 ## Technology Stack
-- Frontend: Next.js 15, React, TypeScript, Tailwind CSS
+- Frontend: Next.js 16, React, TypeScript, Tailwind CSS
 - Mobile: Flutter, React Native
-- Backend: Node.js, Python
-- Database: PostgreSQL (Supabase), Firebase
-- Cloud: AWS, Vercel, Supabase
-- Payment: Stripe
+- Backend: Node.js, Supabase (PostgreSQL)
+- AI: NVIDIA NIM (LLaMA 3.1), Claude API
+- Cloud: Vercel, Supabase
+- CMS: Custom admin panel built in-house
 
 ## Company Information
 - Name: Teridox
-- Founded: 2020
+- Operating since: 2024
 - Location: Bali, Indonesia
-- Email: hello@teridox.com
-- Phone: +62 361 123 4567
-- Clients served: 150+
-- Projects completed: 300+
+- Projects completed: 50+
+- Client satisfaction: 98%
+- Languages: Indonesian, English
 
 ## Specializations
-Teridox specializes in helping Indonesian and Southeast Asian businesses digitize their operations through modern web applications, mobile apps, and SaaS products. The team consists of experienced developers and designers with 5+ years in the industry.
+Teridox helps Indonesian and Southeast Asian businesses build modern digital products. Core strengths are Next.js web apps, React Native mobile apps, and AI-powered features integrated into business workflows. All projects are built with bilingual (Indonesian + English) support as standard.
+
+## Content
+- Blog: Articles on web development, mobile apps, business technology, and digital marketing tutorials in Indonesian and English
+- Portfolio: Case studies of completed projects across web, mobile, and software categories
