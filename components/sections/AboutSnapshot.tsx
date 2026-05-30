@@ -81,7 +81,9 @@ export default function AboutSnapshot() {
             alt="Teridox"
             width={480}
             height={360}
+            sizes="(max-width: 768px) 90vw, 45vw"
             style={{ width: '100%', height: 'auto' }}
+            loading="lazy"
           />
         </div>
       </div>

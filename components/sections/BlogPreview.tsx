@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useTranslations, useLocale } from 'next-intl'
+import Image from 'next/image'
 import { Link } from '@/lib/i18n/navigation'
 import { createClient } from '@/lib/supabase/client'
 
@@ -45,12 +46,12 @@ function BlogCard({ post, color, locale }: { post: Post; color: string; locale: 
       >
         <div style={{ height: 180, background: color, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden' }}>
           {post.cover_image_url ? (
-            <img
+            <Image
               src={post.cover_image_url}
               alt={title}
-              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-              loading="lazy"
-              decoding="async"
+              fill
+              sizes="(max-width: 768px) 100vw, 33vw"
+              style={{ objectFit: 'cover' }}
             />
           ) : (
             <i className="fa-solid fa-pen-nib" style={{ color: 'rgba(255,255,255,0.25)', fontSize: 48 }} aria-hidden="true" />

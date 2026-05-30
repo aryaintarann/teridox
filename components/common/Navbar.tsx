@@ -99,7 +99,7 @@ export default function Navbar() {
 
           {/* Mobile hamburger */}
           <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger className="md:hidden inline-flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-white/10">
+            <SheetTrigger aria-label={open ? 'Close navigation menu' : 'Open navigation menu'} className="md:hidden inline-flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-white/10">
               <i
                 className={`fa-solid fa-${open ? 'xmark' : 'bars'}`}
                 style={{ color: onDark ? 'white' : 'var(--foreground)', fontSize: 18 }}
