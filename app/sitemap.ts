@@ -1,7 +1,12 @@
 import { MetadataRoute } from 'next'
 import { createClient } from '@supabase/supabase-js'
 
-const BASE_URL = (process.env.NEXT_PUBLIC_APP_URL ?? 'https://teridox.com').replace(/\/$/, '')
+const PROD_URL = 'https://teridox.com'
+const BASE_URL = (() => {
+  const url = process.env.NEXT_PUBLIC_APP_URL ?? PROD_URL
+  if (url.includes('localhost') || url.includes('127.0.0.1')) return PROD_URL
+  return url.replace(/\/$/, '')
+})()
 const LOCALES = ['id', 'en'] as const
 
 const STATIC_ROUTES: Array<{ path: string; priority: number; changeFreq: MetadataRoute.Sitemap[number]['changeFrequency'] }> = [
