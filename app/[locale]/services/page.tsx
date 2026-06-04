@@ -18,8 +18,8 @@ export async function generateMetadata({
       languages: { id: '/id/services', en: '/en/services' },
     },
     keywords: isEn
-      ? ['web development Bali', 'mobile app development Indonesia', 'UI UX design', 'AI integration service', 'software house Bali', 'IT consulting Indonesia', 'digital agency services']
-      : ['web development Bali', 'pembuatan aplikasi mobile Indonesia', 'desain UI UX', 'integrasi AI', 'software house Bali', 'konsultasi IT Indonesia', 'layanan digital agency'],
+      ? ['web development Bali', 'mobile app development Indonesia', 'SaaS development', 'AI integration service', 'software house Bali', 'IT consulting Indonesia', 'software house services']
+      : ['web development Bali', 'pembuatan aplikasi mobile Indonesia', 'pengembangan SaaS', 'integrasi AI', 'software house Bali', 'konsultasi IT Indonesia', 'layanan software house'],
     openGraph: {
       title: isEn ? 'Services | Teridox' : 'Layanan | Teridox',
       description: isEn

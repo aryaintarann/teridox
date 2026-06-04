@@ -19,12 +19,12 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? 'https://teridox.com'),
   title: {
-    default: 'Teridox — Full-Service Digital Agency Bali',
+    default: 'Teridox — Software House Bali',
     template: '%s | Teridox',
   },
   description:
-    'Teridox adalah full-service digital agency dari Bali. Web development, mobile app, UI/UX design, digital marketing, dan AI integration untuk bisnis yang ingin berkembang.',
-  keywords: ['software house', 'web development', 'mobile app', 'digital agency', 'UI/UX design', 'AI integration', 'Bali', 'Indonesia'],
+    'Teridox adalah software house dari Bali. Spesialis web development, mobile app, dan pengembangan SaaS untuk bisnis yang ingin berkembang.',
+  keywords: ['software house', 'web development', 'mobile app', 'SaaS development', 'AI integration', 'Bali', 'Indonesia', 'software house Bali'],
   authors: [{ name: 'Teridox', url: 'https://teridox.com' }],
   openGraph: {
     type: 'website',

@@ -20,8 +20,8 @@ export async function generateMetadata({
     openGraph: {
       title: isEn ? 'Share Your Experience | Teridox' : 'Bagikan Pengalaman | Teridox',
       description: isEn
-        ? 'Share your experience working with Teridox digital agency.'
-        : 'Bagikan pengalaman Anda bekerja bersama Teridox digital agency.',
+        ? 'Share your experience working with Teridox software house.'
+        : 'Bagikan pengalaman Anda bekerja bersama Teridox software house.',
       url: `/${locale}/testimonials`,
       type: 'website',
     },

@@ -16,29 +16,29 @@ export async function generateMetadata({
   const { locale } = await params
   const isEn = locale === 'en'
   return {
-    title: 'Teridox — Full-Service Digital Agency Bali',
+    title: 'Teridox — Software House Bali',
     description: isEn
-      ? 'Teridox is a full-service digital agency from Bali — web, mobile, AI, and marketing for businesses ready to grow.'
-      : 'Teridox adalah full-service digital agency dari Bali. Web development, mobile app, UI/UX design, dan AI integration untuk bisnis yang ingin berkembang.',
+      ? 'Teridox is a software house from Bali — web development, mobile apps, and SaaS solutions for businesses ready to grow.'
+      : 'Teridox adalah software house dari Bali. Spesialis web development, mobile app, dan pengembangan SaaS untuk bisnis yang ingin berkembang.',
     alternates: {
       canonical: `/${locale}`,
       languages: { id: '/id', en: '/en' },
     },
     openGraph: {
-      title: 'Teridox — Full-Service Digital Agency Bali',
+      title: 'Teridox — Software House Bali',
       description: isEn
-        ? 'Teridox is a full-service digital agency from Bali — web, mobile, AI, and marketing for businesses ready to grow.'
-        : 'Teridox adalah full-service digital agency dari Bali. Web, mobile, AI, dan marketing untuk bisnis yang ingin berkembang.',
+        ? 'Teridox is a software house from Bali — web development, mobile apps, and SaaS solutions for businesses ready to grow.'
+        : 'Teridox adalah software house dari Bali. Web development, mobile app, dan pengembangan SaaS untuk bisnis yang ingin berkembang.',
       url: `/${locale}`,
       type: 'website',
       locale: isEn ? 'en_US' : 'id_ID',
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'Teridox — Full-Service Digital Agency Bali',
+      title: 'Teridox — Software House Bali',
       description: isEn
-        ? 'Full-service digital agency from Bali — web, mobile, AI, and marketing.'
-        : 'Digital agency dari Bali — web development, mobile app, dan AI integration.',
+        ? 'Software house from Bali — web development, mobile apps, and SaaS solutions.'
+        : 'Software house dari Bali — web development, mobile app, dan pengembangan SaaS.',
     },
   }
 }
@@ -50,7 +50,7 @@ const orgJsonLd = {
   url: 'https://teridox.com',
   logo: 'https://teridox.com/logo.png',
   description:
-    'Full-service digital agency from Bali — web development, mobile apps, AI integration, and digital marketing for businesses ready to grow.',
+    'Software house from Bali — web development, mobile apps, and SaaS solutions for businesses ready to grow.',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Bali',

@@ -14,8 +14,8 @@ export async function generateMetadata({
       ? 'Get in touch with Teridox for a free consultation on web development, mobile apps, UI/UX design, or AI integration. Based in Bali, serving businesses across Indonesia.'
       : 'Hubungi Teridox untuk konsultasi gratis tentang web development, aplikasi mobile, UI/UX design, atau integrasi AI. Berbasis di Bali, melayani bisnis di seluruh Indonesia.',
     keywords: isEn
-      ? ['contact Teridox', 'digital agency consultation', 'web development Bali', 'hire software house Indonesia', 'free consultation']
-      : ['kontak Teridox', 'konsultasi digital agency', 'web development Bali', 'sewa software house Indonesia', 'konsultasi gratis'],
+      ? ['contact Teridox', 'software house consultation', 'web development Bali', 'hire software house Indonesia', 'free consultation']
+      : ['kontak Teridox', 'konsultasi software house', 'web development Bali', 'sewa software house Indonesia', 'konsultasi gratis'],
     alternates: {
       canonical: `/${locale}/contact`,
       languages: { id: '/id/contact', en: '/en/contact' },

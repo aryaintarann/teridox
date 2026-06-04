@@ -18,8 +18,8 @@ export async function generateMetadata({
       languages: { id: '/id/blog', en: '/en/blog' },
     },
     keywords: isEn
-      ? ['Teridox blog', 'web development tips', 'mobile app development', 'AI technology', 'digital agency insights', 'software tutorial Indonesia']
-      : ['blog Teridox', 'tips web development', 'pengembangan aplikasi mobile', 'teknologi AI', 'wawasan digital agency', 'tutorial software Indonesia'],
+      ? ['Teridox blog', 'web development tips', 'mobile app development', 'AI technology', 'software house insights', 'software tutorial Indonesia']
+      : ['blog Teridox', 'tips web development', 'pengembangan aplikasi mobile', 'teknologi AI', 'wawasan software house', 'tutorial software Indonesia'],
     openGraph: {
       title: isEn ? 'Blog | Teridox' : 'Blog | Teridox',
       description: isEn

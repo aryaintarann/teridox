@@ -1,13 +1,11 @@
 # Teridox
-> Teridox adalah full-service digital agency yang berbasis di Bali, Indonesia, spesialis dalam web development, mobile app development, UI/UX design, integrasi AI, dan digital marketing untuk bisnis di Indonesia dan Asia Tenggara. Beroperasi sejak 2024.
+> Teridox adalah software house yang berbasis di Bali, Indonesia, spesialis dalam web development, mobile app development, dan pengembangan SaaS untuk bisnis di Indonesia dan Asia Tenggara. Beroperasi sejak 2024.
 
 ## Layanan
 - Web Development (/id/services/web-development): Website dan web app performa tinggi dengan Next.js, React, dan TypeScript
 - Mobile App Development (/id/services/mobile-development): Aplikasi iOS & Android native menggunakan Flutter dan React Native
-- UI/UX Design (/id/services/ui-ux-design): Desain antarmuka intuitif yang berfokus pada konversi
+- SaaS Development (/id/services/saas-development): Platform SaaS multi-tenant dan software bisnis yang scalable
 - Integrasi AI (/id/services/ai-integration): Fitur berbasis AI, chatbot, dan otomasi menggunakan LLM
-- Software/SaaS Development (/id/services/saas-development): Platform SaaS multi-tenant yang scalable
-- Digital Marketing (/id/services/digital-marketing): SEO, media sosial, dan strategi pertumbuhan bisnis
 
 ## Halaman Utama
 - Beranda: /id
@@ -29,6 +27,7 @@
 
 ## Informasi Perusahaan
 - Nama: Teridox
+- Jenis: Software House
 - Beroperasi sejak: 2024
 - Lokasi: Bali, Indonesia
 - Proyek selesai: 50+
@@ -36,8 +35,8 @@
 - Bahasa: Indonesia, Inggris
 
 ## Spesialisasi
-Teridox membantu bisnis Indonesia dan Asia Tenggara membangun produk digital modern. Keunggulan utama ada pada web app Next.js, mobile app React Native, dan fitur AI yang diintegrasikan ke dalam alur kerja bisnis. Semua proyek dibangun dengan dukungan bilingual (Indonesia + Inggris) sebagai standar.
+Teridox membantu bisnis Indonesia dan Asia Tenggara membangun produk digital modern. Keunggulan utama ada pada web app Next.js, mobile app React Native, pengembangan platform SaaS, dan fitur AI yang diintegrasikan ke dalam alur kerja bisnis. Semua proyek dibangun dengan dukungan bilingual (Indonesia + Inggris) sebagai standar.
 
 ## Konten
-- Blog: Artikel tentang web development, mobile app, teknologi bisnis, dan tutorial digital marketing dalam bahasa Indonesia dan Inggris
+- Blog: Artikel tentang web development, mobile app, SaaS, dan teknologi software dalam bahasa Indonesia dan Inggris
 - Portfolio: Studi kasus proyek yang telah selesai di kategori web, mobile, dan software

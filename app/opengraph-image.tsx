@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og'
 
-export const alt = 'Teridox — Full-Service Digital Agency Bali'
+export const alt = 'Teridox — Software House Bali'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -43,7 +43,7 @@ export default function OgImage() {
           lineHeight: 1.15,
           marginBottom: 24,
         }}>
-          Full-Service Digital Agency
+          Software House
         </div>
 
         {/* Subtext */}
@@ -53,7 +53,7 @@ export default function OgImage() {
 
         {/* Tags */}
         <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center' }}>
-          {['Web Development', 'Mobile App', 'AI Integration', 'UI/UX Design'].map(tag => (
+          {['Web Development', 'Mobile App', 'SaaS Development', 'AI Integration'].map(tag => (
             <div
               key={tag}
               style={{

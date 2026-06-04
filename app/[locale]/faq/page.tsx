@@ -11,11 +11,11 @@ export async function generateMetadata({
   return {
     title: isEn ? 'FAQ' : 'FAQ',
     description: isEn
-      ? 'Find answers to common questions about Teridox services, pricing, project timelines, and our working process as a digital agency in Bali.'
-      : 'Temukan jawaban atas pertanyaan umum tentang layanan, harga, waktu pengerjaan proyek, dan proses kerja Teridox sebagai digital agency di Bali.',
+      ? 'Find answers to common questions about Teridox services, pricing, project timelines, and our working process as a software house in Bali.'
+      : 'Temukan jawaban atas pertanyaan umum tentang layanan, harga, waktu pengerjaan proyek, dan proses kerja Teridox sebagai software house di Bali.',
     keywords: isEn
-      ? ['FAQ Teridox', 'digital agency questions', 'software house pricing Indonesia', 'web development FAQ', 'how long website takes']
-      : ['FAQ Teridox', 'pertanyaan digital agency', 'harga software house Indonesia', 'FAQ web development', 'berapa lama buat website'],
+      ? ['FAQ Teridox', 'software house questions', 'software house pricing Indonesia', 'web development FAQ', 'how long website takes']
+      : ['FAQ Teridox', 'pertanyaan software house', 'harga software house Indonesia', 'FAQ web development', 'berapa lama buat website'],
     alternates: {
       canonical: `/${locale}/faq`,
       languages: { id: '/id/faq', en: '/en/faq' },
