@@ -232,6 +232,10 @@
       "error": "Failed to send message. Please try again."
     },
     "info": {
+      "labelAddress": "Address",
+      "labelEmail": "Email",
+      "labelPhone": "Phone",
+      "labelHours": "Operating Hours",
       "address": "Bali, Indonesia",
       "email": "hello@teridox.com",
       "phone": "+62 812-3456-7890",
@@ -388,6 +392,7 @@
     "loading": "Loading...",
     "error": "Something went wrong",
     "notFound": "Page not found",
+    "notFoundDesc": "The page you're looking for doesn't exist or has been moved.",
     "backHome": "Back to Home",
     "seeAll": "See All",
     "learnMore": "Learn More",

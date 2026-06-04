@@ -1,9 +1,42 @@
+import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { Link } from '@/lib/i18n/navigation'
 import CTASection from '@/components/sections/CTASection'
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const isEn = locale === 'en'
+  return {
+    title: isEn ? 'Terms & Conditions' : 'Syarat & Ketentuan',
+    description: isEn
+      ? 'Review Teridox\'s terms and conditions governing the use of our services and website.'
+      : 'Tinjau syarat dan ketentuan Teridox yang mengatur penggunaan layanan dan website kami.',
+    alternates: {
+      canonical: `/${locale}/terms`,
+      languages: { id: '/id/terms', en: '/en/terms' },
+    },
+    openGraph: {
+      title: isEn ? 'Terms & Conditions | Teridox' : 'Syarat & Ketentuan | Teridox',
+      description: isEn
+        ? 'Terms and conditions governing the use of Teridox services.'
+        : 'Syarat dan ketentuan yang mengatur penggunaan layanan Teridox.',
+      url: `/${locale}/terms`,
+      type: 'website',
+    },
+    robots: {
+      index: false,
+      follow: true,
+    },
+  }
+}
+
 export default async function TermsPage() {
   const t = await getTranslations('terms')
+  const tCommon = await getTranslations('common')
   const sections = t.raw('sections') as Array<{ title: string; content: string }>
 
   return (
@@ -14,7 +47,7 @@ export default async function TermsPage() {
             href="/"
             className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-8 transition-colors"
           >
-            ← Beranda
+            ← {tCommon('backHome')}
           </Link>
           <h1 className="text-4xl md:text-5xl font-extrabold mb-3">{t('title')}</h1>
           <p className="text-sm text-muted-foreground">{t('lastUpdated')}</p>

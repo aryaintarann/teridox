@@ -232,6 +232,10 @@
       "error": "Gagal mengirim pesan. Silakan coba lagi."
     },
     "info": {
+      "labelAddress": "Alamat",
+      "labelEmail": "Email",
+      "labelPhone": "Telepon",
+      "labelHours": "Jam Operasional",
       "address": "Jl. Teknologi No. 42, Bali, Indonesia 80361",
       "email": "hello@teridox.com",
       "phone": "+62 361 123 4567",
@@ -388,6 +392,7 @@
     "loading": "Memuat...",
     "error": "Terjadi kesalahan",
     "notFound": "Halaman tidak ditemukan",
+    "notFoundDesc": "Halaman yang Anda cari tidak ada atau telah dipindahkan.",
     "backHome": "Kembali ke Beranda",
     "seeAll": "Lihat Semua",
     "learnMore": "Pelajari Lebih",

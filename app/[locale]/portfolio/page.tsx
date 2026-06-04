@@ -17,6 +17,9 @@ export async function generateMetadata({
       canonical: `/${locale}/portfolio`,
       languages: { id: '/id/portfolio', en: '/en/portfolio' },
     },
+    keywords: isEn
+      ? ['Teridox portfolio', 'web app projects Bali', 'mobile app portfolio Indonesia', 'software projects', 'digital agency work', 'case studies Indonesia']
+      : ['portfolio Teridox', 'proyek web Bali', 'portfolio aplikasi mobile Indonesia', 'proyek software', 'karya digital agency', 'studi kasus Indonesia'],
     openGraph: {
       title: isEn ? 'Portfolio | Teridox' : 'Portfolio | Teridox',
       description: isEn

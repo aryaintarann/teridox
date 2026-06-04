@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { useTheme } from '@/lib/theme-context'
@@ -180,10 +181,13 @@ export default function Hero() {
         }} />
         {/* Hero image or illustration */}
         {heroImage ? (
-          <img
+          <Image
             src={heroImage}
             alt="Hero"
-            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, 50vw"
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
           />
         ) : null}
 

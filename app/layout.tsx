@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { Syne, DM_Sans } from 'next/font/google'
 import { cookies } from 'next/headers'
 import { Providers } from './providers'
-import { FontAwesomeLoader } from '@/components/common/FontAwesomeLoader'
 import './globals.css'
 
 const syne = Syne({
@@ -57,11 +56,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="id" suppressHydrationWarning data-scroll-behavior="smooth" className={`${syne.variable} ${dmSans.variable}${darkClass}`}>
       <head>
-        <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+        <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://ptorksiyvbenpwvabils.supabase.co" />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+          crossOrigin="anonymous"
+        />
       </head>
       <body className="min-h-screen bg-background antialiased">
-        <FontAwesomeLoader />
         <Providers>{children}</Providers>
       </body>
     </html>

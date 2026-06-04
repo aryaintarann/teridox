@@ -52,6 +52,60 @@ export async function generateMetadata({
   }
 }
 
-export default function PortfolioSlugPage() {
-  return <PortfolioSlugContent />
+async function PortfolioJsonLd({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>
+}) {
+  const { locale, slug } = await params
+  const isEn = locale === 'en'
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://teridox.com'
+
+  const { data: item } = await getSupabase()
+    .from('portfolio_items')
+    .select('title,title_en,description,description_en,technologies,image_url,category,created_at')
+    .eq('slug', slug)
+    .single()
+
+  if (!item) return null
+
+  const title = isEn && item.title_en ? item.title_en : item.title
+  const description = isEn && item.description_en ? item.description_en : item.description
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: title,
+    description,
+    image: item.image_url ? [item.image_url] : [],
+    url: `${baseUrl}/${locale}/portfolio/${slug}`,
+    dateCreated: item.created_at,
+    keywords: (item.technologies ?? []).join(', '),
+    genre: item.category,
+    creator: {
+      '@type': 'Organization',
+      name: 'Teridox',
+      url: baseUrl,
+    },
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}
+
+export default async function PortfolioSlugPage({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>
+}) {
+  return (
+    <>
+      <PortfolioJsonLd params={params} />
+      <PortfolioSlugContent />
+    </>
+  )
 }

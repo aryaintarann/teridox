@@ -17,6 +17,9 @@ export async function generateMetadata({
       canonical: `/${locale}/services`,
       languages: { id: '/id/services', en: '/en/services' },
     },
+    keywords: isEn
+      ? ['web development Bali', 'mobile app development Indonesia', 'UI UX design', 'AI integration service', 'software house Bali', 'IT consulting Indonesia', 'digital agency services']
+      : ['web development Bali', 'pembuatan aplikasi mobile Indonesia', 'desain UI UX', 'integrasi AI', 'software house Bali', 'konsultasi IT Indonesia', 'layanan digital agency'],
     openGraph: {
       title: isEn ? 'Services | Teridox' : 'Layanan | Teridox',
       description: isEn

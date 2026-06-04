@@ -17,6 +17,9 @@ export async function generateMetadata({
       canonical: `/${locale}/blog`,
       languages: { id: '/id/blog', en: '/en/blog' },
     },
+    keywords: isEn
+      ? ['Teridox blog', 'web development tips', 'mobile app development', 'AI technology', 'digital agency insights', 'software tutorial Indonesia']
+      : ['blog Teridox', 'tips web development', 'pengembangan aplikasi mobile', 'teknologi AI', 'wawasan digital agency', 'tutorial software Indonesia'],
     openGraph: {
       title: isEn ? 'Blog | Teridox' : 'Blog | Teridox',
       description: isEn
