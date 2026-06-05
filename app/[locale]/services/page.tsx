@@ -11,8 +11,8 @@ export async function generateMetadata({
   return {
     title: isEn ? 'Services' : 'Layanan',
     description: isEn
-      ? 'Web development, mobile apps, UI/UX design, AI integration, and more — technology services from Teridox to grow your business.'
-      : 'Web development, aplikasi mobile, UI/UX design, integrasi AI, dan lainnya — layanan teknologi dari Teridox untuk bisnis Anda.',
+      ? 'Web development, mobile apps, SaaS solutions, and AI integration — technology services from Teridox to grow your business.'
+      : 'Web development, aplikasi mobile, solusi SaaS, dan integrasi AI — layanan teknologi dari Teridox untuk bisnis Anda.',
     alternates: {
       canonical: `/${locale}/services`,
       languages: { id: '/id/services', en: '/en/services' },

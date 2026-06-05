@@ -26,7 +26,8 @@
     "clients": "Klien Aktif",
     "years": "Tahun Pengalaman",
     "projects": "Proyek Selesai",
-    "satisfaction": "Kepuasan Klien"
+    "satisfaction": "Kepuasan Klien",
+    "clientsMin": "20"
   },
   "services": {
     "label": "Layanan Kami",
@@ -70,7 +71,7 @@
         "features": ["React Native Cross-Platform", "Native iOS & Android", "App Store & Play Store Publishing", "Push Notifications & Deep Linking", "Offline-First Capability"],
         "process": [
           { "step": 1, "title": "Konsultasi & Scope", "desc": "Mendefinisikan fitur, user flow, dan target pengguna aplikasi." },
-          { "step": 2, "title": "UI/UX Design", "desc": "Prototype interaktif yang bisa dicoba sebelum masuk tahap development." },
+          { "step": 2, "title": "Design & Prototyping", "desc": "Prototype interaktif yang bisa dicoba sebelum masuk tahap development." },
           { "step": 3, "title": "Development Sprint", "desc": "Agile development dengan demo dan review setiap 2 minggu." },
           { "step": 4, "title": "QA & Submit", "desc": "Testing di berbagai device dan submit ke App Store serta Google Play." }
         ],
@@ -229,7 +230,12 @@
       "submit": "Kirim Pesan",
       "submitting": "Mengirim...",
       "success": "Pesan berhasil dikirim! Kami akan menghubungi Anda segera.",
-      "error": "Gagal mengirim pesan. Silakan coba lagi."
+      "error": "Gagal mengirim pesan. Silakan coba lagi.",
+      "errors": {
+        "nameTooShort": "Nama terlalu pendek",
+        "emailInvalid": "Email tidak valid",
+        "messageTooShort": "Pesan terlalu pendek"
+      }
     },
     "info": {
       "labelAddress": "Alamat",
@@ -391,6 +397,8 @@
   "common": {
     "loading": "Memuat...",
     "error": "Terjadi kesalahan",
+    "errorDesc": "Maaf, terjadi kesalahan yang tidak terduga. Silakan coba lagi.",
+    "tryAgain": "Coba Lagi",
     "notFound": "Halaman tidak ditemukan",
     "notFoundDesc": "Halaman yang Anda cari tidak ada atau telah dipindahkan.",
     "backHome": "Kembali ke Beranda",

@@ -10,26 +10,26 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { MapPin, Mail, Phone, Clock, Loader2, CheckCircle } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { useSiteSettings } from '@/lib/context/SiteSettingsContext'
 
-const schema = z.object({
-  name: z.string().min(2, 'Nama terlalu pendek'),
-  email: z.string().email('Email tidak valid'),
-  phone: z.string().optional(),
-  service: z.string().optional(),
-  message: z.string().min(10, 'Pesan terlalu pendek'),
-})
-
-type FormData = z.infer<typeof schema>
+type FormData = { name: string; email: string; phone?: string; service?: string; message: string }
 
 interface ServiceOption { title: string; title_en: string }
 
 export default function ContactContent() {
   const t = useTranslations('contact')
   const settings = useSiteSettings()
+
+  const schema = useMemo(() => z.object({
+    name: z.string().min(2, t('form.errors.nameTooShort')),
+    email: z.string().email(t('form.errors.emailInvalid')),
+    phone: z.string().optional(),
+    service: z.string().optional(),
+    message: z.string().min(10, t('form.errors.messageTooShort')),
+  }), [t])
   const { locale } = useParams<{ locale: string }>()
   const [submitted, setSubmitted] = useState(false)
   const [serviceOptions, setServiceOptions] = useState<ServiceOption[]>([])

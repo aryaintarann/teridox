@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Syne, DM_Sans } from 'next/font/google'
 import { cookies } from 'next/headers'
 import { Providers } from './providers'
@@ -16,6 +16,15 @@ const dmSans = DM_Sans({
   weight: ['300', '400', '500', '600', '700'],
 })
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)',  color: '#060D1A' },
+  ],
+}
+
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? 'https://teridox.com'),
   title: {
@@ -26,6 +35,11 @@ export const metadata: Metadata = {
     'Teridox adalah software house dari Bali. Spesialis web development, mobile app, dan pengembangan SaaS untuk bisnis yang ingin berkembang.',
   keywords: ['software house', 'web development', 'mobile app', 'SaaS development', 'AI integration', 'Bali', 'Indonesia', 'software house Bali'],
   authors: [{ name: 'Teridox', url: 'https://teridox.com' }],
+  manifest: '/manifest.json',
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/logo/1.png',
+  },
   openGraph: {
     type: 'website',
     siteName: 'Teridox',

@@ -26,7 +26,8 @@
     "clients": "Active Clients",
     "years": "Years Experience",
     "projects": "Projects Completed",
-    "satisfaction": "Client Satisfaction"
+    "satisfaction": "Client Satisfaction",
+    "clientsMin": "20"
   },
   "services": {
     "label": "Our Services",
@@ -70,7 +71,7 @@
         "features": ["React Native Cross-Platform", "Native iOS & Android", "App Store & Play Store Publishing", "Push Notifications & Deep Linking", "Offline-First Capability"],
         "process": [
           { "step": 1, "title": "Consultation & Scope", "desc": "Defining the features, user flow, and target audience of the app." },
-          { "step": 2, "title": "UI/UX Design", "desc": "An interactive prototype you can try before development begins." },
+          { "step": 2, "title": "Design & Prototyping", "desc": "An interactive prototype you can try before development begins." },
           { "step": 3, "title": "Development Sprints", "desc": "Agile development with demos and reviews every 2 weeks." },
           { "step": 4, "title": "QA & Submission", "desc": "Testing on multiple devices and submission to the App Store and Google Play." }
         ],
@@ -229,7 +230,12 @@
       "submit": "Send Message",
       "submitting": "Sending...",
       "success": "Message sent successfully! We'll get back to you shortly.",
-      "error": "Failed to send message. Please try again."
+      "error": "Failed to send message. Please try again.",
+      "errors": {
+        "nameTooShort": "Name is too short",
+        "emailInvalid": "Invalid email address",
+        "messageTooShort": "Message is too short"
+      }
     },
     "info": {
       "labelAddress": "Address",
@@ -391,6 +397,8 @@
   "common": {
     "loading": "Loading...",
     "error": "Something went wrong",
+    "errorDesc": "Sorry, an unexpected error occurred. Please try again.",
+    "tryAgain": "Try Again",
     "notFound": "Page not found",
     "notFoundDesc": "The page you're looking for doesn't exist or has been moved.",
     "backHome": "Back to Home",

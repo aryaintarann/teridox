@@ -58,10 +58,12 @@ function StatItem({ num, suffix, labelKey, icon, isDark }: {
 }
 
 export default function Stats() {
+  const t = useTranslations('stats')
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [portfolioCount, setPortfolioCount] = useState(0)
   const [satisfactionPct, setSatisfactionPct] = useState(0)
+  const [clientCount, setClientCount] = useState(0)
 
   useEffect(() => { setMounted(true) }, [])
 
@@ -69,22 +71,26 @@ export default function Stats() {
     const supabase = createClient()
 
     async function fetchStats() {
-      const [{ count: portCount }, { data: testimonials }] = await Promise.all([
+      const [{ count: portCount }, { data: testimonials }, { count: testCount }] = await Promise.all([
         supabase.from('portfolio_items').select('*', { count: 'exact', head: true }),
         supabase.from('testimonials').select('rating').eq('published', true),
+        supabase.from('testimonials').select('*', { count: 'exact', head: true }).eq('published', true),
       ])
 
       const count = portCount ?? 0
       setPortfolioCount(count)
 
+      const minClients = parseInt(t('clientsMin') ?? '20')
+      setClientCount(Math.max(testCount ?? 0, minClients))
+
       if (testimonials && testimonials.length > 0) {
-        const avg = testimonials.reduce((sum, t) => sum + (t.rating ?? 0), 0) / testimonials.length
+        const avg = testimonials.reduce((sum, r) => sum + (r.rating ?? 0), 0) / testimonials.length
         setSatisfactionPct(Math.round((avg / 5) * 100))
       }
     }
 
     fetchStats()
-  }, [])
+  }, [t])
 
   const isDark = mounted && resolvedTheme === 'dark'
 
@@ -92,7 +98,7 @@ export default function Stats() {
     { num: String(portfolioCount),  suffix: '+', labelKey: 'projects',    icon: 'rocket' },
     { num: String(satisfactionPct), suffix: '%', labelKey: 'satisfaction', icon: 'heart' },
     { num: '2',                     suffix: '+', labelKey: 'years',        icon: 'calendar-days' },
-    { num: String(portfolioCount),  suffix: '+', labelKey: 'clients',      icon: 'handshake' },
+    { num: String(clientCount),     suffix: '+', labelKey: 'clients',      icon: 'handshake' },
   ]
 
   return (
