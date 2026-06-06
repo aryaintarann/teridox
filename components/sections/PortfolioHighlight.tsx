@@ -21,19 +21,19 @@ function PortfolioCard({ item, large, locale }: { item: PortfolioItem; large: bo
   const t = useTranslations('portfolio')
 
   return (
-    <Link href={`/portfolio/${item.slug}`} className={large ? 'row-span-1 md:row-span-2' : ''}>
+    <Link href={`/portfolio/${item.slug}`} className="block h-full">
       <div
         onMouseEnter={() => setHov(true)}
         onMouseLeave={() => setHov(false)}
         style={{
           borderRadius: 20, overflow: 'hidden',
           position: 'relative', cursor: 'pointer',
-          minHeight: large ? 220 : 220,
+          minHeight: 260,
           background: color,
           backgroundImage: item.image_url ? `url(${item.image_url})` : undefined,
           backgroundSize: 'cover', backgroundPosition: 'center',
+          height: '100%',
         }}
-        className={large ? 'md:min-h-[480px]' : ''}
       >
         <div style={{ position: 'absolute', inset: 0, background: hov ? 'rgba(0,0,0,0.6)' : item.image_url ? 'rgba(0,0,0,0.35)' : 'rgba(0,0,0,0.2)', transition: 'background 0.3s' }} />
         {item.featured && (
@@ -49,7 +49,7 @@ function PortfolioCard({ item, large, locale }: { item: PortfolioItem; large: bo
               </span>
             ))}
           </div>
-          <h3 style={{ fontFamily: 'var(--font-syne)', fontSize: large ? 26 : 18, fontWeight: 700, color: 'white', marginBottom: 4 }}>
+          <h3 style={{ fontFamily: 'var(--font-syne)', fontSize: 20, fontWeight: 700, color: 'white', marginBottom: 4 }}>
             {item.title}
           </h3>
           <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.65)', fontFamily: 'var(--font-dmsans)' }}>
@@ -102,17 +102,15 @@ export default function PortfolioHighlight() {
         </div>
 
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {[0, 1, 2, 3].map(i => (
-              <div key={i} className={i === 0 ? 'md:row-span-2' : i === 3 ? 'md:col-span-2' : ''} style={{ height: i === 0 ? 480 : 220, borderRadius: 20, background: 'var(--muted)', animation: 'pulse 1.5s infinite' }} />
+              <div key={i} style={{ height: 260, borderRadius: 20, background: 'var(--muted)', animation: 'pulse 1.5s infinite' }} />
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {items.map((item, i) => (
-              <div key={item.id} className={i === 3 ? 'md:col-span-2' : ''}>
-                <PortfolioCard item={item} large={i === 0} locale={locale} />
-              </div>
+              <PortfolioCard key={item.id} item={item} large={false} locale={locale} />
             ))}
           </div>
         )}
