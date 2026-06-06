@@ -78,7 +78,7 @@ export default function PortfolioHighlight() {
       .select('id,title,slug,description,technologies,category,featured,created_at,image_url')
       .order('featured', { ascending: false })
       .order('created_at', { ascending: false })
-      .limit(3)
+      .limit(4)
       .then(({ data }) => { setItems(data ?? []); setLoading(false) })
   }, [])
 
@@ -103,14 +103,16 @@ export default function PortfolioHighlight() {
 
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {[0, 1, 2].map(i => (
-              <div key={i} className={i === 0 ? 'md:row-span-2' : ''} style={{ height: i === 0 ? 480 : 220, borderRadius: 20, background: 'var(--muted)', animation: 'pulse 1.5s infinite' }} />
+            {[0, 1, 2, 3].map(i => (
+              <div key={i} className={i === 0 ? 'md:row-span-2' : i === 3 ? 'md:col-span-2' : ''} style={{ height: i === 0 ? 480 : 220, borderRadius: 20, background: 'var(--muted)', animation: 'pulse 1.5s infinite' }} />
             ))}
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {items.map((item, i) => (
-              <PortfolioCard key={item.id} item={item} large={i === 0} locale={locale} />
+              <div key={item.id} className={i === 3 ? 'md:col-span-2' : ''}>
+                <PortfolioCard item={item} large={i === 0} locale={locale} />
+              </div>
             ))}
           </div>
         )}
