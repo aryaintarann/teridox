@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { buildAlternates } from '@/lib/seo'
 import BlogContent from './BlogContent'
 
 export async function generateMetadata({
@@ -13,10 +14,7 @@ export async function generateMetadata({
     description: isEn
       ? 'Insights, tutorials, and news from the Teridox team — web development, mobile apps, AI, and digital business.'
       : 'Wawasan, tutorial, dan berita dari tim Teridox — web development, aplikasi mobile, AI, dan bisnis digital.',
-    alternates: {
-      canonical: `/${locale}/blog`,
-      languages: { id: '/id/blog', en: '/en/blog' },
-    },
+    alternates: buildAlternates(locale, 'blog'),
     keywords: isEn
       ? ['Teridox blog', 'web development tips', 'mobile app development', 'AI technology', 'software house insights', 'software tutorial Indonesia']
       : ['blog Teridox', 'tips web development', 'pengembangan aplikasi mobile', 'teknologi AI', 'wawasan software house', 'tutorial software Indonesia'],

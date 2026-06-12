@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { buildAlternates } from '@/lib/seo'
 import FAQContent from './FAQContent'
 
 export async function generateMetadata({
@@ -16,10 +17,7 @@ export async function generateMetadata({
     keywords: isEn
       ? ['FAQ Teridox', 'software house questions', 'software house pricing Indonesia', 'web development FAQ', 'how long website takes']
       : ['FAQ Teridox', 'pertanyaan software house', 'harga software house Indonesia', 'FAQ web development', 'berapa lama buat website'],
-    alternates: {
-      canonical: `/${locale}/faq`,
-      languages: { id: '/id/faq', en: '/en/faq' },
-    },
+    alternates: buildAlternates(locale, 'faq'),
     openGraph: {
       title: isEn ? 'FAQ | Teridox' : 'FAQ | Teridox',
       description: isEn

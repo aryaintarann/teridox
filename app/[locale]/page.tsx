@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { buildAlternates } from '@/lib/seo'
 import Hero from '@/components/sections/Hero'
 import AboutSnapshot from '@/components/sections/AboutSnapshot'
 import ServicesPreview from '@/components/sections/ServicesPreview'
@@ -20,10 +21,7 @@ export async function generateMetadata({
     description: isEn
       ? 'Teridox is a software house from Bali — web development, mobile apps, and SaaS solutions for businesses ready to grow.'
       : 'Teridox adalah software house dari Bali. Spesialis web development, mobile app, dan pengembangan SaaS untuk bisnis yang ingin berkembang.',
-    alternates: {
-      canonical: `/${locale}`,
-      languages: { id: '/id', en: '/en' },
-    },
+    alternates: buildAlternates(locale),
     openGraph: {
       title: 'Teridox — Software House Bali',
       description: isEn

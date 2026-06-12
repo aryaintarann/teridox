@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { createClient } from '@supabase/supabase-js'
+import { buildAlternates } from '@/lib/seo'
 import ServiceSlugContent from './ServiceSlugContent'
 
 function getSupabase() {
@@ -32,10 +33,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: {
-      canonical: `/${locale}/services/${slug}`,
-      languages: { id: `/id/services/${slug}`, en: `/en/services/${slug}` },
-    },
+    alternates: buildAlternates(locale, `services/${slug}`),
     openGraph: {
       title,
       description,

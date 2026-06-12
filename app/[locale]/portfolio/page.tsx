@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { buildAlternates } from '@/lib/seo'
 import PortfolioContent from './PortfolioContent'
 
 export async function generateMetadata({
@@ -13,10 +14,7 @@ export async function generateMetadata({
     description: isEn
       ? 'Explore Teridox projects — web apps, mobile apps, and custom software built for businesses across Indonesia and beyond.'
       : 'Jelajahi proyek-proyek Teridox — aplikasi web, mobile, dan software yang dibangun untuk bisnis di Indonesia dan mancanegara.',
-    alternates: {
-      canonical: `/${locale}/portfolio`,
-      languages: { id: '/id/portfolio', en: '/en/portfolio' },
-    },
+    alternates: buildAlternates(locale, 'portfolio'),
     keywords: isEn
       ? ['Teridox portfolio', 'web app projects Bali', 'mobile app portfolio Indonesia', 'software projects', 'software house work', 'case studies Indonesia']
       : ['portfolio Teridox', 'proyek web Bali', 'portfolio aplikasi mobile Indonesia', 'proyek software', 'karya software house', 'studi kasus Indonesia'],

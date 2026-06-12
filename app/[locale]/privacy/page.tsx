@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { buildAlternates } from '@/lib/seo'
 import { getTranslations } from 'next-intl/server'
 import { Link } from '@/lib/i18n/navigation'
 import CTASection from '@/components/sections/CTASection'
@@ -15,10 +16,7 @@ export async function generateMetadata({
     description: isEn
       ? 'Read Teridox\'s privacy policy to understand how we collect, use, and protect your personal information.'
       : 'Baca kebijakan privasi Teridox untuk memahami cara kami mengumpulkan, menggunakan, dan melindungi informasi pribadi Anda.',
-    alternates: {
-      canonical: `/${locale}/privacy`,
-      languages: { id: '/id/privacy', en: '/en/privacy' },
-    },
+    alternates: buildAlternates(locale, 'privacy'),
     openGraph: {
       title: isEn ? 'Privacy Policy | Teridox' : 'Kebijakan Privasi | Teridox',
       description: isEn

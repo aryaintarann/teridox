@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { createClient } from '@supabase/supabase-js'
+import { buildAlternates } from '@/lib/seo'
 import BlogSlugContent from './BlogSlugContent'
 
 function getSupabase() {
@@ -43,10 +44,7 @@ export async function generateMetadata({
     title,
     description,
     keywords: post.tags ?? [],
-    alternates: {
-      canonical: `/${locale}/blog/${slug}`,
-      languages: { id: `/id/blog/${slug}`, en: `/en/blog/${slug}` },
-    },
+    alternates: buildAlternates(locale, `blog/${slug}`),
     openGraph: {
       title,
       description,

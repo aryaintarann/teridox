@@ -22,6 +22,12 @@ const STATIC_ROUTES: Array<{ path: string; priority: number; changeFreq: Metadat
   { path: '/terms',        priority: 0.3, changeFreq: 'yearly'  },
 ]
 
+function buildLangAlternates(path: string): { languages: Record<string, string> } {
+  return {
+    languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE_URL}/${l}${path}`])),
+  }
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -30,13 +36,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const entries: MetadataRoute.Sitemap = []
 
-  for (const locale of LOCALES) {
-    for (const { path, priority, changeFreq } of STATIC_ROUTES) {
+  for (const { path, priority, changeFreq } of STATIC_ROUTES) {
+    for (const locale of LOCALES) {
       entries.push({
         url: `${BASE_URL}/${locale}${path}`,
         lastModified: new Date(),
         changeFrequency: changeFreq,
         priority,
+        alternates: buildLangAlternates(path),
       })
     }
   }
@@ -54,6 +61,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: post.created_at ? new Date(post.created_at) : new Date(),
         changeFrequency: 'monthly',
         priority: 0.7,
+        alternates: buildLangAlternates(`/blog/${post.slug}`),
       })
     }
   }
@@ -65,6 +73,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: new Date(),
         changeFrequency: 'monthly',
         priority: 0.8,
+        alternates: buildLangAlternates(`/services/${svc.slug}`),
       })
     }
   }
@@ -76,6 +85,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: item.created_at ? new Date(item.created_at) : new Date(),
         changeFrequency: 'monthly',
         priority: 0.7,
+        alternates: buildLangAlternates(`/portfolio/${item.slug}`),
       })
     }
   }

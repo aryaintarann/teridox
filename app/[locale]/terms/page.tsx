@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { buildAlternates } from '@/lib/seo'
 import { getTranslations } from 'next-intl/server'
 import { Link } from '@/lib/i18n/navigation'
 import CTASection from '@/components/sections/CTASection'
@@ -15,10 +16,7 @@ export async function generateMetadata({
     description: isEn
       ? 'Review Teridox\'s terms and conditions governing the use of our services and website.'
       : 'Tinjau syarat dan ketentuan Teridox yang mengatur penggunaan layanan dan website kami.',
-    alternates: {
-      canonical: `/${locale}/terms`,
-      languages: { id: '/id/terms', en: '/en/terms' },
-    },
+    alternates: buildAlternates(locale, 'terms'),
     openGraph: {
       title: isEn ? 'Terms & Conditions | Teridox' : 'Syarat & Ketentuan | Teridox',
       description: isEn
