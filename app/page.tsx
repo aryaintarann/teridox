@@ -1,12 +1,5 @@
-import type { Metadata } from 'next'
-import { redirect } from 'next/navigation'
-
-export const metadata: Metadata = {
-  alternates: {
-    canonical: 'https://teridox.com/id',
-  },
-}
+import { permanentRedirect } from 'next/navigation'
 
 export default function RootPage() {
-  redirect('/id')
+  permanentRedirect('/id')
 }
